@@ -483,12 +483,22 @@ paths:
         - journeys
       summary: Journey
       description: >
-        ## Endpoint POST ``journeys/{id}``
+        ## Endpoint PUT `journeys/{id}`
 
         Actualiza una jornada existente con el ID especificado. Este endpoint
         permite modificar los detalles de una jornada, incluyendo el nombre, el
         conductor asignado, el horario, el equipo utilizado, las paradas y otros
         detalles relevantes.
+
+        ### Request Parameters
+
+        - `id` (string): Identificador único de la jornada que se desea
+
+
+        - `ext_id` (string): Identificador externo de la jornada.
+
+
+        ### Descripción de los campos
 
 
         - `name` (string): Nombre de la jornada.
@@ -501,22 +511,29 @@ paths:
         - `driver_id` (string): ID del conductor asignado a la jornada.
 
 
+        - `scheduled_date` (string): Fecha programada para la jornada en formato `ISO 8601`: `YYYY-MM-DD`.
+
+
         - `start_time` (string): Fecha de la jornada en formato `ISO 8601`.
+
+
+        - `end_time` (string): Fecha de finalización de la jornada en formato `ISO 8601`.
 
 
         - `equipment` (array): Lista del equipo necesario para completar la
         jornada. Cada equipo tiene los campos:'
-          - `id_equipment` (string): Referencia al UUID del equipo.
+          - `id` (string): Referencia al UUID del equipo.
           
           - `checked` (bool): Indica si el equipo fue verificado.
 
 
-        - `order` (string): Orden generado de la jornada.
+        - `position` (string): Posición de atención de la jornada.
 
 
-        - `incidents` (array): Lista de incidentes asociados a la jornada, cada
-        uno con los campos `id` de referencia al incidente, y `time` para marcar
-        la hora del incidente.
+        - `incidents` (array): Lista de incidentes asociados a la jornada, cada uno con los campos:
+          - `id` (string): Identificador del incidente.
+
+          - `time` (string): Hora del incidente en formato ISO 8601.
 
 
         - `status` (string): Estado de la jornada, puede tener los siguietes
@@ -527,7 +544,7 @@ paths:
           
           - `completed`: Jornada completada.
           
-          - `canceled`: Jornada cancelada debido a incidentes. 
+          - `cancelled`: Jornada cancelada debido a incidentes. 
 
 
         - `can_reorder_stops`(bool): Indica si la lista de paradas en la jornada
@@ -660,7 +677,7 @@ paths:
 
 
 
-        - `ext_id` (string): Identificador externo de la jornada.
+        - `driver_id` (string): Identificador del conductor asignado a la jornada.
 
 
         ### Descripción de los campos
@@ -669,32 +686,31 @@ paths:
         - `id` (string): Identificador único de la jornada.
 
 
-
         - `ext_id` (string): Identificador externo de la jornada.
 
 
-
         - `name` (string): Nombre de la jornada.
-
 
 
         - `driver_id` (string): Identificador del conductor asignado a la
         jornada.
 
 
+        - `vehicle_id` (string): Identificador del vehículo asignado a la jornada.
+
+
+        - `scheduled_date` (string): Fecha programada para la jornada en formato ISO 8601. `YYYY-MM-DD`.
+
 
         - `start_time` (string): Hora de inicio de la jornada en formato ISO
         8601.
-
 
 
         - `end_time` (string): Hora de finalización de la jornada en formato ISO
         8601.
 
 
-
-        - `order` (string): Información del pedido para la jornada.
-
+        - `position` (string): Numero de posición de atencion de la jornada.
 
 
         - `incidents` (array): Lista de incidentes asociados a la jornada, cada
@@ -702,9 +718,7 @@ paths:
 
           - `id` (string): Identificador del incidente.
 
-          - `name` (string): Nombre del incidente.
-
-          - `description` (string): Descripción del incidente.
+          - `time` (string): Hora del incidente en formato ISO 8601.
 
 
         - `equipment` (array): Lista de equipos asociados a la jornada, cada uno
@@ -712,9 +726,10 @@ paths:
 
           - `id` (string): Identificador del equipo.
 
-          - `type` (string): Tipo de equipo.
+          - `is_checked` (boolean): Indica si el equipo fue verificado.
 
-          - `checked` (boolean): Indica si el equipo fue verificado.
+
+        - `can_reorder_stops` (boolean): Indica si se pueden reordenar las paradas de la jornada.
 
 
         - `stops` (array): Lista de paradas en la jornada, cada una con los
@@ -1540,12 +1555,12 @@ paths:
 
 
 
-        - `startDate` (string, opcional): Filtra los resultados por aquellos
+        - `start_date` (string, opcional): Filtra los resultados por aquellos
         creados después de esta fecha (formato ISO 8601).
 
 
 
-        - `endDate` (string, opcional): Filtra los resultados por aquellos
+        - `end_date` (string, opcional): Filtra los resultados por aquellos
         creados antes de esta fecha (formato ISO 8601).
 
 
@@ -1565,32 +1580,31 @@ paths:
         - `id` (string): Identificador único de la jornada.
 
 
-
         - `ext_id` (string): Identificador externo de la jornada.
-
 
 
         - `name` (string): Nombre de la jornada.
 
+
+        - `vehicle_id` (string): Identificador del vehículo asignado a la jornada.
 
 
         - `driver_id` (string): Identificador del conductor asignado a la
         jornada.
 
 
+        - `scheduled_date` (string): Fecha programada para la jornada en formato ISO 8601: `YYYY-MM-DD`.
+
 
         - `start_time` (string): Hora de inicio de la jornada en formato ISO
         8601.
-
 
 
         - `end_time` (string): Hora de finalización de la jornada en formato ISO
         8601.
 
 
-
-        - `order` (string): Información del pedido para la jornada.
-
+        - `position` (string): Número de posición de atención de la jornada.
 
 
         - `incidents` (array): Lista de incidentes asociados a la jornada, cada
@@ -1608,9 +1622,10 @@ paths:
 
           - `id` (string): Identificador del equipo.
 
-          - `type` (string): Tipo de equipo.
+          - `is_checked` (boolean): Indica si el equipo fue verificado.
 
-          - `checked` (boolean): Indica si el equipo fue verificado.
+
+        - `can_reorder_stops` (boolean): Indica si se pueden reordenar las paradas de la jornada.
 
 
         - `stops` (array): Lista de paradas en la jornada, cada una con los
@@ -1974,8 +1989,8 @@ paths:
 
 
 
-        - `start_time` (string, requerido): Fecha de la jornada en formato `ISO
-        8601`.
+        - `scheduled_date` (string, requerido): Fecha de la jornada en formato `ISO
+        8601`. El formato aceptado es `YYYY-MM-DD`, e.j. `2024-09-16`.
 
 
 
@@ -1984,18 +1999,18 @@ paths:
 
           - `id` (string, requerido): El UUID de referencia al equipo agregado. 
           
-          - `checked` (bool, opcional): Campo para marcar si el equipo ha sido validado por el operador desde la app movil. El valor por defecto es false. 
+          - `is_checked` (bool, opcional): Campo para marcar si el equipo ha sido validado por el operador desde la app movil. El valor por defecto es false. 
 
 
-        - `order` (string): Información del pedido para la jornada.
+        - `position` (string): La posición de la jornada en la lista de atención.
 
 
 
-        - `can_reorder_stops` (bool): Indica si la lista de paradas en la
+        - `can_reorder_stops` (bool, opcional): Indica si la lista de paradas en la
         jornada puede ser reordenada. Un valor de **false** significa que las
         paradas tienen un orden definido que debe seguirse, mientras que un
         valor de **true** indica que las paradas pueden cambiar su propiedad de
-        `order`.
+        `order`. Si no se especifica, el valor por defecto es **false**.
 
 
         Los siguientes campos componen la estructura de una jornada en general,
@@ -2004,28 +2019,12 @@ paths:
         para ser modificados
 
 
-        - `incidents` (array): Lista de incidentes asociados a la jornada, cada
+        - `incidents` (array, opcional): Lista de incidentes asociados a la jornada, cada
         uno con los campos `id`, `name`, y `description`. **Se inicializa en
         null**
 
 
-
-        - `stops` (array): Lista de paradas en la jornada, cada una con los
-        campos `id`, `name`, `customer_id`, `address`, `contact_info`,
-        `services_set`, `incidents`, `start_journey_to_stop`, `checkin`, y
-        `checkout`. **Tiene su propio endpoint**
-
-
-
-        - `status` (string): Estado de la jornada, puede tener los siguietes
-        valores: 
-          - `ready_to_start`: Jornada lista para iniciar. 
-          
-          - `in_progress`: Jornada en curso.
-          
-          - `completed`: Jornada completada.
-          
-          - `canceled`: Jornada cancelada debido a incidentes. 
+        - `stops` (array): Lista de las paradas en la jornada. Los campos respectivos y su respectiva descripción se encuentran en el endpoint de paradas. **Se inicializa en null**
       operationId: post-addjourney
       parameters:
         - name: Authorization
