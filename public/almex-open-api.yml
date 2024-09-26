@@ -138,15 +138,15 @@ paths:
 
           - `evidence_config_id_rad` (string | null): Referencia al UUID del documento de la configuración de evidencias RAD, si aplica. **Opcional**.
 
-          - `services` (array): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
+          - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
 
-        - `incidents` (array): Lista de incidentes asociados a la parada.
+        - `incidents` (array[object]): Lista de incidentes asociados a la parada.
 
-          - `incident_id` (string): Referencia al UUID del documento del incidente.
+          - `id` (string): Referencia al UUID del documento del incidente.
 
           - `timestamp` (string): Marca de tiempo del incidente en formato ISO 8601.
 
-        - `appointments` (array): Lista de citas en la parada, (si aplica), cada
+        - `appointments` (array[object]): Lista de citas en la parada, (si aplica), cada
         una con: **Opcional**
 
           - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
@@ -522,17 +522,17 @@ paths:
         `ISO 8601`.
 
 
-        - `equipment` (array): Lista del equipo necesario para completar la
+        - `equipment` (array[object]): Lista del equipo necesario para completar la
         jornada. Cada equipo tiene los campos:'
           - `id` (string): Referencia al UUID del equipo.
           
           - `checked` (bool): Indica si el equipo fue verificado.
 
 
-        - `position` (string): Posición de atención de la jornada.
+        - `position_list` (int, opcional): Posición de la jornada en la lista de atención de la fecha programada.
 
 
-        - `incidents` (array): Lista de incidentes asociados a la jornada, cada
+        - `incidents` (array[object]): Lista de incidentes asociados a la jornada, cada
         uno con los campos:
           - `id` (string): Identificador del incidente.
 
@@ -564,7 +564,7 @@ paths:
         los campos de stops, consulta el endpoint
         `/journeys/{journey_id}/stops`.
 
-        - `stops` (array): Lista de paradas en la jornada.
+        - `stops` (array[object]): Lista de paradas en la jornada.
       operationId: put-updatejourneybyid
       parameters:
         - name: id
@@ -716,10 +716,10 @@ paths:
         8601.
 
 
-        - `position` (string): Numero de posición de atencion de la jornada.
+        - `position_list` (int, opcional): Posición de la jornada en la lista de atención de la fecha programada.
 
 
-        - `incidents` (array): Lista de incidentes asociados a la jornada, cada
+        - `incidents` (array[object]): Lista de incidentes asociados a la jornada, cada
         uno con los campos:
 
           - `id` (string): Identificador del incidente.
@@ -727,7 +727,7 @@ paths:
           - `time` (string): Hora del incidente en formato ISO 8601.
 
 
-        - `equipment` (array): Lista de equipos asociados a la jornada, cada uno
+        - `equipment` (array[object]): Lista de equipos asociados a la jornada, cada uno
         con los campos:
 
           - `id` (string): Identificador del equipo.
@@ -739,7 +739,7 @@ paths:
         paradas de la jornada.
 
 
-        - `stops` (array): Lista de paradas en la jornada, cada una con los
+        - `stops` (array[object]): Lista de paradas en la jornada, cada una con los
         campos. **Tiene su propia descripción y endpoint.**.
 
 
@@ -1152,17 +1152,15 @@ paths:
 
           - `evidence_config_id_rad` (string | null): Referencia al UUID del documento de la configuración de evidencias RAD, si aplica. **Opcional**.
 
-          - `services` (array): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
-
-          - `services` (array): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.**.
+          - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
 
         - `incidents` (array): Lista de incidentes asociados a la parada.
 
-          - `incident_id` (string): Referencia al UUID del documento del incidente.
+          - `id` (string): Referencia al UUID del documento del incidente.
 
           - `timestamp` (string): Marca de tiempo del incidente en formato ISO 8601.
 
-        - `appointments` (array): Lista de citas en la parada, (si aplica), cada
+        - `appointments` (array[object]): Lista de citas en la parada, (si aplica), cada
         una con los campos: **Opcional** 
 
           - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
@@ -1562,13 +1560,8 @@ paths:
 
 
 
-        - `start_date` (string, opcional): Filtra los resultados por aquellos
-        creados después de esta fecha (formato ISO 8601).
-
-
-
-        - `end_date` (string, opcional): Filtra los resultados por aquellos
-        creados antes de esta fecha (formato ISO 8601).
+        - `scheduled_date` (string): Fecha programada para la jornada en formato
+        ISO 8601: `YYYY-MM-DD`.
 
 
 
@@ -1616,16 +1609,10 @@ paths:
 
 
 
-        - `end_time` (string): Hora de finalización de la jornada en formato ISO
-        8601.
+        - `position_list` (int, opcional): Posición de la jornada en la lista de atención de la fecha programada.
 
 
-
-        - `position` (string): Número de posición de atención de la jornada.
-
-
-
-        - `incidents` (array): Lista de incidentes asociados a la jornada, cada
+        - `incidents` (array[object]): Lista de incidentes asociados a la jornada, cada
         uno con los campos:
 
           - `id` (string): Identificador del incidente.
@@ -1633,7 +1620,7 @@ paths:
           - `time` (string): Timestamp del incidente.
 
 
-        - `equipment` (array): Lista de equipos asociados a la jornada, cada uno
+        - `equipment` (array[object]): Lista de equipos asociados a la jornada, cada uno
         con los campos:
 
           - `id` (string): Identificador del equipo.
@@ -1645,7 +1632,7 @@ paths:
         paradas de la jornada.
 
 
-        - `stops` (array): Lista de paradas en la jornada, cada una con los
+        - `stops` (array[object]): Lista de paradas en la jornada, cada una con los
         campos. **Tiene su propia descripción y endpoint.**.
 
 
@@ -1657,7 +1644,7 @@ paths:
           
           - `completed`: Jornada completada.
           
-          - `canceled`: Jornada cancelada debido a incidentes. 
+          - `cancelled`: Jornada cancelada debido a incidentes. 
 
 
         ### Metadata del Registro
@@ -1991,6 +1978,8 @@ paths:
 
         ## Descripción de los campos
 
+        - `ext_id` (string, requerido): ID externo de la jornada.
+
 
         - `name` (string, requerido): Nombre de la jornada.
 
@@ -2006,12 +1995,12 @@ paths:
 
 
 
-        - `scheduled_date` (string, requerido): Fecha de la jornada en formato
+        - `scheduled_date` (string, opcional): Fecha de la jornada en formato
         `ISO 8601`. El formato aceptado es `YYYY-MM-DD`, e.j. `2024-09-16`.
 
 
 
-        - `equipment` (array, requerido): Lista del equipo necesario para
+        - `equipment` (array[object], opcional): Lista del equipo necesario para
         completar la jornada. Cada equipo tiene los campos 
 
           - `id` (string, requerido): El UUID de referencia al equipo agregado. 
@@ -2019,9 +2008,8 @@ paths:
           - `is_checked` (bool, opcional): Campo para marcar si el equipo ha sido validado por el operador desde la app movil. El valor por defecto es false. 
 
 
-        - `position` (string): La posición de la jornada en la lista de
+        - `position_list` (int, opcional): Posición de la jornada en la lista de atención de la fecha programada.
         atención.
-
 
 
         - `can_reorder_stops` (bool, opcional): Indica si la lista de paradas en
@@ -2036,17 +2024,9 @@ paths:
         generados con valores por defecto o tienen sus respectivos endpoints
         para ser modificados
 
-
-        - `incidents` (array): Lista de incidentes asociados a la jornada, cada
-        uno con los campos (Se inicializa en null)
-
-          - `id` (string): Identificador del incidente.
-
-          - `time` (string): Timestamp del incidente.
-
-        - `stops` (array): Lista de las paradas en la jornada. Los campos
+        - `stops` (array[object]): Lista de las paradas en la jornada. Los campos
         respectivos y su respectiva descripción se encuentran en el endpoint de
-        paradas. **Se inicializa en null**
+        paradas. **Si no se envian valores se inicializa en []**
       operationId: post-addjourney
       parameters:
         - name: Authorization
@@ -2797,7 +2777,7 @@ paths:
 
             - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
-        - `merchandise` (array): Lista de mercancías asociadas al servicio.
+        - `merchandise` (array[object]): Lista de mercancías asociadas al servicio.
 
           - `label_number` (string): Número de etiqueta de la mercancía.
 
@@ -2821,17 +2801,25 @@ paths:
 
             - `reason_id` (string): Identificador de la razón del daño.
 
-            - `evidences` (array): Evidencias del daño.
+            - `evidences` (array[object]): Evidencias del daño.
+
+              - `id` (string): Identificador único de la evidencia.
+
+              - `type` (string): Tipo de evidencia (por ejemplo, foto).
+
+              - `url` (string): URL de la evidencia. **Opcional**
+
+              - `is_required` (boolean): Indica si la evidencia es requerida.
+
+              - `status` (string): Estado de la evidencia.
 
           - `status` (string): Estado de la mercancía, puede tener los valores `pending` | `delivered` | `not_delivered` | `collected` | `not_collected`.
 
           - `ext_document` (string): Documento externo asociado a la mercancía. **Opcional**
 
-          - `evidences` (array): Evidencias asociadas a la mercancía.
+          - `evidences` (array[object]): Evidencias asociadas a la mercancía.
 
             - `id` (string): Identificador único de la evidencia.
-
-            - `evidence_id` (string): Identificador de la evidencia.
 
             - `type` (string): Tipo de evidencia (por ejemplo, foto).
 
@@ -2845,22 +2833,24 @@ paths:
         servicio/guía.
 
 
-        - `comments` (array): Lista de comentarios asociados al servicio.
+        - `comments` (array[string]): Lista de comentarios asociados al servicio.
         **Opcional**
 
 
         - `invoice_url` (string): Referencia a la factura asociada al servicio.
 
 
-        - `incidents` (array): Lista de incidentes asociados al servicio.
+        - `incidents` (array[object]): Lista de incidentes asociados al servicio.
         **Opcional**
 
+          - `id` (string): Identificador único del incidente.
 
-        - `evidences` (array): Lista de evidencias asociadas al servicio.
+          - `timestamp` (string): Fecha y hora del incidente.
+
+
+        - `evidences` (array[object]): Lista de evidencias asociadas al servicio.
 
           - `id` (string): Identificador único de la evidencia.
-
-          - `evidence_id` (string): Identificador de la evidencia.
 
           - `type` (string): Tipo de evidencia (po` ejemplo, foto).
 
@@ -3000,7 +2990,7 @@ paths:
         - `ext_id` (string): Identificador externo del servicio.
 
 
-        - `order` (number): El orden de atención del servicio. 
+        - `position_list` (int): Posición del servicio en la lista de atención del grupo de servicios. **Opcional**.
 
 
         - `type` (string): Tipo de servicio, puede tener los valores:
@@ -3094,7 +3084,7 @@ paths:
 
             - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
-        - `merchandise` (array): Lista de mercancías asociadas al servicio.
+        - `merchandise` (array[object]): Lista de mercancías asociadas al servicio.
         **Merchandise tiene su propio endpoint y se recomienda usarlo para
         obtener la información de la mercancía, así como para ejecutar las
         operaciones de los métodos HTTP.**
@@ -3121,17 +3111,25 @@ paths:
 
             - `reason_id` (string): Identificador de la razón del daño.
 
-            - `evidences` (array): Evidencias del daño.
+            - `evidences` (array[object]): Evidencias del daño.
+
+              - `id` (string): Identificador único de la evidencia.
+
+              - `type` (string): Tipo de evidencia (por ejemplo, foto).
+
+              - `url` (string): URL de la evidencia. **Opcional**
+
+              - `is_required` (boolean): Indica si la evidencia es requerida.
+
+              - `status` (string): Estado de la evidencia.
 
           - `status` (string): Estado de la mercancía, puede tener los valores `pending` | `delivered` | `not_delivered` | `collected` | `not_collected`.
 
           - `ext_document` (string): Documento externo asociado a la mercancía. **Opcional**
 
-          - `evidences` (array): Evidencias asociadas a la mercancía.
+          - `evidences` (array[object]): Evidencias asociadas a la mercancía.
 
             - `id` (string): Identificador único de la evidencia.
-
-            - `evidence_id` (string): Identificador de la evidencia.
 
             - `type` (string): Tipo de evidencia (por ejemplo, foto).
 
@@ -3145,22 +3143,24 @@ paths:
         servicio/guía.
 
 
-        - `comments` (array): Lista de comentarios asociados al servicio.
+        - `comments` (array[string]): Lista de comentarios asociados al servicio.
         **Opcional**
 
 
         - `invoice_url` (string): Referencia a la factura asociada al servicio.
 
 
-        - `incidents` (array): Lista de incidentes asociados al servicio.
+        - `incidents` (array[object]): Lista de incidentes asociados al servicio.
         **Opcional**
+            
+            - `id` (string): Identificador único del incidente.
+  
+            - `timestamp` (string): Fecha y hora del incidente.
 
 
-        - `evidences` (array): Lista de evidencias asociadas al servicio.
+        - `evidences` (array[object]): Lista de evidencias asociadas al servicio.
 
           - `id` (string): Identificador único de la evidencia.
-
-          - `evidence_id` (string): Identificador de la evidencia.
 
           - `type` (string): Tipo de evidencia (po` ejemplo, foto).
 
@@ -3337,7 +3337,7 @@ paths:
         - `ext_id` (string): Identificador externo del servicio.
 
 
-        - `order` (number): El orden de atención del servicio. 
+        - `position_list` (int, opcional): Posición del servicio en la lista de atención del conjunto de servicios.
 
 
         - `type` (string): Tipo de servicio, puede tener los valores:
@@ -3431,7 +3431,7 @@ paths:
 
             - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
-        - `merchandise` (array): Lista de mercancías asociadas al servicio.
+        - `merchandise` (array[object]): Lista de mercancías asociadas al servicio.
 
           - `label_number` (string): Número de etiqueta de la mercancía.
 
@@ -3455,13 +3455,13 @@ paths:
 
             - `reason_id` (string): Identificador de la razón del daño.
 
-            - `evidences` (array): Evidencias del daño.
+            - `evidences` (array[object]): Evidencias del daño.
 
           - `status` (string): Estado de la mercancía, puede tener los valores `pending` | `delivered` | `not_delivered` | `collected` | `not_collected`.
 
           - `ext_document` (string): Documento externo asociado a la mercancía. **Opcional**
 
-          - `evidences` (array): Evidencias asociadas a la mercancía.
+          - `evidences` (array[object]),: Evidencias asociadas a la mercancía.
 
             - `id` (string): Identificador único de la evidencia.
 
@@ -3479,22 +3479,24 @@ paths:
         servicio/guía.
 
 
-        - `comments` (array): Lista de comentarios asociados al servicio.
+        - `comments` (array[string]): Lista de comentarios asociados al servicio.
         **Opcional**
 
 
         - `invoice_url` (string): Referencia a la factura asociada al servicio.
 
 
-        - `incidents` (array): Lista de incidentes asociados al servicio.
+        - `incidents` (array[object]): Lista de incidentes asociados al servicio.
         **Opcional**
 
+          - `id` (string): Identificador único del incidente.
 
-        - `evidences` (array): Lista de evidencias asociadas al servicio.
+          - `timestamp` (string): Fecha y hora del incidente.
+
+
+        - `evidences` (array[object]): Lista de evidencias asociadas al servicio.
 
           - `id` (string): Identificador único de la evidencia.
-
-          - `evidence_id` (string): Identificador de la evidencia.
 
           - `type` (string): Tipo de evidencia (po` ejemplo, foto).
 
@@ -3667,7 +3669,7 @@ paths:
         embargo, el cuerpo de la solicitud no debe enviarse vacío:
 
 
-        - `order` (number): El orden de atención del servicio. 
+        - `position_list` (int): Posición del servicio en la lista de atención del grupo de servicios.
 
 
         - `type` (string): Tipo de servicio, puede tener los valores:
@@ -3761,7 +3763,7 @@ paths:
 
             - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
-        - `merchandise` (array): Lista de la mercancía (etiquetas) que integran
+        - `merchandise` (array[object]): Lista de la mercancía (etiquetas) que integran
         la guía. **Para operaciones de actualización, se recomienda hacerlo
         mediante sus respectivos endpoints**
 
@@ -3770,22 +3772,24 @@ paths:
         servicio/guía.
 
 
-        - `comments` (array): Lista de comentarios asociados al servicio.
+        - `comments` (array[string]): Lista de comentarios asociados al servicio.
         **Opcional**
 
 
         - `invoice_url` (string): Referencia a la factura asociada al servicio.
 
 
-        - `incidents` (array): Lista de incidentes asociados al servicio.
+        - `incidents` (array[object]): Lista de incidentes asociados al servicio.
         **Opcional**
 
+          - `id` (string): Identificador único del incidente.
 
-        - `evidences` (array): Lista de evidencias asociadas al servicio.
+          - `timestamp` (string): Fecha y hora del incidente.
+
+
+        - `evidences` (array[object]): Lista de evidencias asociadas al servicio.
 
           - `id` (string): Identificador único de la evidencia.
-
-          - `evidence_id` (string): Identificador de la evidencia.
 
           - `type` (string): Tipo de evidencia (po` ejemplo, foto).
 
@@ -3805,8 +3809,6 @@ paths:
 
         - `is_active` (boolean): Indica si el servicio está activo.
 
-
-        - `status` (string): Estado del servicio.
 
 
         - `created_by` (string): Usuario que creó el servicio.
@@ -7690,9 +7692,9 @@ paths:
 
           - `reason_id` (string): Referencia al UUID del documento de la razón del daño.
 
-          - `evidences` (array): Lista de evidencias del daño seleccionado.  Cada evidencia tiene la siguiente estructura:
+          - `evidences` (array[object]): Lista de evidencias del daño seleccionado.  Cada evidencia tiene la siguiente estructura:
 
-            - `evidence_id` (string): Referencia al UUID del documento de la evidencia.
+            - `id` (string): Referencia al UUID del documento de la evidencia.
 
             - `type` (string): Tipo de evidencia (por ejemplo, foto).
 
@@ -7705,9 +7707,9 @@ paths:
         - `ext_document` (string): Documento externo asociado a la mercancía.
 
 
-        - `evidences` (array): Lista de evidencias asociadas a la mercancía.
+        - `evidences` (array[object]): Lista de evidencias asociadas a la mercancía.
 
-          - `evidence_id` (string): Identificador de la evidencia.
+          - `id` (string): Identificador de la evidencia.
 
           - `type` (string): Tipo de evidencia (por ejemplo, foto).
 
@@ -7828,9 +7830,9 @@ paths:
 
             - `reason_id` (string): Referencia al UUID del documento de la razón del daño.
 
-            - `evidences` (array): Evidencias del daño seleccionado. **Opcional** Cada evidencia tiene la siguiente estructura:
+            - `evidences` (array[object]): Evidencias del daño seleccionado. **Opcional** Cada evidencia tiene la siguiente estructura:
 
-              - `evidence_id` (string): Referencia al UUID del documento de la evidencia.
+              - `id` (string): Referencia al UUID del documento de la evidencia.
 
               - `type` (string): Tipo de evidencia (por ejemplo, foto).
 
@@ -7842,9 +7844,9 @@ paths:
 
           - `ext_document` (string): Documento externo asociado a la mercancía. **Opcional**
 
-          - `evidences` (array): Evidencias asociadas a la mercancía.
+          - `evidences` (array[object]): Evidencias asociadas a la mercancía.
 
-            - `evidence_id` (string): Identificador de la evidencia.
+            - `id` (string): Identificador de la evidencia.
 
             - `type` (string): Tipo de evidencia (por ejemplo, foto).
 
@@ -8189,9 +8191,9 @@ paths:
 
           - `reason_id` (string): Referencia al UUID del documento de la razón del daño.
 
-          - `evidences` (array): Lista de evidencias del daño seleccionado. **Opcional** Cada evidencia tiene la siguiente estructura:
+          - `evidences` (array[object]): Lista de evidencias del daño seleccionado. **Opcional** Cada evidencia tiene la siguiente estructura:
 
-            - `evidence_id` (string): Referencia al UUID del documento de la evidencia.
+            - `id` (string): Referencia al UUID del documento de la evidencia.
 
             - `type` (string): Tipo de evidencia (por ejemplo, foto).
 
@@ -8205,7 +8207,7 @@ paths:
         **Opcional**
 
 
-        - `evidences` (array): Lista de evidencias asociadas a la mercancía.
+        - `evidences` (array[object]): Lista de evidencias asociadas a la mercancía.
 
           - `evidence_id` (string): Identificador de la evidencia.
 
@@ -8395,7 +8397,7 @@ paths:
 
             - `reason_id` (string): Referencia al UUID del documento de la razón del daño.
 
-            - `evidences` (array): Evidencias del daño seleccionado. **Opcional** Cada evidencia tiene la siguiente estructura:
+            - `evidences` (array[object]): Evidencias del daño seleccionado. **Opcional** Cada evidencia tiene la siguiente estructura:
 
               - `evidence_id` (string): Referencia al UUID del documento de la evidencia.
 
@@ -8409,7 +8411,7 @@ paths:
 
           - `ext_document` (string): Documento externo asociado a la mercancía. **Opcional**
 
-          - `evidences` (array): Evidencias asociadas a la mercancía.
+          - `evidences` (array[object]): Evidencias asociadas a la mercancía.
 
             - `evidence_id` (string): Identificador de la evidencia.
 
@@ -18009,7 +18011,7 @@ paths:
 
 
 
-        - `order` (int): El orden de la parada.
+        - `position_list` (int): El orden de la parada en la lista de paradas.
 
 
 
@@ -18064,10 +18066,10 @@ paths:
 
           - `evidence_config_id_rad` (string | null): Referencia al UUID del documento de la configuración de evidencias RAD, si aplica. **Opcional**.
 
-          - `services` (array): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.**.
+          - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.**.
 
 
-        - `appointments` (array): Lista de citas de la parada, (si aplica), cada
+        - `appointments` (array[object]): Lista de citas de la parada, (si aplica), cada
         una con los campos: **Opcional**
 
           - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
