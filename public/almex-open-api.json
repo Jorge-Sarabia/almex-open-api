@@ -1296,7 +1296,7 @@
             "post": {
                 "tags": ["journeys"],
                 "summary": "Journeys",
-                "description": "## Endpoint: POST `/journeys`\n\nEste endpoint permite crear una nueva jornada de entrega. Los datos de la jornada se envían en formato JSON y se almacenan en la base de datos CosmosDB.\n\n### Request Parameters\n\nNo se requieren parámetros adicionales en la solicitud.\n\n## Descripción de los campos\n\n- `name` (string, requerido): Nombre de la jornada.\n\n\n- `vehicle_id` (string, requerido): ID del vehículo asignado para atender la jornada.\n\n\n- `driver_id` (string, requerido): ID del conductor asignado a la jornada.\n\n\n- `scheduled_date` (string, requerido): Fecha de la jornada en formato `ISO 8601`. El formato aceptado es `YYYY-MM-DD`, e.j. `2024-09-16`.\n\n\n- `equipment` (array, requerido): Lista del equipo necesario para completar la jornada. Cada equipo tiene los campos \n\n  - `id` (string, requerido): El UUID de referencia al equipo agregado. \n  \n  - `is_checked` (bool, opcional): Campo para marcar si el equipo ha sido validado por el operador desde la app movil. El valor por defecto es false. \n\n\n- `position` (string): La posición de la jornada en la lista de atención.\n\n\n- `can_reorder_stops` (bool, opcional): Indica si la lista de paradas en la jornada puede ser reordenada. Un valor de **false** significa que las paradas tienen un orden definido que debe seguirse, mientras que un valor de **true** indica que las paradas pueden cambiar su propiedad de `order`. Si no se especifica, el valor por defecto es **false**.\n\nLos siguientes campos componen la estructura de una jornada en general, y no es necesario incluirlos en el cuerpo de la solicitud ya que son generados con valores por defecto o tienen sus respectivos endpoints para ser modificados\n\n- `incidents` (array, opcional): Lista de incidentes asociados a la jornada, cada uno con los campos `id`, `name`, y `description`. **Se inicializa en null**\n\n- `stops` (array): Lista de las paradas en la jornada. Los campos respectivos y su respectiva descripción se encuentran en el endpoint de paradas. **Se inicializa en null**",
+                "description": "## Endpoint: POST `/journeys`\n\nEste endpoint permite crear una nueva jornada de entrega. Los datos de la jornada se envían en formato JSON y se almacenan en la base de datos CosmosDB.\n\n### Request Parameters\n\nNo se requieren parámetros adicionales en la solicitud.\n\n## Descripción de los campos\n\n- `name` (string, requerido): Nombre de la jornada.\n\n\n- `vehicle_id` (string, requerido): ID del vehículo asignado para atender la jornada.\n\n\n- `driver_id` (string, requerido): ID del conductor asignado a la jornada.\n\n\n- `scheduled_date` (string, requerido): Fecha de la jornada en formato `ISO 8601`. El formato aceptado es `YYYY-MM-DD`, e.j. `2024-09-16`.\n\n\n- `equipment` (array, requerido): Lista del equipo necesario para completar la jornada. Cada equipo tiene los campos \n\n  - `id` (string, requerido): El UUID de referencia al equipo agregado. \n  \n  - `is_checked` (bool, opcional): Campo para marcar si el equipo ha sido validado por el operador desde la app movil. El valor por defecto es false. \n\n\n- `position` (string): La posición de la jornada en la lista de atención.\n\n\n- `can_reorder_stops` (bool, opcional): Indica si la lista de paradas en la jornada puede ser reordenada. Un valor de **false** significa que las paradas tienen un orden definido que debe seguirse, mientras que un valor de **true** indica que las paradas pueden cambiar su propiedad de `order`. Si no se especifica, el valor por defecto es **false**.\n\nLos siguientes campos componen la estructura de una jornada en general, y no es necesario incluirlos en el cuerpo de la solicitud ya que son generados con valores por defecto o tienen sus respectivos endpoints para ser modificados\n\n- `incidents` (array): Lista de incidentes asociados a la jornada, cada uno con los campos (Se inicializa en null)\n\n  - `id` (string): Identificador del incidente.\n\n  - `time` (string): Timestamp del incidente.\n\n- `stops` (array): Lista de las paradas en la jornada. Los campos respectivos y su respectiva descripción se encuentran en el endpoint de paradas. **Se inicializa en null**",
                 "operationId": "post-addjourney",
                 "parameters": [{
                     "name": "Authorization",
@@ -1396,159 +1396,6 @@
                                 "example": {
                                     "message": "Internal Server Error. Please try again later.",
                                     "statusCode": 500
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/journeys/{journey_id}/stops": {
-            "post": {
-                "tags": ["stops"],
-                "summary": "Stops",
-                "description": "## Endpoint: Post `/journeys/{journey_id}/stops`\n### Descripción\nEste endpoint permite crear una nueva parada a una jornada seleccionada. El cuerpo de la solicitud para agregar una nueva parada debe incluir los siguientes campos en formato JSON:\n## Request Parameters\n- `journey_id` (string): El ID de la jornada a la que se desea agregar la nueva parada.\n\n- `ext_journey_id` (string): El ID externo de la jornada.\n\n## Descripción de los campos\n\n- `name` (string): Nombre de la parada.\n\n- `ext_id` (string): ID externo de la parada.\n\n- `order` (int): El orden de la parada.\n\n- `customer_id` (string): Referencia al UUID del documento del cliente asociado a la parada.\n\n- `address` (object): Detalles de la dirección de la parada.\n\n  - `street` (string): Calle.\n\n  - `ext_number` (string): Número exterior.\n\n  - `neighborhood` (string): Colonia.\n\n  - `city` (string): Ciudad.\n\n  - `state` (string): Estado.\n\n  - `country` (string): País.\n\n  - `references` (string): Referencias de la dirección. **Opcional**.\n  \n  - `zip_code` (string): Código postal.\n\n  - `latitude` (number): Latitud.\n\n  - `longitude` (number): Longitud.\n\n  - `location_link` (string): Enlace a la ubicación de la parada. **Opcional**.\n\n- `contact_info` (object): Información de contacto en la parada.\n\n  - `contact_name` (string): Nombre del contacto.\n\n  - `contact_phone` (string): Teléfono del contacto.\n\n  - `contact_email` (string): Correo electrónico del contacto. **Opcional**.\n\n  - `contact_position` (string): Puesto del contacto. **Opcional**.\n\n- `services_set` (object): Conjunto de servicios asociados a la parada. El objeto a su vez tiene los siguientes campos: \n\n  - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. **Opcional**.\n\n  - `has_form_rad` (string | null): Referencia al UUID del documento del formulario RAD, si aplica. **Opcional**.\n\n  - `evidence_config_id_ead` (string | null): Referencia al UUID del documento de la configuración de evidencias EAD, si aplica. **Opcional**.\n\n  - `evidence_config_id_rad` (string | null): Referencia al UUID del documento de la configuración de evidencias RAD, si aplica. **Opcional**.\n\n  - `services` (array): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.**.\n\n\n- `appointments` (array): Lista de citas de la parada, (si aplica), cada una con los campos: **Opcional**\n\n  - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.\n\n  - `end_date` (string): Fecha y hora de fin de la cita en formato ISO 8601. **Opcional**.\n\n  - `description` (string): Descripción de la cita. **Opcional**.",
-                "operationId": "post-addstop",
-                "parameters": [{
-                    "name": "journey_id",
-                    "in": "path",
-                    "description": "El Id de la jornada a la que se desea agregar la nueva parada.",
-                    "required": true,
-                    "schema": {
-                        "enum": ["c98b07a3-afdd-4633-8623-686139692c18"],
-                        "type": "string"
-                    }
-                }, {
-                    "name": "driver_id",
-                    "in": "query",
-                    "description": "El Id del conductor asignado a la jornada.",
-                    "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
-                }, {
-                    "name": "ext_id",
-                    "in": "query",
-                    "description": "El Id externo de la jornada. ",
-                    "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
-                }, {
-                    "name": "Authorization",
-                    "in": "header",
-                    "description": "El Bearer token para acceder a los recursos. ",
-                    "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
-                }],
-                "requestBody": {
-                    "description": "## Post /journeys/{journey_id}/stops\n\nEl cuerpo de la solicitud para agregar una nueva parada debe incluir los siguientes campos en formato JSON:\n",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/New_Stop"
-                            },
-                            "example": {
-                                "address": {
-                                    "city": "Toluca",
-                                    "country": "Mexico",
-                                    "ext_number": "123",
-                                    "latitude": "19.279314612920516",
-                                    "longitude": "99.59433090144017",
-                                    "neighborhood": "San Jeronimo Chicahualco",
-                                    "state": "Estado de México",
-                                    "street": "Calle Manuel J Clouthier",
-                                    "zip_code": "52170"
-                                },
-                                "appointments": [{
-                                    "start_date": "2018-10-10T10:30:00.0000000+00:00"
-                                }],
-                                "contact_info": {
-                                    "contact_email": "john@doe.com",
-                                    "contact_name": "John Doe",
-                                    "contact_phone": "8112345678"
-                                },
-                                "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                "ext_id": "Id externo de la parada",
-                                "name": "Nombre de la Parada",
-                                "services_set": {
-                                    "has_form_ead": "reference to form id",
-                                    "services": []
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "### Response 201 Created\n\nEl siguiente es el response para la creación exitosa de una nueva parada.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/New_Stop"
-                                },
-                                "example": {
-                                    "data": {
-                                        "stops": {
-                                            "address": {
-                                                "city": "Toluca",
-                                                "country": "Mexico",
-                                                "ext_number": "123",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "state": "Estado de México",
-                                                "street": "Calle Manuel J Clouthier",
-                                                "zip_code": "52170"
-                                            },
-                                            "appointments": [],
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "contact_info": {
-                                                "contact_email": "john@doe.com",
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678"
-                                            },
-                                            "created_at": "2024-07-05T02:27:38.0000000+00:00",
-                                            "created_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "ext_id": "123476589",
-                                            "id": "36ab5b95-b9db-48ed-a9d7-f559285f783a",
-                                            "incidents": null,
-                                            "is_active": true,
-                                            "name": "Eliminar Parada A",
-                                            "order": 1,
-                                            "services_set": {
-                                                "has_form_ead": "reference to form id",
-                                                "services": []
-                                            },
-                                            "start_journey_to_stop": {
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "status": "pending",
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "updated_at": "2024-07-05T02:27:38.0000000+00:00",
-                                            "updated_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc"
-                                        }
-                                    },
-                                    "journey_id": "3f25a3a9-4ceb-4419-a781-1f942819cd7a",
-                                    "message": "The stop was added successfully.",
-                                    "statusCode": 201,
-                                    "stop_id": "36ab5b95-b9db-48ed-a9d7-f559285f783a"
                                 }
                             }
                         }
@@ -11166,6 +11013,122 @@
                                     "id": "adc4ef5c-81f4-483d-a091-148d4a36df21",
                                     "message": "EmptyEquipmentCollection updated successfully.",
                                     "statusCode": 200
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/journeys/{journey_id}/stops": {
+            "post": {
+                "tags": ["stops"],
+                "summary": "Stop",
+                "description": "## Endpoint: POST `/journeys/{journey_id}/stops`\n\n### Descripción\n\nEste endpoint permite crear una nueva parada a una jornada seleccionada. El cuerpo de la solicitud para agregar una nueva parada debe incluir los siguientes campos en formato JSON:\n\n## Request Parameters\n\n- `journey_id` (string): El ID de la jornada a la que se desea agregar la nueva parada.\n\n\n- `ext_journey_id` (string): El ID externo de la jornada.\n\n## Descripción de los campos\n\n- `name` (string): Nombre de la parada.\n\n\n- `ext_id` (string): ID externo de la parada.\n\n\n- `order` (int): El orden de la parada.\n\n\n- `customer_id` (string): Referencia al UUID del documento del cliente asociado a la parada.\n\n\n- `address` (object): Detalles de la dirección de la parada.\n\n  - `street` (string): Calle.\n\n  - `ext_number` (string): Número exterior.\n\n  - `neighborhood` (string): Colonia.\n\n  - `city` (string): Ciudad.\n\n  - `state` (string): Estado.\n\n  - `country` (string): País.\n\n  - `references` (string): Referencias de la dirección. **Opcional**.\n  \n  - `zip_code` (string): Código postal.\n\n  - `latitude` (number): Latitud.\n\n  - `longitude` (number): Longitud.\n\n  - `location_link` (string): Enlace a la ubicación de la parada. **Opcional**.\n\n- `contact_info` (object): Información de contacto en la parada.\n\n  - `contact_name` (string): Nombre del contacto.\n\n  - `contact_phone` (string): Teléfono del contacto.\n\n  - `contact_email` (string): Correo electrónico del contacto. **Opcional**.\n\n  - `contact_position` (string): Puesto del contacto. **Opcional**.\n\n\n- `services_set` (object): Conjunto de servicios asociados a la parada. El objeto a su vez tiene los siguientes campos: \n\n  - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. **Opcional**.\n\n  - `has_form_rad` (string | null): Referencia al UUID del documento del formulario RAD, si aplica. **Opcional**.\n\n  - `evidence_config_id_ead` (string | null): Referencia al UUID del documento de la configuración de evidencias EAD, si aplica. **Opcional**.\n\n  - `evidence_config_id_rad` (string | null): Referencia al UUID del documento de la configuración de evidencias RAD, si aplica. **Opcional**.\n\n  - `services` (array): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.**.\n\n\n- `appointments` (array): Lista de citas de la parada, (si aplica), cada una con los campos: **Opcional**\n\n  - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.\n\n  - `end_date` (string): Fecha y hora de fin de la cita en formato ISO 8601. **Opcional**.\n\n  - `description` (string): Descripción de la cita. **Opcional**.",
+                "operationId": "post-addstop",
+                "parameters": [{
+                    "name": "journey_id",
+                    "in": "path",
+                    "description": "El UUID de la jornada a la que se quiere agregar la nueva parada. ",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "ext_journal_id",
+                    "in": "query",
+                    "description": "El external Id de la jornada. ",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "name": "Costco Metepec",
+                                "ext_id": "10",
+                                "position": 10,
+                                "customer_id": "52ca25ff-aba2-4f30-8954-f2550c8354f7",
+                                "address": {
+                                    "street": "Avenida S.S Juan Pablo Segundo",
+                                    "neighborhood": "San Mateo",
+                                    "ext_number": "501",
+                                    "zip_code": "52169",
+                                    "city": "Metepec",
+                                    "country": "Mexico",
+                                    "state": "Estado de México",
+                                    "latitude": "19.258080938677868",
+                                    "longitude": "-99.61314351169749"
+                                },
+                                "contact_info": {
+                                    "contact_name": "John Doe",
+                                    "contact_phone": "8112345678",
+                                    "contact_email": "john.doe@costco.com.mx"
+                                },
+                                "services_set": {
+                                    "services": []
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "### Response\n\nEl recurso fue creado exitosamente. ",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "statusCode": 201,
+                                    "message": "The stop was added successfully.",
+                                    "id": "ad066b5d-0e4e-4291-8abb-37f3858f3dd7",
+                                    "data": {
+                                        "id": "ad066b5d-0e4e-4291-8abb-37f3858f3dd7",
+                                        "name": "Costco Metepec",
+                                        "ext_id": "10",
+                                        "position": 10,
+                                        "customer_id": "52ca25ff-aba2-4f30-8954-f2550c8354f7",
+                                        "address": {
+                                            "street": "Avenida S.S Juan Pablo Segundo",
+                                            "neighborhood": "San Mateo",
+                                            "ext_number": "501",
+                                            "zip_code": "52169",
+                                            "city": "Metepec",
+                                            "country": "Mexico",
+                                            "state": "Estado de México",
+                                            "latitude": 19.2580809386779,
+                                            "longitude": -99.6131435116975
+                                        },
+                                        "contact_info": {
+                                            "contact_name": "John Doe",
+                                            "contact_phone": "8112345678",
+                                            "contact_email": "john.doe@costco.com.mx"
+                                        },
+                                        "services_set": {
+                                            "services": [],
+                                            "has_form_ead": null,
+                                            "has_form_rad": null,
+                                            "evidence_config_id_ead": null,
+                                            "evidence_config_id_rad": null
+                                        },
+                                        "appointments": null,
+                                        "incidents": null,
+                                        "start_journey_to_stop": {
+                                            "status": "pending",
+                                            "latitude": 0,
+                                            "longitude": 0,
+                                            "timestamp": "2021-07-01T12:00:00.0000000+00:00"
+                                        },
+                                        "check_in": null,
+                                        "check_out": null,
+                                        "status": "pending",
+                                        "created_at": "2024-09-19T11:44:00.0000000+00:00",
+                                        "updated_at": "2024-09-19T11:44:00.0000000+00:00",
+                                        "created_by": "system",
+                                        "updated_by": "system",
+                                        "is_active": true
+                                    }
                                 }
                             }
                         }

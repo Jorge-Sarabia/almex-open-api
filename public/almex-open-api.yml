@@ -511,13 +511,15 @@ paths:
         - `driver_id` (string): ID del conductor asignado a la jornada.
 
 
-        - `scheduled_date` (string): Fecha programada para la jornada en formato `ISO 8601`: `YYYY-MM-DD`.
+        - `scheduled_date` (string): Fecha programada para la jornada en formato
+        `ISO 8601`: `YYYY-MM-DD`.
 
 
         - `start_time` (string): Fecha de la jornada en formato `ISO 8601`.
 
 
-        - `end_time` (string): Fecha de finalización de la jornada en formato `ISO 8601`.
+        - `end_time` (string): Fecha de finalización de la jornada en formato
+        `ISO 8601`.
 
 
         - `equipment` (array): Lista del equipo necesario para completar la
@@ -530,7 +532,8 @@ paths:
         - `position` (string): Posición de atención de la jornada.
 
 
-        - `incidents` (array): Lista de incidentes asociados a la jornada, cada uno con los campos:
+        - `incidents` (array): Lista de incidentes asociados a la jornada, cada
+        uno con los campos:
           - `id` (string): Identificador del incidente.
 
           - `time` (string): Hora del incidente en formato ISO 8601.
@@ -677,7 +680,8 @@ paths:
 
 
 
-        - `driver_id` (string): Identificador del conductor asignado a la jornada.
+        - `driver_id` (string): Identificador del conductor asignado a la
+        jornada.
 
 
         ### Descripción de los campos
@@ -696,10 +700,12 @@ paths:
         jornada.
 
 
-        - `vehicle_id` (string): Identificador del vehículo asignado a la jornada.
+        - `vehicle_id` (string): Identificador del vehículo asignado a la
+        jornada.
 
 
-        - `scheduled_date` (string): Fecha programada para la jornada en formato ISO 8601. `YYYY-MM-DD`.
+        - `scheduled_date` (string): Fecha programada para la jornada en formato
+        ISO 8601. `YYYY-MM-DD`.
 
 
         - `start_time` (string): Hora de inicio de la jornada en formato ISO
@@ -729,7 +735,8 @@ paths:
           - `is_checked` (boolean): Indica si el equipo fue verificado.
 
 
-        - `can_reorder_stops` (boolean): Indica si se pueden reordenar las paradas de la jornada.
+        - `can_reorder_stops` (boolean): Indica si se pueden reordenar las
+        paradas de la jornada.
 
 
         - `stops` (array): Lista de paradas en la jornada, cada una con los
@@ -1580,31 +1587,42 @@ paths:
         - `id` (string): Identificador único de la jornada.
 
 
+
         - `ext_id` (string): Identificador externo de la jornada.
+
 
 
         - `name` (string): Nombre de la jornada.
 
 
-        - `vehicle_id` (string): Identificador del vehículo asignado a la jornada.
+
+        - `vehicle_id` (string): Identificador del vehículo asignado a la
+        jornada.
+
 
 
         - `driver_id` (string): Identificador del conductor asignado a la
         jornada.
 
 
-        - `scheduled_date` (string): Fecha programada para la jornada en formato ISO 8601: `YYYY-MM-DD`.
+
+        - `scheduled_date` (string): Fecha programada para la jornada en formato
+        ISO 8601: `YYYY-MM-DD`.
+
 
 
         - `start_time` (string): Hora de inicio de la jornada en formato ISO
         8601.
 
 
+
         - `end_time` (string): Hora de finalización de la jornada en formato ISO
         8601.
 
 
+
         - `position` (string): Número de posición de atención de la jornada.
+
 
 
         - `incidents` (array): Lista de incidentes asociados a la jornada, cada
@@ -1612,9 +1630,7 @@ paths:
 
           - `id` (string): Identificador del incidente.
 
-          - `name` (string): Nombre del incidente.
-
-          - `description` (string): Descripción del incidente.
+          - `time` (string): Timestamp del incidente.
 
 
         - `equipment` (array): Lista de equipos asociados a la jornada, cada uno
@@ -1625,7 +1641,8 @@ paths:
           - `is_checked` (boolean): Indica si el equipo fue verificado.
 
 
-        - `can_reorder_stops` (boolean): Indica si se pueden reordenar las paradas de la jornada.
+        - `can_reorder_stops` (boolean): Indica si se pueden reordenar las
+        paradas de la jornada.
 
 
         - `stops` (array): Lista de paradas en la jornada, cada una con los
@@ -1643,7 +1660,7 @@ paths:
           - `canceled`: Jornada cancelada debido a incidentes. 
 
 
-        ### Metadata dek Registro
+        ### Metadata del Registro
 
         - `created_at` (string): Fecha y hora de creación de la jornada.
 
@@ -1989,8 +2006,8 @@ paths:
 
 
 
-        - `scheduled_date` (string, requerido): Fecha de la jornada en formato `ISO
-        8601`. El formato aceptado es `YYYY-MM-DD`, e.j. `2024-09-16`.
+        - `scheduled_date` (string, requerido): Fecha de la jornada en formato
+        `ISO 8601`. El formato aceptado es `YYYY-MM-DD`, e.j. `2024-09-16`.
 
 
 
@@ -2002,12 +2019,13 @@ paths:
           - `is_checked` (bool, opcional): Campo para marcar si el equipo ha sido validado por el operador desde la app movil. El valor por defecto es false. 
 
 
-        - `position` (string): La posición de la jornada en la lista de atención.
+        - `position` (string): La posición de la jornada en la lista de
+        atención.
 
 
 
-        - `can_reorder_stops` (bool, opcional): Indica si la lista de paradas en la
-        jornada puede ser reordenada. Un valor de **false** significa que las
+        - `can_reorder_stops` (bool, opcional): Indica si la lista de paradas en
+        la jornada puede ser reordenada. Un valor de **false** significa que las
         paradas tienen un orden definido que debe seguirse, mientras que un
         valor de **true** indica que las paradas pueden cambiar su propiedad de
         `order`. Si no se especifica, el valor por defecto es **false**.
@@ -2019,12 +2037,16 @@ paths:
         para ser modificados
 
 
-        - `incidents` (array, opcional): Lista de incidentes asociados a la jornada, cada
-        uno con los campos `id`, `time`. **Se inicializa en
-        null**
+        - `incidents` (array): Lista de incidentes asociados a la jornada, cada
+        uno con los campos (Se inicializa en null)
 
+          - `id` (string): Identificador del incidente.
 
-        - `stops` (array): Lista de las paradas en la jornada. Los campos respectivos y su respectiva descripción se encuentran en el endpoint de paradas. **Se inicializa en null**
+          - `time` (string): Timestamp del incidente.
+
+        - `stops` (array): Lista de las paradas en la jornada. Los campos
+        respectivos y su respectiva descripción se encuentran en el endpoint de
+        paradas. **Se inicializa en null**
       operationId: post-addjourney
       parameters:
         - name: Authorization
@@ -2139,227 +2161,6 @@ paths:
               example:
                 message: Internal Server Error. Please try again later.
                 statusCode: 500
-  '/journeys/{journey_id}/stops':
-    post:
-      tags:
-        - stops
-      summary: Stops
-      description: >-
-        ## Endpoint: Post `/journeys/{journey_id}/stops`
-
-        ### Descripción
-
-        Este endpoint permite crear una nueva parada a una jornada seleccionada.
-        El cuerpo de la solicitud para agregar una nueva parada debe incluir los
-        siguientes campos en formato JSON:
-
-        ## Request Parameters
-
-        - `journey_id` (string): El ID de la jornada a la que se desea agregar
-        la nueva parada.
-
-
-        - `ext_journey_id` (string): El ID externo de la jornada.
-
-
-        ## Descripción de los campos
-
-
-        - `name` (string): Nombre de la parada.
-
-
-        - `ext_id` (string): ID externo de la parada.
-
-
-        - `order` (int): El orden de la parada.
-
-
-        - `customer_id` (string): Referencia al UUID del documento del cliente
-        asociado a la parada.
-
-
-        - `address` (object): Detalles de la dirección de la parada.
-
-          - `street` (string): Calle.
-
-          - `ext_number` (string): Número exterior.
-
-          - `neighborhood` (string): Colonia.
-
-          - `city` (string): Ciudad.
-
-          - `state` (string): Estado.
-
-          - `country` (string): País.
-
-          - `references` (string): Referencias de la dirección. **Opcional**.
-          
-          - `zip_code` (string): Código postal.
-
-          - `latitude` (number): Latitud.
-
-          - `longitude` (number): Longitud.
-
-          - `location_link` (string): Enlace a la ubicación de la parada. **Opcional**.
-
-        - `contact_info` (object): Información de contacto en la parada.
-
-          - `contact_name` (string): Nombre del contacto.
-
-          - `contact_phone` (string): Teléfono del contacto.
-
-          - `contact_email` (string): Correo electrónico del contacto. **Opcional**.
-
-          - `contact_position` (string): Puesto del contacto. **Opcional**.
-
-        - `services_set` (object): Conjunto de servicios asociados a la parada.
-        El objeto a su vez tiene los siguientes campos: 
-
-          - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. **Opcional**.
-
-          - `has_form_rad` (string | null): Referencia al UUID del documento del formulario RAD, si aplica. **Opcional**.
-
-          - `evidence_config_id_ead` (string | null): Referencia al UUID del documento de la configuración de evidencias EAD, si aplica. **Opcional**.
-
-          - `evidence_config_id_rad` (string | null): Referencia al UUID del documento de la configuración de evidencias RAD, si aplica. **Opcional**.
-
-          - `services` (array): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.**.
-
-
-        - `appointments` (array): Lista de citas de la parada, (si aplica), cada
-        una con los campos: **Opcional**
-
-          - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
-
-          - `end_date` (string): Fecha y hora de fin de la cita en formato ISO 8601. **Opcional**.
-
-          - `description` (string): Descripción de la cita. **Opcional**.
-      operationId: post-addstop
-      parameters:
-        - name: journey_id
-          in: path
-          description: El Id de la jornada a la que se desea agregar la nueva parada.
-          required: true
-          schema:
-            enum:
-              - c98b07a3-afdd-4633-8623-686139692c18
-            type: string
-        - name: driver_id
-          in: query
-          description: El Id del conductor asignado a la jornada.
-          required: true
-          schema:
-            type: string
-        - name: ext_id
-          in: query
-          description: 'El Id externo de la jornada. '
-          required: true
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'El Bearer token para acceder a los recursos. '
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: >
-          ## Post /journeys/{journey_id}/stops
-
-
-          El cuerpo de la solicitud para agregar una nueva parada debe incluir
-          los siguientes campos en formato JSON:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/New_Stop'
-            example:
-              address:
-                city: Toluca
-                country: Mexico
-                ext_number: '123'
-                latitude: '19.279314612920516'
-                longitude: '99.59433090144017'
-                neighborhood: San Jeronimo Chicahualco
-                state: Estado de México
-                street: Calle Manuel J Clouthier
-                zip_code: '52170'
-              appointments:
-                - start_date: '2018-10-10T10:30:00.0000000+00:00'
-              contact_info:
-                contact_email: john@doe.com
-                contact_name: John Doe
-                contact_phone: '8112345678'
-              customer_id: 71e54162-8383-4296-9929-93a44ee246b3
-              ext_id: Id externo de la parada
-              name: Nombre de la Parada
-              services_set:
-                has_form_ead: reference to form id
-                services: []
-      responses:
-        '201':
-          description: >-
-            ### Response 201 Created
-
-
-            El siguiente es el response para la creación exitosa de una nueva
-            parada.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/New_Stop'
-              example:
-                data:
-                  stops:
-                    address:
-                      city: Toluca
-                      country: Mexico
-                      ext_number: '123'
-                      latitude: '19.279314612920516'
-                      longitude: '99.59433090144017'
-                      neighborhood: San Jeronimo Chicahualco
-                      state: Estado de México
-                      street: Calle Manuel J Clouthier
-                      zip_code: '52170'
-                    appointments: []
-                    check_in:
-                      is_checked_in: false
-                      latitude: 0
-                      longitude: 0
-                      timestamp: '2021-07-01T12:00:00.0000000+00:00'
-                    check_out:
-                      is_checked_out: false
-                      latitude: 0
-                      longitude: 0
-                      timestamp: '2021-07-01T12:00:00.0000000+00:00'
-                    contact_info:
-                      contact_email: john@doe.com
-                      contact_name: John Doe
-                      contact_phone: '8112345678'
-                    created_at: '2024-07-05T02:27:38.0000000+00:00'
-                    created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
-                    customer_id: 71e54162-8383-4296-9929-93a44ee246b3
-                    ext_id: '123476589'
-                    id: 36ab5b95-b9db-48ed-a9d7-f559285f783a
-                    incidents: null
-                    is_active: true
-                    name: Eliminar Parada A
-                    order: 1
-                    services_set:
-                      has_form_ead: reference to form id
-                      services: []
-                    start_journey_to_stop:
-                      latitude: 0
-                      longitude: 0
-                      status: pending
-                      timestamp: '2021-07-01T12:00:00.0000000+00:00'
-                    status: pending
-                    updated_at: '2024-07-05T02:27:38.0000000+00:00'
-                    updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
-                journey_id: 3f25a3a9-4ceb-4419-a781-1f942819cd7a
-                message: The stop was added successfully.
-                statusCode: 201
-                stop_id: 36ab5b95-b9db-48ed-a9d7-f559285f783a
   '/customers/{id}':
     get:
       tags:
@@ -4351,9 +4152,9 @@ paths:
                             is_active: true
                             status: pending
                             created_by: admin
-                            created_at: '2024-05-22T21:24:45.0270000+00:00'
+                            created_at: '2024-05-22T09:24:45.0000000+00:00'
                             updated_by: admin
-                            updated_at: '2024-05-22T21:24:45.0270000+00:00'
+                            updated_at: '2024-05-22T09:24:45.0000000+00:00'
                       appointments:
                         - start_date: '2018-10-10T10:30:00.0000000+00:00'
                       incidents: null
@@ -4361,20 +4162,20 @@ paths:
                         status: started
                         latitude: 19.3421577761224
                         longitude: -99.5713479727682
-                        timestamp: '2024-07-03T16:29:32.0000000+00:00'
+                        timestamp: '2024-07-03T04:29:32.0000000+00:00'
                       check_in:
                         is_checked_in: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-07-02T21:13:02.8150000+00:00'
-                      updated_at: '2024-07-03T20:08:06.8520000+00:00'
+                      created_at: '2024-07-02T09:13:02.0000000+00:00'
+                      updated_at: '2024-07-03T08:08:06.0000000+00:00'
                       created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       is_active: false
@@ -4411,15 +4212,15 @@ paths:
                         is_checked_in: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-07-03T15:29:32.7680000+00:00'
-                      updated_at: '2024-07-03T15:51:51.4100000+00:00'
+                      created_at: '2024-07-03T03:29:32.0000000+00:00'
+                      updated_at: '2024-07-03T03:51:51.0000000+00:00'
                       created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       is_active: true
@@ -4451,20 +4252,20 @@ paths:
                         status: started
                         latitude: 19.3421577761224
                         longitude: -99.5713479727682
-                        timestamp: '2024-07-03T16:29:32.0000000+00:00'
+                        timestamp: '2024-07-03T04:29:32.0000000+00:00'
                       check_in:
                         is_checked_in: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-07-03T19:59:11.2820000+00:00'
-                      updated_at: '2024-07-03T20:17:29.5720000+00:00'
+                      created_at: '2024-07-03T07:59:11.0000000+00:00'
+                      updated_at: '2024-07-03T08:17:29.0000000+00:00'
                       created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       is_active: true
@@ -4497,20 +4298,20 @@ paths:
                         status: started
                         latitude: 19.3421577761224
                         longitude: -99.5713479727682
-                        timestamp: '2024-07-03T16:29:32.0000000+00:00'
+                        timestamp: '2024-07-03T04:29:32.0000000+00:00'
                       check_in:
                         is_checked_in: 'true'
                         latitude: 19.456879
                         longitude: -7.23156489
-                        timestamp: '2024-07-03T18:45:32.0000000+00:00'
+                        timestamp: '2024-07-03T06:45:32.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-07-04T00:50:24.2350000+00:00'
-                      updated_at: '2024-07-04T01:04:35.6540000+00:00'
+                      created_at: '2024-07-04T12:50:24.0000000+00:00'
+                      updated_at: '2024-07-04T01:04:35.0000000+00:00'
                       created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       is_active: true
@@ -4619,8 +4420,8 @@ paths:
                                     url: 'http://example.com/photo3.jpg'
                                     is_required: false
                                     status: taken
-                                created_at: '2024-07-10T01:52:00.8350000+00:00'
-                                updated_at: '2024-07-12T00:20:03.6400000+00:00'
+                                created_at: '2024-07-10T01:52:00.0000000+00:00'
+                                updated_at: '2024-07-12T12:20:03.0000000+00:00'
                                 created_by: system
                                 updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                                 is_active: false
@@ -4652,8 +4453,8 @@ paths:
                                     url: 'http://example.com/photo2.jpg'
                                     is_required: true
                                     status: taken
-                                created_at: '2024-07-10T18:52:21.0450000+00:00'
-                                updated_at: '2024-07-12T16:19:23.7950000+00:00'
+                                created_at: '2024-07-10T06:52:21.0000000+00:00'
+                                updated_at: '2024-07-12T04:19:23.0000000+00:00'
                                 created_by: system
                                 updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                                 is_active: false
@@ -4685,8 +4486,8 @@ paths:
                                     url: 'http://example.com/photo2.jpg'
                                     is_required: true
                                     status: taken
-                                created_at: '2024-07-10T18:52:55.0740000+00:00'
-                                updated_at: '2024-07-10T18:52:55.0740000+00:00'
+                                created_at: '2024-07-10T06:52:55.0000000+00:00'
+                                updated_at: '2024-07-10T06:52:55.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -4718,8 +4519,8 @@ paths:
                                     url: 'http://example.com/photo2.jpg'
                                     is_required: true
                                     status: taken
-                                created_at: '2024-07-10T19:18:29.2730000+00:00'
-                                updated_at: '2024-07-10T19:18:29.2730000+00:00'
+                                created_at: '2024-07-10T07:18:29.0000000+00:00'
+                                updated_at: '2024-07-10T07:18:29.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -4742,8 +4543,8 @@ paths:
                                     url: 'http://example.com/photo2.jpg'
                                     is_required: true
                                     status: taken
-                                created_at: '2024-07-11T02:22:30.2330000+00:00'
-                                updated_at: '2024-07-11T02:22:30.2330000+00:00'
+                                created_at: '2024-07-11T02:22:30.0000000+00:00'
+                                updated_at: '2024-07-11T02:22:30.0000000+00:00'
                                 created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                                 updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                                 is_active: true
@@ -4772,8 +4573,8 @@ paths:
                                     url: 'http://example.com/photo3.jpg'
                                     is_required: false
                                     status: taken
-                                created_at: '2024-07-11T15:56:59.7810000+00:00'
-                                updated_at: '2024-07-11T16:29:49.4340000+00:00'
+                                created_at: '2024-07-11T03:56:59.0000000+00:00'
+                                updated_at: '2024-07-11T04:29:49.0000000+00:00'
                                 created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                                 updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                                 is_active: true
@@ -4795,8 +4596,8 @@ paths:
                                     type: photo
                                     is_required: true
                                     status: pending
-                                created_at: '2024-07-11T16:22:17.9280000+00:00'
-                                updated_at: '2024-07-11T16:22:17.9280000+00:00'
+                                created_at: '2024-07-11T04:22:17.0000000+00:00'
+                                updated_at: '2024-07-11T04:22:17.0000000+00:00'
                                 created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                                 updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                                 is_active: true
@@ -4819,8 +4620,8 @@ paths:
                                     url: 'http://example.com/photo2.jpg'
                                     is_required: true
                                     status: taken
-                                created_at: '2024-08-28T23:32:08.5110000+00:00'
-                                updated_at: '2024-08-28T23:32:08.5110000+00:00'
+                                created_at: '2024-08-28T11:32:08.0000000+00:00'
+                                updated_at: '2024-08-28T11:32:08.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -4845,8 +4646,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-28T23:34:10.5280000+00:00'
-                                updated_at: '2024-08-28T23:34:10.5280000+00:00'
+                                created_at: '2024-08-28T11:34:10.0000000+00:00'
+                                updated_at: '2024-08-28T11:34:10.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -4871,8 +4672,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-28T23:36:16.3300000+00:00'
-                                updated_at: '2024-08-28T23:36:16.3300000+00:00'
+                                created_at: '2024-08-28T11:36:16.0000000+00:00'
+                                updated_at: '2024-08-28T11:36:16.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -4897,8 +4698,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-28T23:38:06.2910000+00:00'
-                                updated_at: '2024-08-28T23:38:06.2910000+00:00'
+                                created_at: '2024-08-28T11:38:06.0000000+00:00'
+                                updated_at: '2024-08-28T11:38:06.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -4923,8 +4724,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-28T23:38:13.4700000+00:00'
-                                updated_at: '2024-08-28T23:38:13.4700000+00:00'
+                                created_at: '2024-08-28T11:38:13.0000000+00:00'
+                                updated_at: '2024-08-28T11:38:13.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -4949,8 +4750,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-28T23:40:31.5890000+00:00'
-                                updated_at: '2024-08-28T23:40:31.5890000+00:00'
+                                created_at: '2024-08-28T11:40:31.0000000+00:00'
+                                updated_at: '2024-08-28T11:40:31.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -4975,8 +4776,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-28T23:43:27.6990000+00:00'
-                                updated_at: '2024-08-28T23:43:27.6990000+00:00'
+                                created_at: '2024-08-28T11:43:27.0000000+00:00'
+                                updated_at: '2024-08-28T11:43:27.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -5001,8 +4802,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-28T23:55:06.9620000+00:00'
-                                updated_at: '2024-08-28T23:55:06.9620000+00:00'
+                                created_at: '2024-08-28T11:55:06.0000000+00:00'
+                                updated_at: '2024-08-28T11:55:06.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -5027,8 +4828,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-28T23:55:30.0430000+00:00'
-                                updated_at: '2024-08-28T23:55:30.0430000+00:00'
+                                created_at: '2024-08-28T11:55:30.0000000+00:00'
+                                updated_at: '2024-08-28T11:55:30.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -5053,8 +4854,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-28T23:55:46.5810000+00:00'
-                                updated_at: '2024-08-28T23:55:46.5810000+00:00'
+                                created_at: '2024-08-28T11:55:46.0000000+00:00'
+                                updated_at: '2024-08-28T11:55:46.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -5079,8 +4880,8 @@ paths:
                                 description: null
                                 merchandise_damaged: null
                                 ext_document: ''
-                                created_at: '2024-08-29T00:02:23.7760000+00:00'
-                                updated_at: '2024-08-29T00:02:23.7760000+00:00'
+                                created_at: '2024-08-29T12:02:23.0000000+00:00'
+                                updated_at: '2024-08-29T12:02:23.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -5105,8 +4906,8 @@ paths:
                                     status: taken
                                 description: null
                                 merchandise_damaged: null
-                                created_at: '2024-08-29T00:02:52.9040000+00:00'
-                                updated_at: '2024-08-29T00:02:52.9040000+00:00'
+                                created_at: '2024-08-29T12:02:52.0000000+00:00'
+                                updated_at: '2024-08-29T12:02:52.0000000+00:00'
                                 created_by: system
                                 updated_by: system
                                 is_active: true
@@ -5118,8 +4919,8 @@ paths:
                               signature_url: url to signature image
                             status: pending
                             is_active: true
-                            created_at: '2024-07-07T13:31:59.8850000+00:00'
-                            updated_at: '2024-07-08T00:57:10.9380000+00:00'
+                            created_at: '2024-07-07T01:31:59.0000000+00:00'
+                            updated_at: '2024-07-08T12:57:10.0000000+00:00'
                             created_by: system
                             updated_by: system
                           - id: 039b72ec-7492-43ce-b7ef-fd7f41a89954
@@ -5162,8 +4963,8 @@ paths:
                               signature_url: url to signature image
                             status: pending
                             is_active: true
-                            created_at: '2024-07-08T23:15:23.2340000+00:00'
-                            updated_at: '2024-07-08T23:15:23.2340000+00:00'
+                            created_at: '2024-07-08T11:15:23.0000000+00:00'
+                            updated_at: '2024-07-08T11:15:23.0000000+00:00'
                             created_by: system
                             updated_by: system
                           - id: 3e450845-89fe-4f3e-af7a-db69de2ef63f
@@ -5199,15 +5000,15 @@ paths:
                             invoice_url: 'https://example--azure-storage.com.mx'
                             status: pending
                             is_active: false
-                            created_at: '2024-07-08T23:34:31.9510000+00:00'
-                            updated_at: '2024-07-08T23:54:11.2830000+00:00'
+                            created_at: '2024-07-08T11:34:31.0000000+00:00'
+                            updated_at: '2024-07-08T11:54:11.0000000+00:00'
                             created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             updated_by: system
                             incidents:
                               - incident_id: 123e4567-e89b-12d3-a456-426614174000
                                 latitude: 19.432608
                                 longitude: -99.133209
-                                timestamp: '2024-07-03T16:29:32.0000000+00:00'
+                                timestamp: '2024-07-03T04:29:32.0000000+00:00'
                           - id: fa87bcf8-b624-4929-b89e-3abbf398d8b6
                             ext_id: '456789126'
                             type: EAD
@@ -5244,15 +5045,15 @@ paths:
                             invoice_url: reference to url invoice doc
                             status: pending
                             is_active: false
-                            created_at: '2024-07-09T15:21:14.3220000+00:00'
-                            updated_at: '2024-07-09T15:25:02.8560000+00:00'
+                            created_at: '2024-07-09T03:21:14.0000000+00:00'
+                            updated_at: '2024-07-09T03:25:02.0000000+00:00'
                             created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             incidents:
                               - incident_id: 123e4567-e89b-12d3-a456-426614174000
                                 latitude: 19.432608
                                 longitude: -99.133209
-                                timestamp: '2024-07-03T16:29:32.0000000+00:00'
+                                timestamp: '2024-07-03T04:29:32.0000000+00:00'
                           - id: b0cf6eaa-d27c-48bd-b30c-5b9f7f5701ac
                             ext_id: '456789126'
                             type: RAD
@@ -5289,8 +5090,8 @@ paths:
                             invoice_url: 'https:azure-storage-example.com/invoice.pdf'
                             status: pending
                             is_active: true
-                            created_at: '2024-07-09T16:18:39.2160000+00:00'
-                            updated_at: '2024-07-09T16:18:39.2160000+00:00'
+                            created_at: '2024-07-09T04:18:39.0000000+00:00'
+                            updated_at: '2024-07-09T04:18:39.0000000+00:00'
                             created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                           - id: 54bb923a-e81d-46d1-bd9b-6bb32541a5e9
@@ -5345,8 +5146,8 @@ paths:
                                 status: taken
                             status: pending
                             is_active: true
-                            created_at: '2024-07-09T19:26:47.6290000+00:00'
-                            updated_at: '2024-07-09T19:30:57.5210000+00:00'
+                            created_at: '2024-07-09T07:26:47.0000000+00:00'
+                            updated_at: '2024-07-09T07:30:57.0000000+00:00'
                             created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                           - id: 7d2d6ee4-606e-4cc8-aeec-5bab467ff2cf
@@ -5413,8 +5214,8 @@ paths:
                             invoice_url: reference to url invoice doc
                             status: pending
                             is_active: true
-                            created_at: '2024-07-10T01:42:01.0720000+00:00'
-                            updated_at: '2024-07-10T01:42:01.0720000+00:00'
+                            created_at: '2024-07-10T01:42:01.0000000+00:00'
+                            updated_at: '2024-07-10T01:42:01.0000000+00:00'
                             created_by: system
                             updated_by: system
                           - id: 17db85ee-1d55-4a34-bf99-72f531b6641c
@@ -5463,8 +5264,8 @@ paths:
                             invoice_url: reference to url invoice doc
                             status: pending
                             is_active: true
-                            created_at: '2024-07-10T15:23:57.5440000+00:00'
-                            updated_at: '2024-07-10T15:23:57.5440000+00:00'
+                            created_at: '2024-07-10T03:23:57.0000000+00:00'
+                            updated_at: '2024-07-10T03:23:57.0000000+00:00'
                             created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                           - id: 68c7c92e-ffcb-4757-b8d4-ad8b4023484b
@@ -5513,8 +5314,8 @@ paths:
                             invoice_url: reference to url invoice doc
                             status: pending
                             is_active: true
-                            created_at: '2024-07-10T15:24:43.9870000+00:00'
-                            updated_at: '2024-07-10T15:24:43.9870000+00:00'
+                            created_at: '2024-07-10T03:24:43.0000000+00:00'
+                            updated_at: '2024-07-10T03:24:43.0000000+00:00'
                             created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                           - id: 02e5de81-25a0-4352-99e9-e1d4a8bd21ff
@@ -5565,15 +5366,15 @@ paths:
                             invoice_url: reference to url invoice doc
                             status: pending
                             is_active: false
-                            created_at: '2024-07-10T15:25:57.4150000+00:00'
-                            updated_at: '2024-07-10T15:33:33.3340000+00:00'
+                            created_at: '2024-07-10T03:25:57.0000000+00:00'
+                            updated_at: '2024-07-10T03:33:33.0000000+00:00'
                             created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             incidents:
                               - incident_id: 123e4567-e89b-12d3-a456-426614174000
                                 latitude: 19.432608
                                 longitude: -99.133209
-                                timestamp: '2024-07-03T16:29:32.0000000+00:00'
+                                timestamp: '2024-07-03T04:29:32.0000000+00:00'
                           - id: 32434a9a-d460-4abf-853f-88eff1227204
                             ext_id: '456789126'
                             type: ACT
@@ -5620,8 +5421,8 @@ paths:
                             invoice_url: reference to url invoice doc
                             status: pending
                             is_active: true
-                            created_at: '2024-07-10T15:44:39.8280000+00:00'
-                            updated_at: '2024-07-10T15:44:39.8280000+00:00'
+                            created_at: '2024-07-10T03:44:39.0000000+00:00'
+                            updated_at: '2024-07-10T03:44:39.0000000+00:00'
                             created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                           - id: 16f67e77-b2e0-4472-be52-e5fdd9428273
@@ -5672,15 +5473,15 @@ paths:
                             invoice_url: '123456789'
                             status: pending
                             is_active: false
-                            created_at: '2024-07-10T16:11:55.7860000+00:00'
-                            updated_at: '2024-07-10T16:20:01.7950000+00:00'
+                            created_at: '2024-07-10T04:11:55.0000000+00:00'
+                            updated_at: '2024-07-10T04:20:01.0000000+00:00'
                             created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                             incidents:
                               - incident_id: 123e4567-e89b-12d3-a456-426614174000
                                 latitude: 19.432608
                                 longitude: -99.133209
-                                timestamp: '2024-07-03T16:29:32.0000000+00:00'
+                                timestamp: '2024-07-03T04:29:32.0000000+00:00'
                           - id: 095c6be2-a80e-4a40-8620-c8475ec4b9ff
                             ext_id: '456789126'
                             type: RAD
@@ -5756,8 +5557,8 @@ paths:
                             invoice_url: reference to url invoice doc
                             status: pending
                             is_active: true
-                            created_at: '2024-08-29T01:27:41.6230000+00:00'
-                            updated_at: '2024-08-29T01:27:41.6230000+00:00'
+                            created_at: '2024-08-29T01:27:41.0000000+00:00'
+                            updated_at: '2024-08-29T01:27:41.0000000+00:00'
                             created_by: system
                             updated_by: system
                           - id: b3aa2057-13a2-4a3b-8d4c-1883366d90fb
@@ -5835,8 +5636,8 @@ paths:
                             invoice_url: reference to url invoice doc
                             status: pending
                             is_active: true
-                            created_at: '2024-09-02T12:48:46.2450000+00:00'
-                            updated_at: '2024-09-02T12:48:46.2450000+00:00'
+                            created_at: '2024-09-02T12:48:46.0000000+00:00'
+                            updated_at: '2024-09-02T12:48:46.0000000+00:00'
                             created_by: system
                             updated_by: system
                       appointments:
@@ -5846,20 +5647,20 @@ paths:
                         status: started
                         latitude: 19.3421577761224
                         longitude: -99.5713479727682
-                        timestamp: '2024-07-03T16:29:32.0000000+00:00'
+                        timestamp: '2024-07-03T04:29:32.0000000+00:00'
                       check_in:
                         is_checked_in: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-07-04T16:24:45.9450000+00:00'
-                      updated_at: '2024-07-04T16:31:43.0350000+00:00'
+                      created_at: '2024-07-04T04:24:45.0000000+00:00'
+                      updated_at: '2024-07-04T04:31:43.0000000+00:00'
                       created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       is_active: true
@@ -5891,20 +5692,20 @@ paths:
                         status: pending
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_in:
                         is_checked_in: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-07-06T13:30:24.3800000+00:00'
-                      updated_at: '2024-07-06T13:30:24.3800000+00:00'
+                      created_at: '2024-07-06T01:30:24.0000000+00:00'
+                      updated_at: '2024-07-06T01:30:24.0000000+00:00'
                       created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       is_active: true
@@ -5936,20 +5737,20 @@ paths:
                         status: pending
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_in:
                         is_checked_in: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-08-29T01:29:05.1770000+00:00'
-                      updated_at: '2024-08-29T01:29:05.1770000+00:00'
+                      created_at: '2024-08-29T01:29:05.0000000+00:00'
+                      updated_at: '2024-08-29T01:29:05.0000000+00:00'
                       created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       is_active: true
@@ -5980,20 +5781,20 @@ paths:
                         status: pending
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_in:
                         is_checked_in: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-08-29T01:29:19.4000000+00:00'
-                      updated_at: '2024-08-29T01:29:19.4000000+00:00'
+                      created_at: '2024-08-29T01:29:19.0000000+00:00'
+                      updated_at: '2024-08-29T01:29:19.0000000+00:00'
                       created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
                       is_active: true
@@ -6022,20 +5823,20 @@ paths:
                         status: pending
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_in:
                         is_checked_in: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-09-02T01:13:19.9980000+00:00'
-                      updated_at: '2024-09-02T01:13:19.9980000+00:00'
+                      created_at: '2024-09-02T01:13:19.0000000+00:00'
+                      updated_at: '2024-09-02T01:13:19.0000000+00:00'
                       created_by: system
                       updated_by: system
                       is_active: true
@@ -6064,20 +5865,20 @@ paths:
                         status: pending
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_in:
                         is_checked_in: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       check_out:
                         is_checked_out: false
                         latitude: 0
                         longitude: 0
-                        timestamp: '2021-07-01T00:00:00.0000000+00:00'
+                        timestamp: '2021-07-01T12:00:00.0000000+00:00'
                       status: pending
-                      created_at: '2024-09-02T01:19:47.5370000+00:00'
-                      updated_at: '2024-09-02T01:19:47.5370000+00:00'
+                      created_at: '2024-09-02T01:19:47.0000000+00:00'
+                      updated_at: '2024-09-02T01:19:47.0000000+00:00'
                       created_by: system
                       updated_by: system
                       is_active: true
@@ -18169,6 +17970,202 @@ paths:
                 id: adc4ef5c-81f4-483d-a091-148d4a36df21
                 message: EmptyEquipmentCollection updated successfully.
                 statusCode: 200
+  '/journeys/{journey_id}/stops':
+    post:
+      tags:
+        - stops
+      summary: Stop
+      description: >-
+        ## Endpoint: POST `/journeys/{journey_id}/stops`
+
+
+        ### Descripción
+
+
+        Este endpoint permite crear una nueva parada a una jornada seleccionada.
+        El cuerpo de la solicitud para agregar una nueva parada debe incluir los
+        siguientes campos en formato JSON:
+
+
+        ## Request Parameters
+
+
+        - `journey_id` (string): El ID de la jornada a la que se desea agregar
+        la nueva parada.
+
+
+
+        - `ext_journey_id` (string): El ID externo de la jornada.
+
+
+        ## Descripción de los campos
+
+
+        - `name` (string): Nombre de la parada.
+
+
+
+        - `ext_id` (string): ID externo de la parada.
+
+
+
+        - `order` (int): El orden de la parada.
+
+
+
+        - `customer_id` (string): Referencia al UUID del documento del cliente
+        asociado a la parada.
+
+
+
+        - `address` (object): Detalles de la dirección de la parada.
+
+          - `street` (string): Calle.
+
+          - `ext_number` (string): Número exterior.
+
+          - `neighborhood` (string): Colonia.
+
+          - `city` (string): Ciudad.
+
+          - `state` (string): Estado.
+
+          - `country` (string): País.
+
+          - `references` (string): Referencias de la dirección. **Opcional**.
+          
+          - `zip_code` (string): Código postal.
+
+          - `latitude` (number): Latitud.
+
+          - `longitude` (number): Longitud.
+
+          - `location_link` (string): Enlace a la ubicación de la parada. **Opcional**.
+
+        - `contact_info` (object): Información de contacto en la parada.
+
+          - `contact_name` (string): Nombre del contacto.
+
+          - `contact_phone` (string): Teléfono del contacto.
+
+          - `contact_email` (string): Correo electrónico del contacto. **Opcional**.
+
+          - `contact_position` (string): Puesto del contacto. **Opcional**.
+
+
+        - `services_set` (object): Conjunto de servicios asociados a la parada.
+        El objeto a su vez tiene los siguientes campos: 
+
+          - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. **Opcional**.
+
+          - `has_form_rad` (string | null): Referencia al UUID del documento del formulario RAD, si aplica. **Opcional**.
+
+          - `evidence_config_id_ead` (string | null): Referencia al UUID del documento de la configuración de evidencias EAD, si aplica. **Opcional**.
+
+          - `evidence_config_id_rad` (string | null): Referencia al UUID del documento de la configuración de evidencias RAD, si aplica. **Opcional**.
+
+          - `services` (array): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.**.
+
+
+        - `appointments` (array): Lista de citas de la parada, (si aplica), cada
+        una con los campos: **Opcional**
+
+          - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
+
+          - `end_date` (string): Fecha y hora de fin de la cita en formato ISO 8601. **Opcional**.
+
+          - `description` (string): Descripción de la cita. **Opcional**.
+      operationId: post-addstop
+      parameters:
+        - name: journey_id
+          in: path
+          description: 'El UUID de la jornada a la que se quiere agregar la nueva parada. '
+          required: true
+          schema:
+            type: string
+        - name: ext_journal_id
+          in: query
+          description: 'El external Id de la jornada. '
+          required: true
+          schema:
+            type: 'string'
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Costco Metepec
+              ext_id: '10'
+              position: 10
+              customer_id: 52ca25ff-aba2-4f30-8954-f2550c8354f7
+              address:
+                street: Avenida S.S Juan Pablo Segundo
+                neighborhood: San Mateo
+                ext_number: '501'
+                zip_code: '52169'
+                city: Metepec
+                country: Mexico
+                state: Estado de México
+                latitude: '19.258080938677868'
+                longitude: '-99.61314351169749'
+              contact_info:
+                contact_name: John Doe
+                contact_phone: '8112345678'
+                contact_email: john.doe@costco.com.mx
+              services_set:
+                services: []
+      responses:
+        '201':
+          description: |-
+            ### Response
+
+            El recurso fue creado exitosamente. 
+          content:
+            application/json:
+              example:
+                statusCode: 201
+                message: The stop was added successfully.
+                id: ad066b5d-0e4e-4291-8abb-37f3858f3dd7
+                data:
+                  id: ad066b5d-0e4e-4291-8abb-37f3858f3dd7
+                  name: Costco Metepec
+                  ext_id: '10'
+                  position: 10
+                  customer_id: 52ca25ff-aba2-4f30-8954-f2550c8354f7
+                  address:
+                    street: Avenida S.S Juan Pablo Segundo
+                    neighborhood: San Mateo
+                    ext_number: '501'
+                    zip_code: '52169'
+                    city: Metepec
+                    country: Mexico
+                    state: Estado de México
+                    latitude: 19.2580809386779
+                    longitude: -99.6131435116975
+                  contact_info:
+                    contact_name: John Doe
+                    contact_phone: '8112345678'
+                    contact_email: john.doe@costco.com.mx
+                  services_set:
+                    services: []
+                    has_form_ead: null
+                    has_form_rad: null
+                    evidence_config_id_ead: null
+                    evidence_config_id_rad: null
+                  appointments: null
+                  incidents: null
+                  start_journey_to_stop:
+                    status: pending
+                    latitude: 0
+                    longitude: 0
+                    timestamp: '2021-07-01T12:00:00.0000000+00:00'
+                  check_in: null
+                  check_out: null
+                  status: pending
+                  created_at: '2024-09-19T11:44:00.0000000+00:00'
+                  updated_at: '2024-09-19T11:44:00.0000000+00:00'
+                  created_by: system
+                  updated_by: system
+                  is_active: true
 components:
   schemas:
     Unauthorized:
