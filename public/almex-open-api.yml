@@ -2020,7 +2020,7 @@ paths:
 
 
         - `incidents` (array, opcional): Lista de incidentes asociados a la jornada, cada
-        uno con los campos `id`, `name`, y `description`. **Se inicializa en
+        uno con los campos `id`, `time`. **Se inicializa en
         null**
 
 
