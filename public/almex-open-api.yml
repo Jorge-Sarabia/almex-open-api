@@ -550,6 +550,9 @@ paths:
           - `cancelled`: Jornada cancelada debido a incidentes. 
 
 
+        - `invoice_url` (string, opcional): URL de la factura asociada a la jornada.
+
+
         - `can_reorder_stops`(bool): Indica si la lista de paradas en la jornada
         puede ser reordenada. Un valor de **true** significa que las paradas
         tienen un orden definido que debe seguirse, mientras que un valor de
@@ -733,6 +736,9 @@ paths:
           - `id` (string): Identificador del equipo.
 
           - `is_checked` (boolean): Indica si el equipo fue verificado.
+
+
+        - `invoice_url` (string, opcional): URL de la factura asociada a la jornada.
 
 
         - `can_reorder_stops` (boolean): Indica si se pueden reordenar las
@@ -1628,12 +1634,16 @@ paths:
           - `is_checked` (boolean): Indica si el equipo fue verificado.
 
 
+        - `invoice_url` (string, opcional): URL de la factura asociada a la jornada.
+
+
         - `can_reorder_stops` (boolean): Indica si se pueden reordenar las
         paradas de la jornada.
 
 
         - `stops` (array[object]): Lista de paradas en la jornada, cada una con los
         campos. **Tiene su propia descripción y endpoint.**.
+      
 
 
         - `status` (string): Estado de la jornada, puede tener los siguietes
@@ -2017,6 +2027,9 @@ paths:
         paradas tienen un orden definido que debe seguirse, mientras que un
         valor de **true** indica que las paradas pueden cambiar su propiedad de
         `order`. Si no se especifica, el valor por defecto es **false**.
+
+
+        - `invoice_url` (string, opcional): URL de la factura asociada a la jornada.
 
 
         Los siguientes campos componen la estructura de una jornada en general,
