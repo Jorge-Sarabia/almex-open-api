@@ -18,346 +18,6 @@ info:
 servers:
   - url: 'https://almex-api.azure-api.net/v1'
 paths:
-  '/journeys/{journey_id}/stops/':
-    get:
-      tags:
-        - stops
-      summary: Stops
-      description: >-
-        # Endpoint: GET `journeys/{journey_id}/stops`
-
-        ## Descripción
-
-        Este endpoint recupera la lista de paradas activas asociadas a una
-        jornada consultada mediante su UUID.
-
-        ## Request Parameters
-
-        **No se requieren parámetros adicionales en la solicitud.** Sin embargo,
-        si deseas modificar los valores del paginado o hacer consultas mediante
-        filtros, puedes agregar los siguientes parámetros al query:
-
-
-        - `pageSize` (number, opcional): Número de elementos por página. Valor
-        por defecto: 10.
-
-
-
-        - `page` (number, opcional): Número de la página actual. Valor por
-        defecto: 1.
-
-
-
-        - `ext_id` (string, opcional): Filtra los resultados por el ID externo
-        especificado.
-
-
-
-        - `startDate` (string, opcional): Filtra los resultados por aquellos
-        creados después de esta fecha (formato ISO 8601).
-
-
-
-        - `endDate` (string, opcional): Filtra los resultados por aquellos
-        creados antes de esta fecha (formato ISO 8601).
-
-
-
-        - `fields` (string, opcional): Especifica los campos que deseas obtener
-        en la respuesta, separados por comas (por ejemplo, `name,created_at`).
-
-
-
-        - **Otros filtros**: Puedes agregar otros filtros dinámicos basados en
-        los campos del modelo, agregándolos como parámetros de query.
-
-
-
-        ## Descripción de los campos de la parada 
-
-
-        (Los campos marcados como **Opcional** son campos que pueden no estar
-        presentes en el response):
-
-
-        - `name` (string): Nombre de la parada.
-
-
-        - `ext_id` (string): ID externo de la parada.
-
-
-        - `order` (int): Número de orden de la parada. 
-
-
-        - `customer_id` (string): Referencia al UUID del documento del cliente
-        asociado a la parada.
-
-
-        - `address` (object): Detalles de la dirección de la parada.
-
-          - `street` (string): Calle.
-
-          - `ext_number` (string): Número exterior.
-
-          - `neighborhood` (string): Colonia.
-
-          - `city` (string): Ciudad.
-
-          - `state` (string): Estado.
-
-          - `country` (string): País.
-
-          - `references` (string): Referencias de la dirección. **Opcional**.
-          
-          - `zip_code` (string): Código postal.
-
-          - `latitude` (number): Latitud.
-
-          - `longitude` (number): Longitud.
-
-          - `location_link` (string): Enlace a la ubicación de la parada. **Opcional**.
-
-        - `contact_info` (object): Información de contacto en la parada.
-
-          - `contact_name` (string): Nombre del contacto.
-
-          - `contact_phone` (string): Teléfono del contacto.
-
-          - `contact_email` (string): Correo electrónico del contacto. **Opcional**.
-
-          - `contact_position` (string): Puesto del contacto. **Opcional**.
-
-        - `services_set` (object): Conjunto de servicios asociados a la parada.
-        El objeto a su vez tiene los siguientes campos: 
-
-          - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. **Opcional**.
-
-          - `has_form_rad` (string | null): Referencia al UUID del documento del formulario RAD, si aplica. **Opcional**.
-
-          - `evidence_config_id_ead` (string | null): Referencia al UUID del documento de la configuración de evidencias EAD, si aplica. **Opcional**.
-
-          - `evidence_config_id_rad` (string | null): Referencia al UUID del documento de la configuración de evidencias RAD, si aplica. **Opcional**.
-
-          - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
-
-        - `incidents` (array[object]): Lista de incidentes asociados a la parada.
-
-          - `id` (string): Referencia al UUID del documento del incidente.
-
-          - `timestamp` (string): Marca de tiempo del incidente en formato ISO 8601.
-
-        - `appointments` (array[object]): Lista de citas en la parada, (si aplica), cada
-        una con: **Opcional**
-
-          - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
-
-          - `end_date` (string): Fecha y hora de fin de la cita en formato ISO 8601. **Opcional**.
-
-          - `description` (string): Descripción de la cita. **Opcional**.
-
-         - `start_journey_to_stop` (object): Información sobre el inicio del viaje hacia la parada.
-
-              - `status` (string): Estado del viaje de la parada, puede tener los valores: `pending` | `started` | `in_pause` | `finished`.
-
-              - `latitude` (number): Latitud al inicio del viaje.
-
-              - `longitude` (number): Longitud al inicio del viaje.
-
-              - `timestamp` (string): Marca de tiempo del inicio del viaje en formato ISO 8601.
-
-         - `check_in` (object): Información de check-in en la parada.
-
-              - `is_checked_in` (boolean): Indica si se realizó el check-in.
-
-              - `latitude` (number): Latitud en el check-in.
-
-              - `longitude` (number): Longitud en el check-in.
-
-              - `timestamp` (string): Marca de tiempo del check-in en formato ISO 8601.
-
-         - `check_out` (object): Información de check-out en la parada.
-
-              - `is_checked_out` (boolean): Indica si se realizó el check-out.
-
-              - `latitude` (number): Latitud en el check-out.
-
-              - `longitude` (number): Longitud en el check-out.
-
-              - `timestamp` (string): Marca de tiempo del check-out en formato ISO 8601.
-
-        - `status` (string): Estado de la parada, puede tener los valores:
-        `pending` | `in_progress` | `completed` | `not_completed`.
-      operationId: get-getstops
-      parameters:
-        - name: journey_id
-          in: path
-          description: El Id de la jornada con la lista de paradas a consultar.
-          required: true
-          schema:
-            enum:
-              - c98b07a3-afdd-4633-8623-686139692c18
-            type: string
-        - name: driver_id
-          in: query
-          description: 'El Id del conductor asociado a la jornada. '
-          required: true
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'El Bearer token para acceder a los recursos. '
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: >-
-            ## Response
-
-
-            El cuerpo de la respuesta contiene los detalles completos de una
-            parada específica en una jornada, con la siguiente estructura en
-            formato JSON:
-          content:
-            application/json:
-              example:
-                data:
-                  - address:
-                      city: Toluca
-                      country: Mexico
-                      ext_number: '123'
-                      latitude: '19.279314612920516'
-                      longitude: '99.59433090144017'
-                      neighborhood: San Jeronimo Chicahualco
-                      state: Estado de México
-                      street: Calle Manuel J Clouthier
-                      zip_code: '52170'
-                    appointments:
-                      - start_date: '2018-10-10T10:30:00.0000000+00:00'
-                    check_in:
-                      is_checked_in: false
-                      latitude: 0
-                      longitude: 0
-                      timestamp: '2021-07-01T12:00:00.0000000+00:00'
-                    check_out:
-                      is_checked_out: false
-                      latitude: 0
-                      longitude: 0
-                      timestamp: '2021-07-01T12:00:00.0000000+00:00'
-                    contact_info:
-                      contact_email: john@doe.com
-                      contact_name: John Doe
-                      contact_phone: '8112345678'
-                    created_at: '2024-07-03T07:59:11.0000000+00:00'
-                    created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
-                    customer_id: 71e54162-8383-4296-9929-93a44ee246b3
-                    ext_id: '1234567890'
-                    id: 88cb4ab8-65cf-46b5-8654-b4ea6386bc69
-                    incidents: null
-                    is_active: true
-                    name: Last Stop Test
-                    services_set:
-                      has_form_ead: reference to form id
-                      services: []
-                    start_journey_to_stop:
-                      latitude: 19.3421577761224
-                      longitude: -99.5713479727682
-                      status: started
-                      timestamp: '2024-07-03T04:29:32.0000000+00:00'
-                    status: pending
-                    updated_at: '2024-07-03T08:17:29.0000000+00:00'
-                    updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
-                  - address:
-                      city: Toluca
-                      ext_number: '123'
-                      latitude: '19.279314612920516'
-                      longitude: '99.59433090144017'
-                      neighborhood: San Jeronimo Chicahualco
-                      state: Estado de México
-                      street: Calle Manuel J Clouthier
-                      zip_code: '52170'
-                    appointments:
-                      - start_date: '2018-10-10T10:30:00.0000000+00:00'
-                    check_in:
-                      is_checked_in: false
-                      latitude: 0
-                      longitude: 0
-                      timestamp: '2021-07-01T12:00:00.0000000+00:00'
-                    check_out:
-                      is_checked_out: false
-                      latitude: 0
-                      longitude: 0
-                      timestamp: '2021-07-01T12:00:00.0000000+00:00'
-                    contact_info:
-                      contact_email: john@doe.com
-                      contact_name: John Doe
-                      contact_phone: '8112345678'
-                    created_at: '2024-07-02T09:13:02.0000000+00:00'
-                    created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
-                    customer_id: 71e54162-8383-4296-9929-93a44ee246b3
-                    ext_id: '1234'
-                    id: c9dde442-baaf-49f0-925a-8ffef365b01b
-                    incidents: null
-                    is_active: true
-                    name: Nombre de parada actualizado
-                    services_set:
-                      has_form_ead: reference to form id
-                      services: []
-                    start_journey_to_stop:
-                      latitude: 19.3421577761224
-                      longitude: -99.5713479727682
-                      status: started
-                      timestamp: '2024-07-03T04:29:32.0000000+00:00'
-                    status: pending
-                    updated_at: '2024-07-03T08:08:06.0000000+00:00'
-                    updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
-                  - address:
-                      city: Toluca
-                      ext_number: '123'
-                      latitude: '19.279314612920516'
-                      longitude: '99.59433090144017'
-                      neighborhood: San Jeronimo Chicahualco
-                      state: Estado de México
-                      street: Calle Manuel J Clouthier
-                      zip_code: '52170'
-                    appointments:
-                      - start_date: '2018-10-10T10:30:00.0000000+00:00'
-                    check_in:
-                      is_checked_in: false
-                      latitude: 0
-                      longitude: 0
-                      timestamp: '2021-07-01T12:00:00.0000000+00:00'
-                    check_out:
-                      is_checked_out: false
-                      latitude: 0
-                      longitude: 0
-                      timestamp: '2021-07-01T12:00:00.0000000+00:00'
-                    contact_info:
-                      contact_email: john@doe.com
-                      contact_name: John Doe
-                      contact_phone: '8112345678'
-                    created_at: '2024-07-03T03:29:32.0000000+00:00'
-                    created_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
-                    customer_id: 71e54162-8383-4296-9929-93a44ee246b3
-                    ext_id: '123456789'
-                    id: fc5f03f1-1177-4217-9f59-0ee9af3ce89a
-                    incidents: null
-                    is_active: true
-                    name: Mercado libre
-                    services_set:
-                      has_form_ead: reference to form id
-                      has_form_rad: reference to form id
-                      services: []
-                    start_journey_to_stop:
-                      latitude: 19.02356
-                      longitude: -7.0254
-                      status: started
-                      timestamp: '2021-07-03T10:35:00.0000000+00:00'
-                    status: pending
-                    updated_at: '2024-07-03T03:51:51.0000000+00:00'
-                    updated_by: 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
-                message: 3 Stops Found Successfully
-                statusCode: 200
   '/journeys/{id}':
     delete:
       tags:
@@ -522,18 +182,19 @@ paths:
         `ISO 8601`.
 
 
-        - `equipment` (array[object]): Lista del equipo necesario para completar la
-        jornada. Cada equipo tiene los campos:'
+        - `equipment` (array[object]): Lista del equipo necesario para completar
+        la jornada. Cada equipo tiene los campos:'
           - `id` (string): Referencia al UUID del equipo.
           
           - `checked` (bool): Indica si el equipo fue verificado.
 
 
-        - `position_list` (int, opcional): Posición de la jornada en la lista de atención de la fecha programada.
+        - `position_list` (int, opcional): Posición de la jornada en la lista de
+        atención de la fecha programada.
 
 
-        - `incidents` (array[object]): Lista de incidentes asociados a la jornada, cada
-        uno con los campos:
+        - `incidents` (array[object]): Lista de incidentes asociados a la
+        jornada, cada uno con los campos:
           - `id` (string): Identificador del incidente.
 
           - `time` (string): Hora del incidente en formato ISO 8601.
@@ -550,7 +211,8 @@ paths:
           - `cancelled`: Jornada cancelada debido a incidentes. 
 
 
-        - `invoice_url` (string, opcional): URL de la factura asociada a la jornada.
+        - `invoice_url` (string, opcional): URL de la factura asociada a la
+        jornada.
 
 
         - `can_reorder_stops`(bool): Indica si la lista de paradas en la jornada
@@ -719,34 +381,36 @@ paths:
         8601.
 
 
-        - `position_list` (int, opcional): Posición de la jornada en la lista de atención de la fecha programada.
+        - `position_list` (int, opcional): Posición de la jornada en la lista de
+        atención de la fecha programada.
 
 
-        - `incidents` (array[object]): Lista de incidentes asociados a la jornada, cada
-        uno con los campos:
+        - `incidents` (array[object]): Lista de incidentes asociados a la
+        jornada, cada uno con los campos:
 
           - `id` (string): Identificador del incidente.
 
           - `time` (string): Hora del incidente en formato ISO 8601.
 
 
-        - `equipment` (array[object]): Lista de equipos asociados a la jornada, cada uno
-        con los campos:
+        - `equipment` (array[object]): Lista de equipos asociados a la jornada,
+        cada uno con los campos:
 
           - `id` (string): Identificador del equipo.
 
           - `is_checked` (boolean): Indica si el equipo fue verificado.
 
 
-        - `invoice_url` (string, opcional): URL de la factura asociada a la jornada.
+        - `invoice_url` (string, opcional): URL de la factura asociada a la
+        jornada.
 
 
         - `can_reorder_stops` (boolean): Indica si se pueden reordenar las
         paradas de la jornada.
 
 
-        - `stops` (array[object]): Lista de paradas en la jornada, cada una con los
-        campos. **Tiene su propia descripción y endpoint.**.
+        - `stops` (array[object]): Lista de paradas en la jornada, cada una con
+        los campos. **Tiene su propia descripción y endpoint.**.
 
 
         - `status` (string): Estado de la jornada, puede tener los siguietes
@@ -1103,7 +767,8 @@ paths:
         - `name` (string): Nombre de la parada.
 
 
-        - `order` (int): Número de orden de la parada. 
+        - `position_list` (int, opcional): Número posición en la lista de
+        atención de las paradas. 
 
 
         - `ext_id` (string): ID externo de la parada.
@@ -1166,8 +831,8 @@ paths:
 
           - `timestamp` (string): Marca de tiempo del incidente en formato ISO 8601.
 
-        - `appointments` (array[object]): Lista de citas en la parada, (si aplica), cada
-        una con los campos: **Opcional** 
+        - `appointments` (array[object]): Lista de citas en la parada, (si
+        aplica), cada una con los campos: **Opcional** 
 
           - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
 
@@ -1299,22 +964,26 @@ paths:
       description: >-
         ## Endpoint: PUT `/journeys/{journey_id}/stops/{stop_id}`
 
+
         ### Descripción
+
 
         Este endpoint permite actualizar la información de una parada existente
         en el sistema. Se requiere enviar un request body de tipo JSON con los
         campos que se desean actualizar. Los campos no enviados en el cuerpo del
-        request permanecerán sin cambios. La combinación de campos admite los
-        que se describen a continuación. **Ningún campo es obligatorio pero el
-        request body no debe enviarse vacío**.
+        request permanecerán sin cambios. Todos los campos son opcionales. La
+        combinación de campos admite los que se describen a continuación.
+        **Ningún campo es obligatorio pero el request body no debe enviarse
+        vacío**. 
 
         ### Request Parameters
 
-        - `journey_id` (string): El ID de la jornada a la que se desea agregar
-        la nueva parada.
+        - `journey_id` (string): El Id de la jornada en donde se encuentra la
+        parada que se va a modificar.
 
 
-        - `ext_journey_id` (string): El ID externo de la jornada.
+        - `ext_journey_id` (string): El ID externo de la jornada en donde se
+        encuentra la parada que se va a modificar.
 
 
         - `stop_id` (string): El ID de la parada que se desea modificar.
@@ -1328,7 +997,8 @@ paths:
         - `ext_id` (string): ID externo de la parada.
 
 
-        - `order` (int): El orden de la parada.
+        - `position_list` (int): Número posición en la lista de atención de las
+        paradas. 
 
 
         - `customer_id` (string): Referencia al UUID del documento del cliente
@@ -1443,9 +1113,11 @@ paths:
           required: true
           schema:
             type: string
-        - name: ext_id
+        - name: ext_journey_id
           in: query
-          description: 'El Id externo de la jornada, como llave de partición.'
+          description: >-
+            El ID externo de la jornada donde se encuentra la parada a
+            modificar. 
           required: true
           schema:
             type: string
@@ -1501,7 +1173,8 @@ paths:
         parada a eliminar.
 
 
-        - `ext_journey_id` (string): El ID externo de la jornada.
+        - `ext_journey_id` (string): El ID externo de la jornada a la que
+        pertenece la parada a eliminar.
 
 
         - `stop_id` (string): El ID de la parada a eliminar.
@@ -1509,11 +1182,19 @@ paths:
       parameters:
         - name: journey_id
           in: path
+          description: 'El ID de la jornada de la parada a eliminar. '
           required: true
           schema:
             type: string
         - name: stop_id
           in: path
+          description: El ID externo de la jornada a la que pertenece la parada a eliminar.
+          required: true
+          schema:
+            type: string
+        - name: ext_journey_id
+          in: query
+          description: El ID de la parada a eliminar.
           required: true
           schema:
             type: string
@@ -1525,7 +1206,7 @@ paths:
             type: string
       responses:
         '200':
-          description: 'null'
+          description: 'Ejemplo del response cuando la solicitud es exitosa. '
   /journeys:
     get:
       tags:
@@ -1615,35 +1296,37 @@ paths:
 
 
 
-        - `position_list` (int, opcional): Posición de la jornada en la lista de atención de la fecha programada.
+        - `position_list` (int, opcional): Posición de la jornada en la lista de
+        atención de la fecha programada.
 
 
-        - `incidents` (array[object]): Lista de incidentes asociados a la jornada, cada
-        uno con los campos:
+        - `incidents` (array[object]): Lista de incidentes asociados a la
+        jornada, cada uno con los campos:
 
           - `id` (string): Identificador del incidente.
 
           - `time` (string): Timestamp del incidente.
 
 
-        - `equipment` (array[object]): Lista de equipos asociados a la jornada, cada uno
-        con los campos:
+        - `equipment` (array[object]): Lista de equipos asociados a la jornada,
+        cada uno con los campos:
 
           - `id` (string): Identificador del equipo.
 
           - `is_checked` (boolean): Indica si el equipo fue verificado.
 
 
-        - `invoice_url` (string, opcional): URL de la factura asociada a la jornada.
+        - `invoice_url` (string, opcional): URL de la factura asociada a la
+        jornada.
 
 
         - `can_reorder_stops` (boolean): Indica si se pueden reordenar las
         paradas de la jornada.
 
 
-        - `stops` (array[object]): Lista de paradas en la jornada, cada una con los
-        campos. **Tiene su propia descripción y endpoint.**.
-      
+        - `stops` (array[object]): Lista de paradas en la jornada, cada una con
+        los campos. **Tiene su propia descripción y endpoint.**.
+
 
 
         - `status` (string): Estado de la jornada, puede tener los siguietes
@@ -2018,8 +1701,8 @@ paths:
           - `is_checked` (bool, opcional): Campo para marcar si el equipo ha sido validado por el operador desde la app movil. El valor por defecto es false. 
 
 
-        - `position_list` (int, opcional): Posición de la jornada en la lista de atención de la fecha programada.
-        atención.
+        - `position_list` (int, opcional): Posición de la jornada en la lista de
+        atención de la fecha programada. atención.
 
 
         - `can_reorder_stops` (bool, opcional): Indica si la lista de paradas en
@@ -2029,7 +1712,8 @@ paths:
         `order`. Si no se especifica, el valor por defecto es **false**.
 
 
-        - `invoice_url` (string, opcional): URL de la factura asociada a la jornada.
+        - `invoice_url` (string, opcional): URL de la factura asociada a la
+        jornada.
 
 
         Los siguientes campos componen la estructura de una jornada en general,
@@ -2037,9 +1721,9 @@ paths:
         generados con valores por defecto o tienen sus respectivos endpoints
         para ser modificados
 
-        - `stops` (array[object]): Lista de las paradas en la jornada. Los campos
-        respectivos y su respectiva descripción se encuentran en el endpoint de
-        paradas. **Si no se envian valores se inicializa en []**
+        - `stops` (array[object]): Lista de las paradas en la jornada. Los
+        campos respectivos y su respectiva descripción se encuentran en el
+        endpoint de paradas. **Si no se envian valores se inicializa en []**
       operationId: post-addjourney
       parameters:
         - name: Authorization
@@ -2790,7 +2474,8 @@ paths:
 
             - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
-        - `merchandise` (array[object]): Lista de mercancías asociadas al servicio.
+        - `merchandise` (array[object]): Lista de mercancías asociadas al
+        servicio.
 
           - `label_number` (string): Número de etiqueta de la mercancía.
 
@@ -2846,22 +2531,23 @@ paths:
         servicio/guía.
 
 
-        - `comments` (array[string]): Lista de comentarios asociados al servicio.
-        **Opcional**
+        - `comments` (array[string]): Lista de comentarios asociados al
+        servicio. **Opcional**
 
 
         - `invoice_url` (string): Referencia a la factura asociada al servicio.
 
 
-        - `incidents` (array[object]): Lista de incidentes asociados al servicio.
-        **Opcional**
+        - `incidents` (array[object]): Lista de incidentes asociados al
+        servicio. **Opcional**
 
           - `id` (string): Identificador único del incidente.
 
           - `timestamp` (string): Fecha y hora del incidente.
 
 
-        - `evidences` (array[object]): Lista de evidencias asociadas al servicio.
+        - `evidences` (array[object]): Lista de evidencias asociadas al
+        servicio.
 
           - `id` (string): Identificador único de la evidencia.
 
@@ -3003,7 +2689,8 @@ paths:
         - `ext_id` (string): Identificador externo del servicio.
 
 
-        - `position_list` (int): Posición del servicio en la lista de atención del grupo de servicios. **Opcional**.
+        - `position_list` (int): Posición del servicio en la lista de atención
+        del grupo de servicios. **Opcional**.
 
 
         - `type` (string): Tipo de servicio, puede tener los valores:
@@ -3097,9 +2784,9 @@ paths:
 
             - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
-        - `merchandise` (array[object]): Lista de mercancías asociadas al servicio.
-        **Merchandise tiene su propio endpoint y se recomienda usarlo para
-        obtener la información de la mercancía, así como para ejecutar las
+        - `merchandise` (array[object]): Lista de mercancías asociadas al
+        servicio. **Merchandise tiene su propio endpoint y se recomienda usarlo
+        para obtener la información de la mercancía, así como para ejecutar las
         operaciones de los métodos HTTP.**
 
           - `label_number` (string): Número de etiqueta de la mercancía.
@@ -3156,22 +2843,23 @@ paths:
         servicio/guía.
 
 
-        - `comments` (array[string]): Lista de comentarios asociados al servicio.
-        **Opcional**
+        - `comments` (array[string]): Lista de comentarios asociados al
+        servicio. **Opcional**
 
 
         - `invoice_url` (string): Referencia a la factura asociada al servicio.
 
 
-        - `incidents` (array[object]): Lista de incidentes asociados al servicio.
-        **Opcional**
+        - `incidents` (array[object]): Lista de incidentes asociados al
+        servicio. **Opcional**
             
             - `id` (string): Identificador único del incidente.
-  
+
             - `timestamp` (string): Fecha y hora del incidente.
 
 
-        - `evidences` (array[object]): Lista de evidencias asociadas al servicio.
+        - `evidences` (array[object]): Lista de evidencias asociadas al
+        servicio.
 
           - `id` (string): Identificador único de la evidencia.
 
@@ -3350,7 +3038,8 @@ paths:
         - `ext_id` (string): Identificador externo del servicio.
 
 
-        - `position_list` (int, opcional): Posición del servicio en la lista de atención del conjunto de servicios.
+        - `position_list` (int, opcional): Posición del servicio en la lista de
+        atención del conjunto de servicios.
 
 
         - `type` (string): Tipo de servicio, puede tener los valores:
@@ -3444,7 +3133,8 @@ paths:
 
             - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
-        - `merchandise` (array[object]): Lista de mercancías asociadas al servicio.
+        - `merchandise` (array[object]): Lista de mercancías asociadas al
+        servicio.
 
           - `label_number` (string): Número de etiqueta de la mercancía.
 
@@ -3492,22 +3182,23 @@ paths:
         servicio/guía.
 
 
-        - `comments` (array[string]): Lista de comentarios asociados al servicio.
-        **Opcional**
+        - `comments` (array[string]): Lista de comentarios asociados al
+        servicio. **Opcional**
 
 
         - `invoice_url` (string): Referencia a la factura asociada al servicio.
 
 
-        - `incidents` (array[object]): Lista de incidentes asociados al servicio.
-        **Opcional**
+        - `incidents` (array[object]): Lista de incidentes asociados al
+        servicio. **Opcional**
 
           - `id` (string): Identificador único del incidente.
 
           - `timestamp` (string): Fecha y hora del incidente.
 
 
-        - `evidences` (array[object]): Lista de evidencias asociadas al servicio.
+        - `evidences` (array[object]): Lista de evidencias asociadas al
+        servicio.
 
           - `id` (string): Identificador único de la evidencia.
 
@@ -3682,7 +3373,8 @@ paths:
         embargo, el cuerpo de la solicitud no debe enviarse vacío:
 
 
-        - `position_list` (int): Posición del servicio en la lista de atención del grupo de servicios.
+        - `position_list` (int): Posición del servicio en la lista de atención
+        del grupo de servicios.
 
 
         - `type` (string): Tipo de servicio, puede tener los valores:
@@ -3776,31 +3468,32 @@ paths:
 
             - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
-        - `merchandise` (array[object]): Lista de la mercancía (etiquetas) que integran
-        la guía. **Para operaciones de actualización, se recomienda hacerlo
-        mediante sus respectivos endpoints**
+        - `merchandise` (array[object]): Lista de la mercancía (etiquetas) que
+        integran la guía. **Para operaciones de actualización, se recomienda
+        hacerlo mediante sus respectivos endpoints**
 
 
         - `questionnaire_id` (string): Referencia al cuestionario asociado al
         servicio/guía.
 
 
-        - `comments` (array[string]): Lista de comentarios asociados al servicio.
-        **Opcional**
+        - `comments` (array[string]): Lista de comentarios asociados al
+        servicio. **Opcional**
 
 
         - `invoice_url` (string): Referencia a la factura asociada al servicio.
 
 
-        - `incidents` (array[object]): Lista de incidentes asociados al servicio.
-        **Opcional**
+        - `incidents` (array[object]): Lista de incidentes asociados al
+        servicio. **Opcional**
 
           - `id` (string): Identificador único del incidente.
 
           - `timestamp` (string): Fecha y hora del incidente.
 
 
-        - `evidences` (array[object]): Lista de evidencias asociadas al servicio.
+        - `evidences` (array[object]): Lista de evidencias asociadas al
+        servicio.
 
           - `id` (string): Identificador único de la evidencia.
 
@@ -7720,7 +7413,8 @@ paths:
         - `ext_document` (string): Documento externo asociado a la mercancía.
 
 
-        - `evidences` (array[object]): Lista de evidencias asociadas a la mercancía.
+        - `evidences` (array[object]): Lista de evidencias asociadas a la
+        mercancía.
 
           - `id` (string): Identificador de la evidencia.
 
@@ -8220,7 +7914,8 @@ paths:
         **Opcional**
 
 
-        - `evidences` (array[object]): Lista de evidencias asociadas a la mercancía.
+        - `evidences` (array[object]): Lista de evidencias asociadas a la
+        mercancía.
 
           - `evidence_id` (string): Identificador de la evidencia.
 
@@ -17985,6 +17680,27 @@ paths:
                 id: adc4ef5c-81f4-483d-a091-148d4a36df21
                 message: EmptyEquipmentCollection updated successfully.
                 statusCode: 200
+  /sas-url-token:
+    get:
+      summary: GenerateSasUrl
+      description: GenerateSasUrl
+      operationId: get-generatesasurl
+      parameters:
+        - name: container
+          in: query
+          description: El nombre del contenedor del archivo.
+          required: true
+          schema:
+            type: string
+        - name: fileName
+          in: query
+          description: 'El nombre del archivo. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'null'
   '/journeys/{journey_id}/stops':
     post:
       tags:
@@ -18024,7 +17740,8 @@ paths:
 
 
 
-        - `position_list` (int): El orden de la parada en la lista de paradas.
+        - `position_list` (int): Número posición en la lista de atención de las
+        paradas. **Opcional**
 
 
 
@@ -18082,8 +17799,8 @@ paths:
           - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.**.
 
 
-        - `appointments` (array[object]): Lista de citas de la parada, (si aplica), cada
-        una con los campos: **Opcional**
+        - `appointments` (array[object]): Lista de citas de la parada, (si
+        aplica), cada una con los campos: **Opcional**
 
           - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
 
@@ -18094,93 +17811,294 @@ paths:
       parameters:
         - name: journey_id
           in: path
-          description: 'El UUID de la jornada a la que se quiere agregar la nueva parada. '
+          description: ID de la jornada en la que se desea agregar la parada.
           required: true
           schema:
             type: string
-        - name: ext_journal_id
+        - name: ext_journey_id
           in: query
-          description: 'El external Id de la jornada. '
+          description: ID de la jornada en la que se desea agregar la parada.
           required: true
           schema:
-            type: 'string'
-      requestBody:
-        content:
-          application/json:
-            example:
-              name: Costco Metepec
-              ext_id: '10'
-              position: 10
-              customer_id: 52ca25ff-aba2-4f30-8954-f2550c8354f7
-              address:
-                street: Avenida S.S Juan Pablo Segundo
-                neighborhood: San Mateo
-                ext_number: '501'
-                zip_code: '52169'
-                city: Metepec
-                country: Mexico
-                state: Estado de México
-                latitude: '19.258080938677868'
-                longitude: '-99.61314351169749'
-              contact_info:
-                contact_name: John Doe
-                contact_phone: '8112345678'
-                contact_email: john.doe@costco.com.mx
-              services_set:
-                services: []
+            type: string
       responses:
         '201':
-          description: |-
-            ### Response
-
-            El recurso fue creado exitosamente. 
+          description: 'El response cuando el documento se ha creado correctamente. '
           content:
             application/json:
               example:
                 statusCode: 201
                 message: The stop was added successfully.
-                id: ad066b5d-0e4e-4291-8abb-37f3858f3dd7
                 data:
-                  id: ad066b5d-0e4e-4291-8abb-37f3858f3dd7
-                  name: Costco Metepec
-                  ext_id: '10'
-                  position: 10
-                  customer_id: 52ca25ff-aba2-4f30-8954-f2550c8354f7
+                  ext_id: 07096510482
+                  name: 07096510482
+                  customer_id: Reference to customer_id
+                  position_list: 1
                   address:
-                    street: Avenida S.S Juan Pablo Segundo
-                    neighborhood: San Mateo
-                    ext_number: '501'
-                    zip_code: '52169'
-                    city: Metepec
-                    country: Mexico
-                    state: Estado de México
-                    latitude: 19.2580809386779
-                    longitude: -99.6131435116975
-                  contact_info:
-                    contact_name: John Doe
-                    contact_phone: '8112345678'
-                    contact_email: john.doe@costco.com.mx
-                  services_set:
-                    services: []
-                    has_form_ead: null
-                    has_form_rad: null
-                    evidence_config_id_ead: null
-                    evidence_config_id_rad: null
-                  appointments: null
-                  incidents: null
-                  start_journey_to_stop:
-                    status: pending
+                    city: LAREDO
+                    country: EU
+                    ext_number: '1220'
+                    neighborhood: KILLAM INDUSTRIAL PARK P.O. BOX 440009
+                    state: TEXAS
+                    street: BOSWELL ST
+                    zip_code: '78045'
                     latitude: 0
                     longitude: 0
-                    timestamp: '2021-07-01T12:00:00.0000000+00:00'
+                  appointments: []
+                  contact_info:
+                    contact_name: TEST TX
+                    contact_phone: '212121212'
+                  incidents: null
+                  start_journey_to_stop: null
                   check_in: null
                   check_out: null
                   status: pending
-                  created_at: '2024-09-19T11:44:00.0000000+00:00'
-                  updated_at: '2024-09-19T11:44:00.0000000+00:00'
-                  created_by: system
-                  updated_by: system
+                  created_at: '2024-10-07T09:55:10.0000000+00:00'
+                  updated_at: '2024-10-07T09:55:10.0000000+00:00'
+                  created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                  updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                   is_active: true
+  '/journeys/{journeyId}/stops':
+    get:
+      tags:
+        - stops
+      summary: Stops
+      description: >-
+        # Endpoint: GET `journeys/{journey_id}/stops`
+
+        ## Descripción
+
+        Este endpoint recupera la lista de paradas activas asociadas a una
+        jornada consultada mediante su UUID.
+
+        ## Request Parameters
+
+        **No se requieren parámetros adicionales en la solicitud.** Sin embargo,
+        si deseas modificar los valores del paginado o hacer consultas mediante
+        filtros, puedes agregar los siguientes parámetros al query:
+
+
+        - `pageSize` (number, opcional): Número de elementos por página. Valor
+        por defecto: 10.
+
+
+
+        - `page` (number, opcional): Número de la página actual. Valor por
+        defecto: 1.
+
+
+
+        - `ext_id` (string, opcional): Filtra los resultados por el ID externo
+        especificado.
+
+
+
+        - `fields` (string, opcional): Especifica los campos que deseas obtener
+        en la respuesta, separados por comas (por ejemplo, `name,created_at`).
+
+
+
+        - **Otros filtros**: Puedes agregar otros filtros dinámicos basados en
+        los campos del modelo, agregándolos como parámetros de query.
+
+
+
+        ## Descripción de los campos de la parada 
+
+
+        (Los campos marcados como **Opcional** son campos que pueden no estar
+        presentes en el response):
+
+
+        - `name` (string): Nombre de la parada.
+
+
+        - `ext_id` (string): ID externo de la parada.
+
+
+        - `position_list` (int, opcional): Número posición en la lista de
+        atención de las paradas. 
+
+
+        - `customer_id` (string): Referencia al UUID del documento del cliente
+        asociado a la parada.
+
+
+        - `address` (object): Detalles de la dirección de la parada.
+
+          - `street` (string): Calle.
+
+          - `ext_number` (string): Número exterior.
+
+          - `neighborhood` (string): Colonia.
+
+          - `city` (string): Ciudad.
+
+          - `state` (string): Estado.
+
+          - `country` (string): País.
+
+          - `references` (string): Referencias de la dirección. **Opcional**.
+          
+          - `zip_code` (string): Código postal.
+
+          - `latitude` (number): Latitud.
+
+          - `longitude` (number): Longitud.
+
+          - `location_link` (string): Enlace a la ubicación de la parada. **Opcional**.
+
+        - `contact_info` (object): Información de contacto en la parada.
+
+          - `contact_name` (string): Nombre del contacto.
+
+          - `contact_phone` (string): Teléfono del contacto.
+
+          - `contact_email` (string): Correo electrónico del contacto. **Opcional**.
+
+          - `contact_position` (string): Puesto del contacto. **Opcional**.
+
+        - `services_set` (object): Conjunto de servicios asociados a la parada.
+        El objeto a su vez tiene los siguientes campos: 
+
+          - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. **Opcional**.
+
+          - `has_form_rad` (string | null): Referencia al UUID del documento del formulario RAD, si aplica. **Opcional**.
+
+          - `evidence_config_id_ead` (string | null): Referencia al UUID del documento de la configuración de evidencias EAD, si aplica. **Opcional**.
+
+          - `evidence_config_id_rad` (string | null): Referencia al UUID del documento de la configuración de evidencias RAD, si aplica. **Opcional**.
+
+          - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
+
+        - `incidents` (array[object]): Lista de incidentes asociados a la
+        parada.
+
+          - `id` (string): Referencia al UUID del documento del incidente.
+
+          - `timestamp` (string): Marca de tiempo del incidente en formato ISO 8601.
+
+        - `appointments` (array[object]): Lista de citas en la parada, (si
+        aplica), cada una con: **Opcional**
+
+          - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
+
+          - `end_date` (string): Fecha y hora de fin de la cita en formato ISO 8601. **Opcional**.
+
+          - `description` (string): Descripción de la cita. **Opcional**.
+
+         - `start_journey_to_stop` (object): Información sobre el inicio del viaje hacia la parada.
+
+              - `status` (string): Estado del viaje de la parada, puede tener los valores: `pending` | `started` | `in_pause` | `finished`.
+
+              - `latitude` (number): Latitud al inicio del viaje.
+
+              - `longitude` (number): Longitud al inicio del viaje.
+
+              - `timestamp` (string): Marca de tiempo del inicio del viaje en formato ISO 8601.
+
+         - `check_in` (object): Información de check-in en la parada.
+
+              - `is_checked_in` (boolean): Indica si se realizó el check-in.
+
+              - `latitude` (number): Latitud en el check-in.
+
+              - `longitude` (number): Longitud en el check-in.
+
+              - `timestamp` (string): Marca de tiempo del check-in en formato ISO 8601.
+
+         - `check_out` (object): Información de check-out en la parada.
+
+              - `is_checked_out` (boolean): Indica si se realizó el check-out.
+
+              - `latitude` (number): Latitud en el check-out.
+
+              - `longitude` (number): Longitud en el check-out.
+
+              - `timestamp` (string): Marca de tiempo del check-out en formato ISO 8601.
+
+        - `status` (string): Estado de la parada, puede tener los valores:
+        `pending` | `in_progress` | `completed` | `not_completed`.
+      operationId: get-getstops
+      parameters:
+        - name: journeyId
+          in: path
+          description: 'ID de la jornada de las paradas que se desean consultar. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Ejemplo del response cuando la solicitud es exitosa. '
+          content:
+            application/json:
+              example:
+                statusCode: 200
+                message: 2 Stops Found Successfully
+                data:
+                  pageSize: 10
+                  currentPage: 1
+                  totalItems: 2
+                  totalPages: 1
+                  data:
+                    - ext_id: 07096510484
+                      name: 07096510483
+                      customer_id: Reference to customer_id
+                      address:
+                        city: LAREDO
+                        country: EU
+                        ext_number: '1220'
+                        neighborhood: KILLAM INDUSTRIAL PARK P.O. BOX 440009
+                        state: TEXAS
+                        street: BOSWELL ST
+                        zip_code: '78045'
+                        latitude: 0
+                        longitude: 0
+                      appointments: []
+                      contact_info:
+                        contact_name: TEST TX
+                        contact_phone: '212121212'
+                      id: 2f933cf7-39c7-4c0f-9df7-53d63c24e7e4
+                      position_list: 1
+                      incidents: null
+                      start_journey_to_stop: null
+                      check_in: null
+                      check_out: null
+                      status: pending
+                      created_at: '2024-10-08T04:47:04.0000000+00:00'
+                      updated_at: '2024-10-08T04:47:04.0000000+00:00'
+                      created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                      updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                      is_active: true
+                    - ext_id: 07096510486
+                      name: 07096510486
+                      customer_id: Reference to customer_id
+                      address:
+                        city: LAREDO
+                        country: EU
+                        ext_number: '1220'
+                        neighborhood: KILLAM INDUSTRIAL PARK P.O. BOX 440009
+                        state: TEXAS
+                        street: BOSWELL ST
+                        zip_code: '78045'
+                        latitude: 0
+                        longitude: 0
+                      appointments: []
+                      contact_info:
+                        contact_name: TEST TX
+                        contact_phone: '212121212'
+                      id: 3aac1503-ae0e-4b8c-8749-b17ae21e152b
+                      position_list: 1
+                      incidents: null
+                      start_journey_to_stop: null
+                      check_in: null
+                      check_out: null
+                      status: pending
+                      created_at: '2024-10-08T04:40:24.0000000+00:00'
+                      updated_at: '2024-10-08T04:40:24.0000000+00:00'
+                      created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                      updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                      is_active: true
 components:
   schemas:
     Unauthorized:
