@@ -2380,7 +2380,8 @@ paths:
         - `ext_id` (string): Identificador externo del servicio.
 
 
-        - `order` (number): El orden de atención del servicio. 
+        - `position_list` (int, opcional): Posición del servicio en la lista de
+        atención del conjunto de servicios.
 
 
         - `type` (string): Tipo de servicio, puede tener los valores:
@@ -2466,13 +2467,14 @@ paths:
 
           - `notes` (string): Notas adicionales sobre el servicio. **Opcional**
 
-          - `document_return` (object): Información sobre el retorno de documentos.
+        - `document_return` (object): Información sobre el retorno de
+        documentos.
 
-            - `is_required` (boolean): Indica si el retorno de documentos es requerido.
+          - `is_required` (boolean): Indica si el retorno de documentos es requerido.
 
-            - `total_documents` (number): Total de documentos a retornar.
+          - `total_documents` (number): Total de documentos a retornar.
 
-            - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
+          - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
         - `merchandise` (array[object]): Lista de mercancías asociadas al
         servicio.
@@ -2776,13 +2778,14 @@ paths:
 
           - `notes` (string): Notas adicionales sobre el servicio. **Opcional**
 
-          - `document_return` (object): Información sobre el retorno de documentos.
+        - `document_return` (object): Información sobre el retorno de
+        documentos.
 
-            - `is_required` (boolean): Indica si el retorno de documentos es requerido.
+          - `is_required` (boolean): Indica si el retorno de documentos es requerido.
 
-            - `total_documents` (number): Total de documentos a retornar.
+          - `total_documents` (number): Total de documentos a retornar.
 
-            - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
+          - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
         - `merchandise` (array[object]): Lista de mercancías asociadas al
         servicio. **Merchandise tiene su propio endpoint y se recomienda usarlo
@@ -3125,13 +3128,14 @@ paths:
 
           - `notes` (string): Notas adicionales sobre el servicio. **Opcional**
 
-          - `document_return` (object): Información sobre el retorno de documentos.
+        - `document_return` (object): Información sobre el retorno de
+        documentos.
 
-            - `is_required` (boolean): Indica si el retorno de documentos es requerido.
+          - `is_required` (boolean): Indica si el retorno de documentos es requerido.
 
-            - `total_documents` (number): Total de documentos a retornar.
+          - `total_documents` (number): Total de documentos a retornar.
 
-            - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
+          - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
         - `merchandise` (array[object]): Lista de mercancías asociadas al
         servicio.
@@ -3460,13 +3464,14 @@ paths:
 
           - `notes` (string): Notas adicionales sobre el servicio. **Opcional**
 
-          - `document_return` (object): Información sobre el retorno de documentos.
+        - `document_return` (object): Información sobre el retorno de
+        documentos.
 
-            - `is_required` (boolean): Indica si el retorno de documentos es requerido.
+          - `is_required` (boolean): Indica si el retorno de documentos es requerido.
 
-            - `total_documents` (number): Total de documentos a retornar.
+          - `total_documents` (number): Total de documentos a retornar.
 
-            - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
+          - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
         - `merchandise` (array[object]): Lista de la mercancía (etiquetas) que
         integran la guía. **Para operaciones de actualización, se recomienda
