@@ -1227,8 +1227,11 @@ paths:
         ### Request Parameters
 
 
-        **No se requieren parámetros adicionales en la solicitud.** Sin embargo,
-        si deseas modificar los valores del paginado o hacer consultas mediante
+        - `driver_id` (string): Identificador del conductor asignado a la
+        jornada.
+
+
+        Si deseas modificar los valores del paginado o hacer consultas mediante
         filtros, puedes agregar los siguientes parámetros al query:
 
 
