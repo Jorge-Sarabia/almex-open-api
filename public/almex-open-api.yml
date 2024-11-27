@@ -1227,8 +1227,8 @@ paths:
         ### Request Parameters
 
 
-        - `driver_id` (string): Identificador del conductor asignado a la
-        jornada.
+        - `driver_id` (string, opcional): Identificador del conductor asignado a
+        la jornada.
 
 
         Si deseas modificar los valores del paginado o hacer consultas mediante
@@ -1361,14 +1361,6 @@ paths:
         - `is_active` (boolean): Indica si la jornada está activa.
       operationId: get-getjourneys
       parameters:
-        - name: driver_id
-          in: query
-          description: ' El ID del transportista para filtrar los journeys.'
-          required: true
-          schema:
-            enum:
-              - 28fe9b43-a2f0-4fd6-9a53-e439f42cdabc
-            type: string
         - name: Authorization
           in: header
           description: Agregar el Bearer Token generado para acceder al recurso.
