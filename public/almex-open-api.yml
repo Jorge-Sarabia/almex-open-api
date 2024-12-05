@@ -2344,10 +2344,12 @@ paths:
       tags:
         - services
       summary: Services
-      description: >
+      description: >-
         ## Endpoint: GET `/journeys/{journey_id}/stops/{stop_id}/services`
 
+
         ### Descripción
+
 
         Este endpoint permite obtener la lista de servicios asociados a una
         parada específica. Este endpoint requiere el identificador único de la
@@ -2356,123 +2358,111 @@ paths:
         incluyendo detalles del remitente y destinatario, mercancías asociadas,
         evidencias, y otra información relevante.
 
+
         ### Request Parameters
+
 
         - `journey_id` (string): Identificador único de la jornada.
 
 
+
         - `stop_id` (string): Identificador único de la parada.
+
 
         ### Descripción de los campos
 
-        Los campos marcados como **Opcional** pueden no estar presentes en los
-        detalles del response de algunos servicios y se recomienda validar su
-        existencia antes de utilizarlos.
+
+        #### Campos Base
+
 
         - `id` (string): Identificador único del servicio.
+
 
 
         - `ext_id` (string): Identificador externo del servicio.
 
 
+
         - `position_list` (int, opcional): Posición del servicio en la lista de
-        atención del conjunto de servicios.
+        atención.
 
 
-        - `type` (string): Tipo de servicio, puede tener los valores:
 
-          - `EAD`: Entregas a Domicilio.
-
-          - `RAD`: Recolecciones a Domicilio.
-
-          - `ACT_MANIFEST`: Actividad de Manifiesto.
-
-          - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío.
-
-          - `ACT_INTERNATIONAL`: Actividad Internacional para Puertos y Aeropuertos. 
-
-          - `ACT_CUSTOM`: Actividad Internacional para Aduanas. 
-
-
-        - `act_international_form_id` (string): Identificador del formulario de
-        la actividad internacional para puertos y aeropuertos. **Opcional, solo
-        si aplica el tipo de servicio como `ACT_INTERNATIONAL`**.
+        - `type` (string, requerido): Tipo de servicio:
+          
+          - `EAD`: Entregas a Domicilio
+          
+          - `RAD`: Recolecciones a Domicilio
+          
+          - `ACT_MANIFEST`: Actividad de Manifiesto
+          
+          - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío
+          
+          - `ACT_INTERNATIONAL`: Actividad Internacional para Puertos y Aeropuertos
+          
+          - `ACT_CUSTOM`: Actividad Internacional para Aduanas
 
 
-        - `act_custom_form_id` (string): Identificador del formulario de la
-        actividad internacional para aduanas. **Opcional, solo si aplica el tipo
-        de servicio como `ACT_CUSTOM`**.
+        - `act_international_form_id` (string): ID del formulario de actividad
+        internacional. **Opcional, solo para el tipo `ACT_INTERNATIONAL`**
 
 
-        - `guide_number` (string): Número de guía de 10 dígitos asociado a``
-        servicio.
+
+        - `act_custom_form_id` (string): ID del formulario de actividad de
+        aduanas. **Opcional, solo para el tipo `ACT_CUSTOM`**
+
+
+
+        - `guide_number` (string): Número de guía de 10 dígitos. **Opcional,
+        solo para los tipos `EAD` o `RAD`**
+
 
 
         - `description` (string): Descripción del servicio. **Opcional**
 
 
-        - `details` (object): Detalles del servicio. Contiene la siguiente
-        información:
+        #### Detalles del Servicio
 
-          - `sender` (object): Información del remitente.
 
-            - `name` (string): Nombre del remitente.
+        - `details` (object): **Opcional, solo para `EAD` o `RAD`**. Contiene:
 
-            - `phone` (string): Teléfono del remitente.
+          - `sender` (object): Información del remitente
 
-            - `address` (object): Dirección del remitente.
+            - `name` (string): Nombre
 
-              - `street` (string): Calle del destinatario.
+            - `phone` (string): Teléfono
 
-              - `number` (string): Número del destinatario.
+            - `address` (object): Dirección completa
 
-              - `neighborhood` (string): Colonia del destinatario.
+          - `recipient` (object): Información del destinatario
 
-              - `zip_code` (string): Código postal del destinatario.
+            - `name` (string): Nombre
 
-              - `city` (string): Ciudad del destinatario.
+            - `phone` (string): Teléfono
 
-              - `state` (string): Estado del destinatario.
+            - `address` (object): Dirección completa
 
-              - `country` (string): País del destinatario.
+          - `references` (string): Referencias adicionales. **Opcional**
 
-          - `recipient` (object): Información del destinatario.
+          - `notes` (string): Notas adicionales. **Opcional**
 
-            - `name` (string): Nombre del destinatario.
+        #### Documentos y Mercancía
 
-            - `phone` (string): Teléfono del destinatario.
 
-            - `address` (object): Dirección del destinatario.
+        - `document_return` (object): Información de retorno de documentos
 
-              - `street` (string): Calle del destinatario.
+          - `is_required` (boolean): Si el retorno es requerido
 
-              - `number` (string): Número del destinatario.
+          - `total_documents` (number): Total de documentos
 
-              - `neighborhood` (string): Colonia del destinatario.
+          - `is_confirmed` (boolean): Si está confirmado
 
-              - `zip_code` (string): Código postal del destinatario.
+        #### Campos Específicos por Tipo de Servicio
 
-              - `city` (string): Ciudad del destinatario.
-
-              - `state` (string): Estado del destinatario.
-
-              - `country` (string): País del destinatario.
-
-          - `references` (string): Referencias adicionales del servicio. **Opcional**
-
-          - `notes` (string): Notas adicionales sobre el servicio. **Opcional**
-
-        - `document_return` (object): Información sobre el retorno de
-        documentos.
-
-          - `is_required` (boolean): Indica si el retorno de documentos es requerido.
-
-          - `total_documents` (number): Total de documentos a retornar.
-
-          - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
         - `merchandise` (array[object]): Lista de mercancías asociadas al
-        servicio.
+        servicio.  **Opcional, solo si aplica el tipo de servicio como `EAD` o
+        `RAD`**.
 
           - `label_number` (string): Número de etiqueta de la mercancía.
 
@@ -2498,23 +2488,15 @@ paths:
 
             - `evidences` (array[object]): Evidencias del daño.
 
-              - `id` (string): Identificador único de la evidencia.
-
-              - `type` (string): Tipo de evidencia (por ejemplo, foto).
-
-              - `url` (string): URL de la evidencia. **Opcional**
-
-              - `is_required` (boolean): Indica si la evidencia es requerida.
-
-              - `status` (string): Estado de la evidencia.
-
           - `status` (string): Estado de la mercancía, puede tener los valores `pending` | `delivered` | `not_delivered` | `collected` | `not_collected`.
 
           - `ext_document` (string): Documento externo asociado a la mercancía. **Opcional**
 
-          - `evidences` (array[object]): Evidencias asociadas a la mercancía.
+          - `evidences` (array[object]),: Evidencias asociadas a la mercancía.
 
             - `id` (string): Identificador único de la evidencia.
+
+            - `evidence_id` (string): Identificador de la evidencia.
 
             - `type` (string): Tipo de evidencia (por ejemplo, foto).
 
@@ -2525,7 +2507,8 @@ paths:
             - `status` (string): Estado de la evidencia.
 
         - `questionnaire_id` (string): Referencia al cuestionario asociado al
-        servicio/guía.
+        servicio/guía.  **Opcional, solo si aplica el tipo de servicio como
+        `EAD` o `RAD`**.
 
 
         - `comments` (array[string]): Lista de comentarios asociados al
@@ -2544,7 +2527,8 @@ paths:
 
 
         - `evidences` (array[object]): Lista de evidencias asociadas al
-        servicio.
+        servicio.  **Opcional, solo si aplica el tipo de servicio como `EAD` o
+        `RAD`**.
 
           - `id` (string): Identificador único de la evidencia.
 
@@ -2556,31 +2540,75 @@ paths:
 
           - `status` (string): Estado de la evidencia, puede tener los valores `pending` | `taked`.
 
-        - `status` (string): Estado de la guía, puede tener los valores
-        `pending` | `delivered` | `not_delivered` | `collected` |
-        `not_collected` | `partial`.
+        #### Mercancía del Manifiesto
+
+        - `manifest_merchandise` (array): **Opcional, solo para
+        `ACT_MANIFEST`**. Lista de mercancías con:
+          - `name` (string, requerido): Nombre del manifiesto de mercancía.
+
+          - `type` (string, requerido): Tipo de operación. Valores permitidos:
+
+            - `pickup`: Para recolección
+
+            - `return`: Para devolución
+
+          - `stamp` (objeto, requerido): Información del timbrado.
+
+            - `ext_foreign_shipment_id` (string, opcional): Identificador externo del embarque foráneo.
+
+            - `ext_invoice_id` (string, opcional): Identificador externo de la factura.
+
+            - `ext_assigned_id` (string, opcional): Identificador externo de asignación.
+
+            - `ext_guide_number` (string, opcional): Número de guía externo.
+
+            - `ext_cp_id` (string, opcional): Identificador externo de la carta porte.
+
+            - `invoice_url` (string, requerido): URL del documento de la factura. Debe ser una URL válida.
+
+            - `stamped_at` (string, requerido): Fecha y hora del timbrado en formato ISO 8601.
+
+          - `date` (string, requerido): Fecha del timbrado.
+
+          - `merchandise` (array, requerido): Lista de mercancías. Debe contener al menos un elemento.
+            
+            - `material` (string, requerido): Código o identificador del material.
+
+        #### Equipo Vacío Recolectado
+
+        - `empty_equipment_collected` (array): **Opcional, solo para
+        `ACT_EMPTY_EQUIPMENT`**. Lista de equipos con:
+          
+          - `ext_id` (string): ID externo del equipo
+          
+          - `type` (string): Tipo de equipo
+          
+          - `quantity` (number): Cantidad recolectada
+          
+          - `date` (string): Fecha de recolección
+
+          - `invoice_url` (string): URL de la evidencia de recolección
 
 
-        ## Metadata del Registro
+        #### Metadata del Registro
 
 
-        - `is_active` (boolean): Indica si el servicio está activo.
+        - `is_active` (boolean): Si el servicio está activo
 
 
-        - `status` (string): Estado del servicio.
+        - `status` (string): Estado del servicio
 
 
-        - `created_by` (string): Usuario que creó el servicio.
+        - `created_by` (string): Usuario que lo creó
 
 
-        - `created_at` (string): Fecha y hora de creación del servicio.
+        - `created_at` (string): Fecha de creación
 
 
-        - `updated_by` (string): Usuario que actualizó el servicio.
+        - `updated_by` (string): Usuario que actualizó
 
 
-        - `updated_at` (string): Fecha y hora de la última actualización del
-        servicio.
+        - `updated_at` (string): Fecha de actualización
       operationId: get-getservices
       parameters:
         - name: journey_id
@@ -2657,19 +2685,25 @@ paths:
       tags:
         - services
       summary: Service
-      description: >
+      description: >-
         ## Endpoint: POST `/journeys/{journey_id}/stops/{stop_id}/service`
 
 
         ### Descripción
 
+
         Este endpoint permite agregar un nuevo servicio a una parada específica
-        dentro de un viaje determinado. Es útil para registrar un nuevo servicio
-        asociado a una parada en un viaje.
+        dentro de un viaje 
+
+        determinado. Es útil para registrar un nuevo servicio asociado a una
+        parada en un viaje.
+
 
         ### Request Parameters
 
+
         - `journey_id` (string): Identificador único de la jornada.
+
 
 
         - `stop_id` (string): Identificador único de la parada.
@@ -2678,114 +2712,94 @@ paths:
         ### Descripción de los campos
 
 
-        Los campos descritos a continuación son obligatorios y deben ser
-        incluidos en el request body, a excepción de los campos marcados como
-        **Opcional**, los cuales pueden o no agregarse en el request body. 
+        #### Campos Base
 
 
         - `ext_id` (string): Identificador externo del servicio.
 
 
-        - `position_list` (int): Posición del servicio en la lista de atención
-        del grupo de servicios. **Opcional**.
+
+        - `position_list` (int, opcional): Posición del servicio en la lista de
+        atención.
 
 
-        - `type` (string): Tipo de servicio, puede tener los valores:
 
-          - `EAD`: Entregas a Domicilio.
-
-          - `RAD`: Recolecciones a Domicilio.
-
-          - `ACT_MANIFEST`: Actividad de Manifiesto.
-
-          - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío.
-
-          - `ACT_INTERNATIONAL`: Actividad Internacional para Puertos y Aeropuertos. 
-
-          - `ACT_CUSTOM`: Actividad Internacional para Aduanas. 
-
-
-        - `act_international_form_id` (string): Identificador del formulario de
-        la actividad internacional para puertos y aeropuertos. **Opcional, solo
-        si aplica el tipo de servicio como `ACT_INTERNATIONAL`**.
+        - `type` (string, requerido): Tipo de servicio:
+          
+          - `EAD`: Entregas a Domicilio
+          
+          - `RAD`: Recolecciones a Domicilio
+          
+          - `ACT_MANIFEST`: Actividad de Manifiesto
+          
+          - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío
+          
+          - `ACT_INTERNATIONAL`: Actividad Internacional para Puertos y Aeropuertos
+          
+          - `ACT_CUSTOM`: Actividad Internacional para Aduanas
 
 
-        - `act_custom_form_id` (string): Identificador del formulario de la
-        actividad internacional para aduanas. **Opcional, solo si aplica el tipo
-        de servicio como `ACT_CUSTOM`**.
+        - `act_international_form_id` (string): ID del formulario de actividad
+        internacional. **Opcional, solo para el tipo `ACT_INTERNATIONAL`**
 
 
-        - `guide_number` (string): Número de guía de 10 dígitos asociado al
-        servicio.
+
+        - `act_custom_form_id` (string): ID del formulario de actividad de
+        aduanas. **Opcional, solo para el tipo `ACT_CUSTOM`**
+
+
+
+        - `guide_number` (string): Número de guía de 10 dígitos. **Opcional,
+        solo para los tipos `EAD` o `RAD`**
+
 
 
         - `description` (string): Descripción del servicio. **Opcional**
 
 
-        - `details` (object): Detalles del servicio. Contiene la siguiente
-        información:
+        #### Detalles del Servicio
 
-          - `sender` (object): Información del remitente.
 
-            - `name` (string): Nombre del remitente.
+        - `details` (object): **Opcional, solo para `EAD` o `RAD`**. Contiene:
 
-            - `phone` (string): Teléfono del remitente.
+          - `sender` (object): Información del remitente
 
-            - `address` (object): Dirección del remitente.
+            - `name` (string): Nombre
 
-              - `street` (string): Calle del destinatario.
+            - `phone` (string): Teléfono
 
-              - `number` (string): Número del destinatario.
+            - `address` (object): Dirección completa
 
-              - `neighborhood` (string): Colonia del destinatario.
+          - `recipient` (object): Información del destinatario
 
-              - `zip_code` (string): Código postal del destinatario.
+            - `name` (string): Nombre
 
-              - `city` (string): Ciudad del destinatario.
+            - `phone` (string): Teléfono
 
-              - `state` (string): Estado del destinatario.
+            - `address` (object): Dirección completa
 
-              - `country` (string): País del destinatario.
+          - `references` (string): Referencias adicionales. **Opcional**
 
-          - `recipient` (object): Información del destinatario.
+          - `notes` (string): Notas adicionales. **Opcional**
 
-            - `name` (string): Nombre del destinatario.
 
-            - `phone` (string): Teléfono del destinatario.
+        #### Documentos y Mercancía
 
-            - `address` (object): Dirección del destinatario.
 
-              - `street` (string): Calle del destinatario.
+        - `document_return` (object): Información de retorno de documentos
 
-              - `number` (string): Número del destinatario.
+          - `is_required` (boolean): Si el retorno es requerido
 
-              - `neighborhood` (string): Colonia del destinatario.
+          - `total_documents` (number): Total de documentos
 
-              - `zip_code` (string): Código postal del destinatario.
+          - `is_confirmed` (boolean): Si está confirmado
 
-              - `city` (string): Ciudad del destinatario.
+        #### Campos Específicos por Tipo de Servicio
 
-              - `state` (string): Estado del destinatario.
-
-              - `country` (string): País del destinatario.
-
-          - `references` (string): Referencias adicionales del servicio. **Opcional**
-
-          - `notes` (string): Notas adicionales sobre el servicio. **Opcional**
-
-        - `document_return` (object): Información sobre el retorno de
-        documentos.
-
-          - `is_required` (boolean): Indica si el retorno de documentos es requerido.
-
-          - `total_documents` (number): Total de documentos a retornar.
-
-          - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
         - `merchandise` (array[object]): Lista de mercancías asociadas al
-        servicio. **Merchandise tiene su propio endpoint y se recomienda usarlo
-        para obtener la información de la mercancía, así como para ejecutar las
-        operaciones de los métodos HTTP.**
+        servicio.  **Opcional, solo si aplica el tipo de servicio como `EAD` o
+        `RAD`**.
 
           - `label_number` (string): Número de etiqueta de la mercancía.
 
@@ -2811,23 +2825,15 @@ paths:
 
             - `evidences` (array[object]): Evidencias del daño.
 
-              - `id` (string): Identificador único de la evidencia.
-
-              - `type` (string): Tipo de evidencia (por ejemplo, foto).
-
-              - `url` (string): URL de la evidencia. **Opcional**
-
-              - `is_required` (boolean): Indica si la evidencia es requerida.
-
-              - `status` (string): Estado de la evidencia.
-
           - `status` (string): Estado de la mercancía, puede tener los valores `pending` | `delivered` | `not_delivered` | `collected` | `not_collected`.
 
           - `ext_document` (string): Documento externo asociado a la mercancía. **Opcional**
 
-          - `evidences` (array[object]): Evidencias asociadas a la mercancía.
+          - `evidences` (array[object]),: Evidencias asociadas a la mercancía.
 
             - `id` (string): Identificador único de la evidencia.
+
+            - `evidence_id` (string): Identificador de la evidencia.
 
             - `type` (string): Tipo de evidencia (por ejemplo, foto).
 
@@ -2838,7 +2844,8 @@ paths:
             - `status` (string): Estado de la evidencia.
 
         - `questionnaire_id` (string): Referencia al cuestionario asociado al
-        servicio/guía.
+        servicio/guía.  **Opcional, solo si aplica el tipo de servicio como
+        `EAD` o `RAD`**.
 
 
         - `comments` (array[string]): Lista de comentarios asociados al
@@ -2850,14 +2857,15 @@ paths:
 
         - `incidents` (array[object]): Lista de incidentes asociados al
         servicio. **Opcional**
-            
-            - `id` (string): Identificador único del incidente.
 
-            - `timestamp` (string): Fecha y hora del incidente.
+          - `id` (string): Identificador único del incidente.
+
+          - `timestamp` (string): Fecha y hora del incidente.
 
 
         - `evidences` (array[object]): Lista de evidencias asociadas al
-        servicio.
+        servicio.  **Opcional, solo si aplica el tipo de servicio como `EAD` o
+        `RAD`**.
 
           - `id` (string): Identificador único de la evidencia.
 
@@ -2868,6 +2876,57 @@ paths:
           - `is_required` (boolean): Indica si la evidencia es requerida.
 
           - `status` (string): Estado de la evidencia, puede tener los valores `pending` | `taked`.
+
+        #### Mercancía del Manifiesto
+
+        - `manifest_merchandise` (array): **Opcional, solo para
+        `ACT_MANIFEST`**. Lista de mercancías con:
+          - `name` (string, requerido): Nombre del manifiesto de mercancía.
+
+          - `type` (string, requerido): Tipo de operación. Valores permitidos:
+
+            - `pickup`: Para recolección
+
+            - `return`: Para devolución
+
+          - `stamp` (objeto, requerido): Información del timbrado.
+
+            - `ext_foreign_shipment_id` (string, opcional): Identificador externo del embarque foráneo.
+
+            - `ext_invoice_id` (string, opcional): Identificador externo de la factura.
+
+            - `ext_assigned_id` (string, opcional): Identificador externo de asignación.
+
+            - `ext_guide_number` (string, opcional): Número de guía externo.
+
+            - `ext_cp_id` (string, opcional): Identificador externo de la carta porte.
+
+            - `invoice_url` (string, requerido): URL del documento de la factura. Debe ser una URL válida.
+
+            - `stamped_at` (string, requerido): Fecha y hora del timbrado en formato ISO 8601.
+
+          - `date` (string, requerido): Fecha del timbrado.
+
+          - `merchandise` (array, requerido): Lista de mercancías. Debe contener al menos un elemento.
+            
+            - `material` (string, requerido): Código o identificador del material.
+
+        #### Equipo Vacío Recolectado
+
+        - `empty_equipment_collected` (array): **Opcional, solo para
+        `ACT_EMPTY_EQUIPMENT`**. Lista de equipos con:
+          
+          - `ext_id` (string): ID externo del equipo
+          
+          - `type` (string): Tipo de equipo
+          
+          - `quantity` (number): Cantidad recolectada
+          
+          - `date` (string): Fecha de recolección
+
+          - `invoice_url` (string): URL de la evidencia de recolección
+
+
       operationId: post-addservice
       parameters:
         - name: journey_id
@@ -3006,15 +3065,19 @@ paths:
       tags:
         - services
       summary: 'Service '
-      description: >+
+      description: >-
         ## Endpoint: GET
         `/journeys/{journey_id}/stops/{stop_id}/services/{service_id}`
 
+
         ### Descripción
+
 
         Este endpoint permite obtener los detalles de un servicio específico
 
+
         ### Request Parameters
+
 
         - `journey_id` (string): Identificador único de la jornada.
 
@@ -3024,116 +3087,101 @@ paths:
 
         - `service_id` (string): Identificador único del servicio.
 
+
         ### Descripción de los campos
 
-        Los campos marcados como **Opcional** pueden no estar presentes en los
-        detalles del response de algunos servicios y se recomienda validar su
-        existencia antes de utilizarlos.
+
+        #### Campos Base
+
 
         - `id` (string): Identificador único del servicio.
+
 
 
         - `ext_id` (string): Identificador externo del servicio.
 
 
+
         - `position_list` (int, opcional): Posición del servicio en la lista de
-        atención del conjunto de servicios.
+        atención.
 
 
-        - `type` (string): Tipo de servicio, puede tener los valores:
 
-          - `EAD`: Entregas a Domicilio.
-
-          - `RAD`: Recolecciones a Domicilio.
-
-          - `ACT_MANIFEST`: Actividad de Manifiesto.
-
-          - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío.
-
-          - `ACT_INTERNATIONAL`: Actividad Internacional para Puertos y Aeropuertos. 
-
-          - `ACT_CUSTOM`: Actividad Internacional para Aduanas. 
-
-
-        - `act_international_form_id` (string): Identificador del formulario de
-        la actividad internacional para puertos y aeropuertos. **Opcional, solo
-        si aplica el tipo de servicio como `ACT_INTERNATIONAL`**.
+        - `type` (string, requerido): Tipo de servicio:
+          
+          - `EAD`: Entregas a Domicilio
+          
+          - `RAD`: Recolecciones a Domicilio
+          
+          - `ACT_MANIFEST`: Actividad de Manifiesto
+          
+          - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío
+          
+          - `ACT_INTERNATIONAL`: Actividad Internacional para Puertos y Aeropuertos
+          
+          - `ACT_CUSTOM`: Actividad Internacional para Aduanas
 
 
-        - `act_custom_form_id` (string): Identificador del formulario de la
-        actividad internacional para aduanas. **Opcional, solo si aplica el tipo
-        de servicio como `ACT_CUSTOM`**.
+        - `act_international_form_id` (string): ID del formulario de actividad
+        internacional. **Opcional, solo para el tipo `ACT_INTERNATIONAL`**
 
 
-        - `guide_number` (string): Número de guía de 10 dígitos asociado al
-        servicio.
+
+        - `act_custom_form_id` (string): ID del formulario de actividad de
+        aduanas. **Opcional, solo para el tipo `ACT_CUSTOM`**
+
+
+
+        - `guide_number` (string): Número de guía de 10 dígitos. **Opcional,
+        solo para los tipos `EAD` o `RAD`**
+
 
 
         - `description` (string): Descripción del servicio. **Opcional**
 
 
-        - `details` (object): Detalles del servicio. Contiene la siguiente
-        información:
+        #### Detalles del Servicio
 
-          - `sender` (object): Información del remitente.
 
-            - `name` (string): Nombre del remitente.
+        - `details` (object): **Opcional, solo para `EAD` o `RAD`**. Contiene:
 
-            - `phone` (string): Teléfono del remitente.
+          - `sender` (object): Información del remitente
 
-            - `address` (object): Dirección del remitente.
+            - `name` (string): Nombre
 
-              - `street` (string): Calle del destinatario.
+            - `phone` (string): Teléfono
 
-              - `number` (string): Número del destinatario.
+            - `address` (object): Dirección completa
 
-              - `neighborhood` (string): Colonia del destinatario.
+          - `recipient` (object): Información del destinatario
 
-              - `zip_code` (string): Código postal del destinatario.
+            - `name` (string): Nombre
 
-              - `city` (string): Ciudad del destinatario.
+            - `phone` (string): Teléfono
 
-              - `state` (string): Estado del destinatario.
+            - `address` (object): Dirección completa
 
-              - `country` (string): País del destinatario.
+          - `references` (string): Referencias adicionales. **Opcional**
 
-          - `recipient` (object): Información del destinatario.
+          - `notes` (string): Notas adicionales. **Opcional**
 
-            - `name` (string): Nombre del destinatario.
+        #### Documentos y Mercancía
 
-            - `phone` (string): Teléfono del destinatario.
 
-            - `address` (object): Dirección del destinatario.
+        - `document_return` (object): Información de retorno de documentos
 
-              - `street` (string): Calle del destinatario.
+          - `is_required` (boolean): Si el retorno es requerido
 
-              - `number` (string): Número del destinatario.
+          - `total_documents` (number): Total de documentos
 
-              - `neighborhood` (string): Colonia del destinatario.
+          - `is_confirmed` (boolean): Si está confirmado
 
-              - `zip_code` (string): Código postal del destinatario.
+        #### Campos Específicos por Tipo de Servicio
 
-              - `city` (string): Ciudad del destinatario.
-
-              - `state` (string): Estado del destinatario.
-
-              - `country` (string): País del destinatario.
-
-          - `references` (string): Referencias adicionales del servicio. **Opcional**
-
-          - `notes` (string): Notas adicionales sobre el servicio. **Opcional**
-
-        - `document_return` (object): Información sobre el retorno de
-        documentos.
-
-          - `is_required` (boolean): Indica si el retorno de documentos es requerido.
-
-          - `total_documents` (number): Total de documentos a retornar.
-
-          - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
 
         - `merchandise` (array[object]): Lista de mercancías asociadas al
-        servicio.
+        servicio.  **Opcional, solo si aplica el tipo de servicio como `EAD` o
+        `RAD`**.
 
           - `label_number` (string): Número de etiqueta de la mercancía.
 
@@ -3178,7 +3226,8 @@ paths:
             - `status` (string): Estado de la evidencia.
 
         - `questionnaire_id` (string): Referencia al cuestionario asociado al
-        servicio/guía.
+        servicio/guía.  **Opcional, solo si aplica el tipo de servicio como
+        `EAD` o `RAD`**.
 
 
         - `comments` (array[string]): Lista de comentarios asociados al
@@ -3197,7 +3246,8 @@ paths:
 
 
         - `evidences` (array[object]): Lista de evidencias asociadas al
-        servicio.
+        servicio.  **Opcional, solo si aplica el tipo de servicio como `EAD` o
+        `RAD`**.
 
           - `id` (string): Identificador único de la evidencia.
 
@@ -3209,32 +3259,76 @@ paths:
 
           - `status` (string): Estado de la evidencia, puede tener los valores `pending` | `taked`.
 
-        - `status` (string): Estado de la guía, puede tener los valores
-        `pending` | `delivered` | `not_delivered` | `collected` |
-        `not_collected` | `partial`.
+
+        #### Mercancía del Manifiesto
+
+        - `manifest_merchandise` (array): **Opcional, solo para
+        `ACT_MANIFEST`**. Lista de mercancías con:
+          - `name` (string, requerido): Nombre del manifiesto de mercancía.
+
+          - `type` (string, requerido): Tipo de operación. Valores permitidos:
+
+            - `pickup`: Para recolección
+
+            - `return`: Para devolución
+
+          - `stamp` (objeto, requerido): Información del timbrado.
+
+            - `ext_foreign_shipment_id` (string, opcional): Identificador externo del embarque foráneo.
+
+            - `ext_invoice_id` (string, opcional): Identificador externo de la factura.
+
+            - `ext_assigned_id` (string, opcional): Identificador externo de asignación.
+
+            - `ext_guide_number` (string, opcional): Número de guía externo.
+
+            - `ext_cp_id` (string, opcional): Identificador externo de la carta porte.
+
+            - `invoice_url` (string, requerido): URL del documento de la factura. Debe ser una URL válida.
+
+            - `stamped_at` (string, requerido): Fecha y hora del timbrado en formato ISO 8601.
+
+          - `date` (string, requerido): Fecha del timbrado.
+
+          - `merchandise` (array, requerido): Lista de mercancías. Debe contener al menos un elemento.
+            
+            - `material` (string, requerido): Código o identificador del material.
+
+        #### Equipo Vacío Recolectado
+
+        - `empty_equipment_collected` (array): **Opcional, solo para
+        `ACT_EMPTY_EQUIPMENT`**. Lista de equipos con:
+          
+          - `ext_id` (string): ID externo del equipo
+          
+          - `type` (string): Tipo de equipo
+          
+          - `quantity` (number): Cantidad recolectada
+          
+          - `date` (string): Fecha de recolección
+
+          - `invoice_url` (string): URL de la evidencia de recolección
 
 
-        ## Metadata del Registro
+        #### Metadata del Registro
 
 
-        - `is_active` (boolean): Indica si el servicio está activo.
+        - `is_active` (boolean): Si el servicio está activo
 
 
-        - `status` (string): Estado del servicio.
+        - `status` (string): Estado del servicio
 
 
-        - `created_by` (string): Usuario que creó el servicio.
+        - `created_by` (string): Usuario que lo creó
 
 
-        - `created_at` (string): Fecha y hora de creación del servicio.
+        - `created_at` (string): Fecha de creación
 
 
-        - `updated_by` (string): Usuario que actualizó el servicio.
+        - `updated_by` (string): Usuario que actualizó
 
 
-        - `updated_at` (string): Fecha y hora de la última actualización del
-        servicio.
-
+        - `updated_at` (string): Fecha de actualización
       operationId: get-getservicebyid
       parameters:
         - name: journey_id
@@ -3270,9 +3364,7 @@ paths:
             type: string
       responses:
         '200':
-          description: |+
-            ### Response 200 OK
-
+          description: 'La solicitud fue consultada exitosamente. '
           content:
             application/json:
               example:
@@ -3344,18 +3436,22 @@ paths:
       tags:
         - services
       summary: Service
-      description: >+
+      description: >-
         ## Endpoint: PUT
         `/journeys/{journey_id}/stops/{stop_id}/services/{service_id`
 
+
         ### Descripción
+
 
         Este endpoint permite actualizar los detalles de un servicio consultado
         mediante su UUID perteneciente a una parada específica. Este endpoint
         requiere el identificador único de la parada (stop_id) como parámetro en
         la URL.
 
+
         ### Request Parameters
+
 
         - `journey_id` (string): Identificador único de la jornada.
 
@@ -3367,114 +3463,144 @@ paths:
 
         ### Descripción de los campos
 
-        Los campos en el cuerpo de la solicitud (request body) son opcionales y
-        pueden ser una combinación de los campos mostrados a continuación. Sin
-        embargo, el cuerpo de la solicitud no debe enviarse vacío:
+
+        #### Campos Base
 
 
-        - `position_list` (int): Posición del servicio en la lista de atención
-        del grupo de servicios.
+        - `id` (string): Identificador único del servicio.
 
 
-        - `type` (string): Tipo de servicio, puede tener los valores:
 
-          - `EAD`: Entregas a Domicilio.
-
-          - `RAD`: Recolecciones a Domicilio.
-
-          - `ACT_MANIFEST`: Actividad de Manifiesto.
-
-          - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío.
-
-          - `ACT_INTERNATIONAL`: Actividad Internacional para Puertos y Aeropuertos. 
-
-          - `ACT_CUSTOM`: Actividad Internacional para Aduanas. 
+        - `ext_id` (string): Identificador externo del servicio.
 
 
-        - `act_international_form_id` (string): Identificador del formulario de
-        la actividad internacional para puertos y aeropuertos. **Opcional, solo
-        si aplica el tipo de servicio como `ACT_INTERNATIONAL`**.
+
+        - `position_list` (int, opcional): Posición del servicio en la lista de
+        atención.
 
 
-        - `act_custom_form_id` (string): Identificador del formulario de la
-        actividad internacional para aduanas. **Opcional, solo si aplica el tipo
-        de servicio como `ACT_CUSTOM`**.
+
+        - `type` (string, requerido): Tipo de servicio:
+          
+          - `EAD`: Entregas a Domicilio
+          
+          - `RAD`: Recolecciones a Domicilio
+          
+          - `ACT_MANIFEST`: Actividad de Manifiesto
+          
+          - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío
+          
+          - `ACT_INTERNATIONAL`: Actividad Internacional para Puertos y Aeropuertos
+          
+          - `ACT_CUSTOM`: Actividad Internacional para Aduanas
 
 
-        - `guide_number` (string): Número de guía de 10 dígitos asociado al
-        servicio.
+        - `act_international_form_id` (string): ID del formulario de actividad
+        internacional. **Opcional, solo para el tipo `ACT_INTERNATIONAL`**
+
+
+
+        - `act_custom_form_id` (string): ID del formulario de actividad de
+        aduanas. **Opcional, solo para el tipo `ACT_CUSTOM`**
+
+
+
+        - `guide_number` (string): Número de guía de 10 dígitos. **Opcional,
+        solo para los tipos `EAD` o `RAD`**
+
 
 
         - `description` (string): Descripción del servicio. **Opcional**
 
 
-        - `details` (object): Detalles del servicio. Contiene la siguiente
-        información:
+        #### Detalles del Servicio
 
-          - `sender` (object): Información del remitente.
 
-            - `name` (string): Nombre del remitente.
+        - `details` (object): **Opcional, solo para `EAD` o `RAD`**. Contiene:
 
-            - `phone` (string): Teléfono del remitente.
+          - `sender` (object): Información del remitente
 
-            - `address` (object): Dirección del remitente.
+            - `name` (string): Nombre
 
-              - `street` (string): Calle del destinatario.
+            - `phone` (string): Teléfono
 
-              - `number` (string): Número del destinatario.
+            - `address` (object): Dirección completa
 
-              - `neighborhood` (string): Colonia del destinatario.
+          - `recipient` (object): Información del destinatario
 
-              - `zip_code` (string): Código postal del destinatario.
+            - `name` (string): Nombre
 
-              - `city` (string): Ciudad del destinatario.
+            - `phone` (string): Teléfono
 
-              - `state` (string): Estado del destinatario.
+            - `address` (object): Dirección completa
 
-              - `country` (string): País del destinatario.
+          - `references` (string): Referencias adicionales. **Opcional**
 
-          - `recipient` (object): Información del destinatario.
+          - `notes` (string): Notas adicionales. **Opcional**
 
-            - `name` (string): Nombre del destinatario.
+        #### Documentos y Mercancía
 
-            - `phone` (string): Teléfono del destinatario.
 
-            - `address` (object): Dirección del destinatario.
+        - `document_return` (object): Información de retorno de documentos
 
-              - `street` (string): Calle del destinatario.
+          - `is_required` (boolean): Si el retorno es requerido
 
-              - `number` (string): Número del destinatario.
+          - `total_documents` (number): Total de documentos
 
-              - `neighborhood` (string): Colonia del destinatario.
+          - `is_confirmed` (boolean): Si está confirmado
 
-              - `zip_code` (string): Código postal del destinatario.
+        #### Campos Específicos por Tipo de Servicio
 
-              - `city` (string): Ciudad del destinatario.
 
-              - `state` (string): Estado del destinatario.
+        - `merchandise` (array[object]): Lista de mercancías asociadas al
+        servicio.  **Opcional, solo si aplica el tipo de servicio como `EAD` o
+        `RAD`**.
 
-              - `country` (string): País del destinatario.
+          - `label_number` (string): Número de etiqueta de la mercancía.
 
-          - `references` (string): Referencias adicionales del servicio. **Opcional**
+          - `type_of_package` (string): Tipo de embalaje.
 
-          - `notes` (string): Notas adicionales sobre el servicio. **Opcional**
+          - `description` (string): Descripción de la mercancía. **Opcional**.
 
-        - `document_return` (object): Información sobre el retorno de
-        documentos.
+          - `dimensions` (object): Dimensiones de la mercancía.
 
-          - `is_required` (boolean): Indica si el retorno de documentos es requerido.
+            - `length` (number): Longitud de la mercancía.
 
-          - `total_documents` (number): Total de documentos a retornar.
+            - `width` (number): Ancho de la mercancía.
 
-          - `is_confirmed` (boolean): Indica si el retorno de documentos ha sido confirmado.
+            - `height` (number): Altura de la mercancía.
 
-        - `merchandise` (array[object]): Lista de la mercancía (etiquetas) que
-        integran la guía. **Para operaciones de actualización, se recomienda
-        hacerlo mediante sus respectivos endpoints**
+            - `weight` (number): Peso de la mercancía.
 
+            - `volume` (number): Volumen de la mercancía.
+
+          - `merchandise_damaged` (object): Información sobre daños en la mercancía. **Opcional**
+
+            - `reason_id` (string): Identificador de la razón del daño.
+
+            - `evidences` (array[object]): Evidencias del daño.
+
+          - `status` (string): Estado de la mercancía, puede tener los valores `pending` | `delivered` | `not_delivered` | `collected` | `not_collected`.
+
+          - `ext_document` (string): Documento externo asociado a la mercancía. **Opcional**
+
+          - `evidences` (array[object]),: Evidencias asociadas a la mercancía.
+
+            - `id` (string): Identificador único de la evidencia.
+
+            - `evidence_id` (string): Identificador de la evidencia.
+
+            - `type` (string): Tipo de evidencia (por ejemplo, foto).
+
+            - `url` (string): URL de la evidencia. **Opcional**
+
+            - `is_required` (boolean): Indica si la evidencia es requerida.
+
+            - `status` (string): Estado de la evidencia.
 
         - `questionnaire_id` (string): Referencia al cuestionario asociado al
-        servicio/guía.
+        servicio/guía.  **Opcional, solo si aplica el tipo de servicio como
+        `EAD` o `RAD`**.
 
 
         - `comments` (array[string]): Lista de comentarios asociados al
@@ -3493,7 +3619,8 @@ paths:
 
 
         - `evidences` (array[object]): Lista de evidencias asociadas al
-        servicio.
+        servicio.  **Opcional, solo si aplica el tipo de servicio como `EAD` o
+        `RAD`**.
 
           - `id` (string): Identificador único de la evidencia.
 
@@ -3505,29 +3632,55 @@ paths:
 
           - `status` (string): Estado de la evidencia, puede tener los valores `pending` | `taked`.
 
-        - `status` (string): Estado de la guía, puede tener los valores
-        `pending` | `delivered` | `not_delivered` | `collected` |
-        `not_collected` | `partial`.
+        #### Mercancía del Manifiesto
 
+        - `manifest_merchandise` (array): **Opcional, solo para
+        `ACT_MANIFEST`**. Lista de mercancías con:
+          - `name` (string, requerido): Nombre del manifiesto de mercancía.
 
-        ## Metadata del Registro
+          - `type` (string, requerido): Tipo de operación. Valores permitidos:
 
+            - `pickup`: Para recolección
 
-        - `is_active` (boolean): Indica si el servicio está activo.
+            - `return`: Para devolución
 
+          - `stamp` (objeto, requerido): Información del timbrado.
 
+            - `ext_foreign_shipment_id` (string, opcional): Identificador externo del embarque foráneo.
 
-        - `created_by` (string): Usuario que creó el servicio.
+            - `ext_invoice_id` (string, opcional): Identificador externo de la factura.
 
+            - `ext_assigned_id` (string, opcional): Identificador externo de asignación.
 
-        - `created_at` (string): Fecha y hora de creación del servicio.
+            - `ext_guide_number` (string, opcional): Número de guía externo.
 
+            - `ext_cp_id` (string, opcional): Identificador externo de la carta porte.
 
-        - `updated_by` (string): Usuario que actualizó el servicio.
+            - `invoice_url` (string, requerido): URL del documento de la factura. Debe ser una URL válida.
 
+            - `stamped_at` (string, requerido): Fecha y hora del timbrado en formato ISO 8601.
 
-        - `updated_at` (string): Fecha y hora de la última actualización del
-        servicio.
+          - `date` (string, requerido): Fecha del timbrado.
+
+          - `merchandise` (array, requerido): Lista de mercancías. Debe contener al menos un elemento.
+            
+            - `material` (string, requerido): Código o identificador del material.
+
+        #### Equipo Vacío Recolectado
+
+        - `empty_equipment_collected` (array): **Opcional, solo para
+        `ACT_EMPTY_EQUIPMENT`**. Lista de equipos con:
+          
+          - `ext_id` (string): ID externo del equipo
+          
+          - `type` (string): Tipo de equipo
+          
+          - `quantity` (number): Cantidad recolectada
+          
+          - `date` (string): Fecha de recolección
+
+          - `invoice_url` (string): URL de la evidencia de recolección
+
 
       operationId: put-updateservicebyid
       parameters:
@@ -16045,7 +16198,7 @@ paths:
       tags:
         - manifest
       summary: Manifest Document
-      description: >-
+      description: >
         ## Endpoint: POST `/manifest`
 
 
@@ -16056,8 +16209,7 @@ paths:
         que contiene la información relacionada con la mercancía no timbrada y
         asociada a un vehículo específico. Este documento se utiliza para
         gestionar y controlar la mercancía durante el proceso de recolección o
-        entrega, asegurando que se puedan registrar las operaciones
-        correspondientes a cada artículo.
+        entrega.
 
 
         ### Request Parameters
@@ -16078,24 +16230,15 @@ paths:
 
 
 
-        - `name` (string, requerido): Nombre del documento de manifiesto, la
-        estructura incluye la fecha, nombre del cliente, y ID del archivo, por
-        ejemplo `18/08/2024 DHL METROP 230`.
-
-
-
         - `vehicle_id` (string, requerido): Identificador único del vehículo
-        asociado al documento de manifiesto.
-
-
-
-        - `document_id` (string, requerido): Número de identificación del
-        archivo enviado por cliente relacionado con el manifiesto.
+        asociado al documento de manifiesto. Este ID hace referencia a un
+        documento almacenado en el modelo `Vehicles`. 
 
 
 
         - `client_id` (string, requerido): Id del cliente asociado a la
-        mercancía del manifiesto.
+        mercancía del manifiesto. Este ID hace referencia a un documento
+        almacenado en el modelo `Customers`. 
 
 
 
@@ -16104,71 +16247,43 @@ paths:
 
 
 
+        - `file_id` (string, requerido): Identificador del archivo asociado al
+        manifiesto (ArchivoId).
+
+
+
         - `type` (string, requerido): Tipo de operación asociada al documento de
-        manifiesto. Puede ser alguno de los siguientes valores: `pickup`
-        (recolección), `return` (devolución).
+        manifiesto. Debe ser uno de los siguientes valores: 
+          - `pickup`: para recolección
+          - `return`: para devolución
+
+
+        - `date` (string, requerido): Fecha del documento de manifiesto en
+        formato ISO 8601.
 
 
 
-        - `invoice_without_complement` (boolean): Especifica si el documento
-        cuento o no con una factura sin complemento. En caso de tener un valor
-        `true`, se continuará con el proceso de timbrado como Traslado; en caso
-        contrario, se realizará el proceso de timbrado normal.
+        - `dealer` (string, requerido): Código o identificador del distribuidor
+        o vendedor.
 
 
 
-        - `ext_assignment_id` (string, opcional): El Id de asignación, el cual
-        es externo. 
+        - `material` (string, requerido): Código del material o artículo.
 
 
 
-        - `ext_foreign_shipment_id`(string, opcional): El Id del embarque
-        foráneo, si aplica. Es el caso cuando el manifiesto es marcado como
-        **Traslado**
+        - `shipment_lpn` (string, requerido): Número de LPN del embarque.
 
 
 
-        - `merchandise` (array, requerido): Lista de objetos que contienen la
-        información de la mercancía asociada. Cada objeto de mercancía incluye
-        los siguientes campos:
-
-          - `ext_id` (string, requerido): Identificador externo único de la mercancía.
-
-          - `dealer` (string, requerido): Código o identificador del distribuidor o vendedor de la mercancía.
-
-          - `material` (string, requerido): Código del material o artículo.
-
-          - `date` (string, requerido): Fecha en formato ISO 8601 que indica la fecha asociada a la mercancía.
-
-          - `stamps` (array, opcional): Lista de objetos que contienen la información de los timbres asociados a la mercancía. Cada objeto de timbre incluye los siguientes campos:
-
-            - `ext_invoice_id` (string, requerido): UUID externo de la factura.
-
-            - `ext_cp_id` (string, requerido): UUID externo de la Carta Porte.
-
-            - `ext_guide_number` (string, opcional): Número externo de la guía generada en el proceso de timbrado.
-
-            - `invoice_url`(string, requerido): URL del documento de la factura.
-
-            - `ext_request_number`(string, opcional): Número externo de la solicitud.
-
-            - `ext_assignment_id` (string, opcional): El Id de asignación, el cual es externo.
-
-            - `document_type` (number, requerido): Tipo de documento.
-
-            - `journey_id` (string, requerido): Identificador del viaje relacionado con el timbre.
-
-            - `stamped_at` (string, requerido): Fecha y hora en formato ISO 8601 en que se realizó el timbrado de la mercancía.
-
-
-        - `date` (string, requerido): Fecha en formato ISO 8601 que indica la
-        fecha del documento de manifiesto.
+        - `origin_id` (string, requerido): Identificador del origen.
 
 
 
-        - `selection_mode` (string, requerido): Modo de selección de la
-        mercancía, puede ser "full_selection" (selección completa) o
-        "partial_selection" (selección parcial).
+        - `client_config_id` (string, requerido): Identificador de la
+        configuración del cliente, donde se define el tipo de selección (total o
+        parcial) de la mercancía a facturar. Este ID hace referencia a un
+        documento almacenado en el modelo `ClientManifestConfig`. 
       operationId: post-addmanifestdocument
       parameters:
         - name: Authorization
@@ -16178,39 +16293,68 @@ paths:
           schema:
             type: string
       requestBody:
-        description: ''
+        description: 'Body de la solicitud. '
         content:
           application/json:
             example:
+              ext_id: T-001
+              vehicle_id: 7393b3f3-d2ad-4a7a-a7d5-ecb12a001114
               client_id: 8b3t5f0d1-874c-41d5-8fbe-7g5e6a9c7y4d
               client_name: DHL METROP
-              date: '2024-08-12T12:00:00.0000000+00:00'
-              document_id: '230'
-              ext_assignment_id: '1234'
-              ext_id: '123456789012345678977895555'
-              invoice_without_complement: false
-              merchandise:
-                - date: '2024-08-10'
-                  dealer: J49
-                  ext_id: '10008'
-                  material: '2020294857599'
-                  stamps: []
-                - date: '2024-08-10'
-                  dealer: J50
-                  ext_id: '10009'
-                  material: '1080294587591'
-                  stamps: []
-                - date: '2024-08-10'
-                  dealer: J51
-                  ext_id: '10010'
-                  material: '1508294857583'
-              name: 18/08/2024 DHL METROP 230
-              selection_mode: partial_selection
+              file_id: '230'
               type: pickup
-              vehicle_id: 5b5ef0d1-874c-41d5-8fbe-2f5e6a8d8e5c
+              dealer: K147
+              material: 87650B40104X
+              date: '2024-12-12T12:00:00.0000000+00:00'
+              shipment_lpn: LPN-WH01-9876543210
+              origin_id: '123456'
+              client_config_id: '123456789'
       responses:
         '200':
-          description: ''
+          description: 'El Registro fue creado '
+        '201':
+          description: 'El registro fue creado exitosamente. '
+          content:
+            application/json:
+              example:
+                statusCode: 201
+                message: ManifestMerchandise created successfully.
+                id: 22bdbbab-788d-41d9-a88a-081a6dd3d75b
+                data:
+                  id: 22bdbbab-788d-41d9-a88a-081a6dd3d75b
+                  ext_id: '12345678901234567897789'
+                  name: 18/08/2024 DHL METROP 230
+                  vehicle_id: 5b5ef0d1-874c-41d5-8fbe-2f5e6a8d8e5c
+                  document_id: '230'
+                  client_id: 8b3t5f0d1-874c-41d5-8fbe-7g5e6a9c7y4d
+                  client_name: DHL METROP
+                  invoice_without_complement: false
+                  type: pickup
+                  merchandise:
+                    - ext_id: '10008'
+                      dealer: J49
+                      material: '2020294857599'
+                      date: '2024-08-10T12:00:00.0000000+00:00'
+                      stamps: []
+                    - ext_id: '10009'
+                      dealer: J50
+                      material: '1080294587591'
+                      date: '2024-08-10T12:00:00.0000000+00:00'
+                      stamps: []
+                    - ext_id: '10010'
+                      dealer: J51
+                      material: '1508294857583'
+                      date: '2024-08-10T12:00:00.0000000+00:00'
+                      stamps: []
+                  date: '2024-08-12T12:00:00.0000000+00:00'
+                  selection_mode: partial_selection
+                  ext_assignment_id: null
+                  ext_foreign_shipment_id: null
+                  created_at: '2024-08-19T02:01:45.0000000+00:00'
+                  updated_at: '2024-08-19T02:01:45.0000000+00:00'
+                  created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                  updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                  is_active: true
     get:
       tags:
         - manifest
@@ -16222,14 +16366,14 @@ paths:
         ### Descripción
 
 
-        Este endpoint permite obtener la información de un documento de
-        manifiesto almacenado en la base de datos. El documento de manifiesto
-        contiene datos relacionados con la mercancía no timbrada y asociada a un
-        vehículo específico, útil para gestionar y controlar las operaciones de
-        recolección o entrega.
+        Este endpoint permite obtener una lista paginada de documentos de
+        manifiesto activos. Cada documento contiene la información relacionada
+        con la mercancía y sus timbres asociados, así como la metadata del
+        registro.
 
 
-        ## Request Parameters
+        ### Request Parameters
+
 
         **No se requieren parámetros adicionales en la solicitud.** Sin embargo,
         si deseas modificar los valores del paginado o hacer consultas mediante
@@ -16240,36 +16384,47 @@ paths:
         por defecto: 10.
 
 
+
         - `page` (number, opcional): Número de la página actual. Valor por
         defecto: 1.
+
 
 
         - `ext_id` (string, opcional): Filtra los resultados por el ID externo
         especificado.
 
 
+
         - `startDate` (string, opcional): Filtra los resultados por aquellos
         creados después de esta fecha (formato ISO 8601).
+
 
 
         - `endDate` (string, opcional): Filtra los resultados por aquellos
         creados antes de esta fecha (formato ISO 8601).
 
 
+
         - `fields` (string, opcional): Especifica los campos que deseas obtener
-        en la respuesta, separados por comas (por ejemplo, `name,created_at`).
+        en la respuesta, separados por comas (por ejemplo,
+        `name,client_id,date`).
+
 
 
         - **Otros filtros**: Puedes agregar otros filtros dinámicos basados en
         los campos del modelo, agregándolos como parámetros de query.
 
 
+        ### Campos de Respuesta
 
-        ### Descripción de los Campos
+
+        Cada elemento en la lista incluye los siguientes campos:
+
+
+        #### Campos del Documento
 
 
         - `id` (string): Identificador único del documento de manifiesto.
-
 
 
         - `ext_id` (string): Identificador externo único del documento de
@@ -16277,24 +16432,19 @@ paths:
 
 
 
-        - `name` (string): Nombre del documento de manifiesto, la estructura
-        incluye la fecha, nombre del cliente, y ID del archivo, por ejemplo
-        `18/08/2024 DHL METROP 230`.
+        - `name` (string): Nombre del documento de manifiesto.
 
 
 
         - `vehicle_id` (string): Identificador único del vehículo asociado al
-        documento de manifiesto.
-
-
-
-        - `document_id` (string): Número de identificación del archivo enviado
-        por cliente relacionado con el manifiesto.
+        documento de manifiesto. Este ID hace referencia a un documento
+        almacenado en el modelo `Vehicles`. 
 
 
 
         - `client_id` (string): Id del cliente asociado a la mercancía del
-        manifiesto.
+        manifiesto. Este ID hace referencia a un documento almacenado en el
+        modelo `Customers`. 
 
 
 
@@ -16303,101 +16453,83 @@ paths:
 
 
 
-        - `type` (string): Tipo de operación asociada al documento de
-        manifiesto. Puede ser alguno de los siguientes valores: `pickup`
-        (recolección), `return` (devolución).
+        - `file_id` (string): Identificador del archivo asociado al manifiesto.
 
 
 
-        - `invoice_without_complement` (boolean): Especifica si el documento
-        cuento o no con una factura sin complemento. En caso de tener un valor
-        `true`, se continuará con el proceso de timbrado como Traslado; en caso
-        contrario, se realizará el proceso de timbrado normal.
+        - `type` (string): Tipo de operación asociada al documento de manifiesto
+        (`pickup` o `return`).
 
 
 
-        - `ext_assignment_id` (string): El Id de asignación, el cual es
-        externo. 
+        - `date` (string): Fecha del documento de manifiesto en formato ISO
+        8601.
 
 
 
-        - `ext_foreign_shipment_id`(string): El Id del embarque foráneo, si
-        aplica. Es el caso cuando el manifiesto es marcado como **Traslado**
+        - `dealer` (string): Código o identificador del distribuidor o vendedor.
 
 
 
-        - `merchandise` (array, requerido): Lista de objetos que contienen la
-        información de la mercancía asociada. Cada objeto de mercancía incluye
-        los siguientes campos:
-
-          - `ext_id` (string): Identificador externo único de la mercancía.
-
-          - `dealer` (string): Código o identificador del distribuidor o vendedor de la mercancía.
-
-          - `material` (string): Código del material o artículo.
-
-          - `date` (string): Fecha en formato ISO 8601 que indica la fecha asociada a la mercancía.
-
-          - `stamps` (array): Lista de objetos que contienen la información de los timbres asociados a la mercancía. Cada objeto de timbre incluye los siguientes campos:
-
-            - `ext_invoice_id` (string): UUID externo de la factura.
-
-            - `ext_cp_id` (string): UUID externo de la Carta Porte.
-
-            - `ext_guide_number` (string): Número externo de la guía generada en el proceso de timbrado.
-
-            - `invoice_url`(string): URL del documento de la factura.
-
-            - `ext_request_number`(string): Número externo de la solicitud.
-
-            - `ext_assignment_id` (string): El Id de asignación, el cual es externo.
-
-            - `document_type` (number): Tipo de documento.
-
-            - `journey_id` (string): Identificador del viaje relacionado con el timbre.
-
-            - `stamped_at` (string): Fecha y hora en formato ISO 8601 en que se realizó el timbrado de la mercancía.
-
-
-        - `date` (string): Fecha en formato ISO 8601 que indica la fecha del
-        documento de manifiesto.
+        - `material` (string): Código del material o artículo.
 
 
 
-        - `selection_mode` (string): Modo de selección de la mercancía, puede
-        ser "full_selection" (selección completa) o "partial_selection"
-        (selección parcial).
-
-
-        ### Metadata del Registro
+        - `shipment_lpn` (string): Número de LPN del embarque.
 
 
 
-        - `created_at` (string): Fecha y hora de creación del documento de
-        manifiesto en formato ISO 8601.
+        - `origin_id` (string): Identificador del origen.
 
 
 
-        - `updated_at` (string): Fecha y hora de la última actualización del
-        documento de manifiesto en 
+        - `client_config_id` (string): Identificador de la configuración del
+        cliente, donde se define el tipo de selección (total o parcial) de la
+        mercancía a facturar. Este ID hace referencia a un documento almacenado
+        en el modelo `ClientManifestConfig`. 
 
 
+
+        #### Metadata del Registro
+
+
+        - `is_active` (boolean): Indica si el registro está activo (**true**) o
+        ha sido eliminado lógicamente (**false**).
+
+
+
+        - `created_by` (string): Identificador del usuario o sistema que creó el
+        registro.
+
+
+
+        - `created_at` (string): Fecha y hora de creación del registro en
         formato ISO 8601.
 
 
 
-        - `created_by` (string): Identificador del usuario que creó el
-        documento.
+        - `updated_by` (string): Identificador del usuario o sistema que realizó
+        la última actualización.
 
 
 
-        - `updated_by` (string): Identificador del usuario que realizó la última
-        actualización del documento.
+        - `updated_at` (string): Fecha y hora de la última actualización en
+        formato ISO 8601.
 
 
+        ### Información de Paginación
 
-        - `is_active` (boolean): Indica si el documento de manifiesto está
-        activo.
+
+        La respuesta incluye un objeto de paginación con los siguientes campos:
+
+
+        - `pageSize`: Número de elementos por página
+
+        - `currentPage`: Número de página actual
+
+        - `totalPages`: Número total de páginas
+
+        - `totalItems`: Número total de elementos
       operationId: get-getmanifestdocuments
       parameters:
         - name: Authorization
@@ -16408,7 +16540,140 @@ paths:
             type: string
       responses:
         '200':
-          description: 'null'
+          description: 'La solicitud fue realizada exitosamente. '
+          content:
+            application/json:
+              example:
+                statusCode: 200
+                message: 5 ManifestMerchandise retrieved successfully.
+                totalItems: 5
+                pageSize: 10
+                data:
+                  - id: 4b51e8b8-8aa7-4fae-b71c-c505aa8634f4
+                    ext_id: T-001
+                    vehicle_id: 7393b3f3-d2ad-4a7a-a7d5-ecb12a001114
+                    client_id: 8b3t5f0d1-874c-41d5-8fbe-7g5e6a9c7y4d
+                    client_name: DHL METROP
+                    file_id: '230'
+                    type: pickup
+                    dealer: K147
+                    material: 92304R1500
+                    date: '2024-12-12T12:00:00.0000000+00:00'
+                    shipment_lpn: LPN-WH01-9876543210
+                    origin_id: '123456'
+                    client_config_id: update this later...
+                    name: 12-12-2024/DHL METROP/230
+                    created_at: '2024-12-04T07:25:56.0000000+00:00'
+                    updated_at: '2024-12-04T10:45:48.0000000+00:00'
+                    created_by: system
+                    updated_by: system
+                    is_active: true
+                    _rid: JG0mALIH1bgUAAAAAAAAAA==
+                    _self: >-
+                      dbs/JG0mAA==/colls/JG0mALIH1bg=/docs/JG0mALIH1bgUAAAAAAAAAA==/
+                    _etag: '"0300cab4-0000-0700-0000-6750db9c0000"'
+                    _attachments: attachments/
+                    _ts: 1733352348
+                  - id: b388cdf9-2121-411e-bf46-606ab4d7b316
+                    ext_id: T-002
+                    vehicle_id: 7393b3f3-d2ad-4a7a-a7d5-ecb12a001114
+                    client_id: 8b3t5f0d1-874c-41d5-8fbe-7g5e6a9c7y4d
+                    client_name: DHL METROP
+                    file_id: '230'
+                    type: pickup
+                    dealer: K147
+                    material: 87650B40104X
+                    date: '2024-12-12T12:00:00.0000000+00:00'
+                    shipment_lpn: LPN-WH01-9876543210
+                    origin_id: '123456'
+                    client_config_id: update this later...
+                    name: '2024-12-12T12:00:00.000Z/DHL METROP/undefined'
+                    created_at: '2024-12-04T07:25:56.0000000+00:00'
+                    updated_at: '2024-12-04T07:25:56.0000000+00:00'
+                    created_by: system
+                    updated_by: system
+                    is_active: true
+                    _rid: JG0mALIH1bgVAAAAAAAAAA==
+                    _self: >-
+                      dbs/JG0mAA==/colls/JG0mALIH1bg=/docs/JG0mALIH1bgVAAAAAAAAAA==/
+                    _etag: '"03007274-0000-0700-0000-6750acc50000"'
+                    _attachments: attachments/
+                    _ts: 1733340357
+                  - id: ac2ffd2b-5eac-43db-bfc7-0cf1c734e050
+                    name: '2024-12-12T12:00:00.000Z/DHL METROP/undefined'
+                    ext_id: T-003
+                    vehicle_id: 7393b3f3-d2ad-4a7a-a7d5-ecb12a001114
+                    client_id: 8b3t5f0d1-874c-41d5-8fbe-7g5e6a9c7y4d
+                    client_name: DHL METROP
+                    file_id: '230'
+                    type: pickup
+                    dealer: K147
+                    material: 66400R1500
+                    date: '2024-12-12T12:00:00.0000000+00:00'
+                    shipment_lpn: LPN-WH01-9876543210
+                    origin_id: '123456'
+                    client_config_id: update this later...
+                    created_at: '2024-12-04T07:28:07.0000000+00:00'
+                    updated_at: '2024-12-04T07:28:07.0000000+00:00'
+                    created_by: system
+                    updated_by: system
+                    is_active: true
+                    _rid: JG0mALIH1bgWAAAAAAAAAA==
+                    _self: >-
+                      dbs/JG0mAA==/colls/JG0mALIH1bg=/docs/JG0mALIH1bgWAAAAAAAAAA==/
+                    _etag: '"0300e874-0000-0700-0000-6750ad480000"'
+                    _attachments: attachments/
+                    _ts: 1733340488
+                  - id: 398d8458-95a9-4404-937b-b9c5d1302811
+                    name: '2024-12-12T12:00:00.000Z/DHL METROP/230'
+                    ext_id: T-004
+                    vehicle_id: 7393b3f3-d2ad-4a7a-a7d5-ecb12a001114
+                    client_id: 8b3t5f0d1-874c-41d5-8fbe-7g5e6a9c7y4d
+                    client_name: DHL METROP
+                    file_id: '230'
+                    type: pickup
+                    dealer: K147
+                    material: 86595R1600
+                    date: '2024-12-12T12:00:00.0000000+00:00'
+                    shipment_lpn: LPN-WH01-9876543210
+                    origin_id: '123456'
+                    client_config_id: update this later...
+                    created_at: '2024-12-04T07:29:24.0000000+00:00'
+                    updated_at: '2024-12-04T07:29:24.0000000+00:00'
+                    created_by: system
+                    updated_by: system
+                    is_active: true
+                    _rid: JG0mALIH1bgXAAAAAAAAAA==
+                    _self: >-
+                      dbs/JG0mAA==/colls/JG0mALIH1bg=/docs/JG0mALIH1bgXAAAAAAAAAA==/
+                    _etag: '"03002c75-0000-0700-0000-6750ad940000"'
+                    _attachments: attachments/
+                    _ts: 1733340564
+                  - id: 9090214a-7f53-4b0a-8767-21184337ded3
+                    name: 12-12-2024/DHL METROP/230
+                    ext_id: T-005
+                    vehicle_id: 7393b3f3-d2ad-4a7a-a7d5-ecb12a001114
+                    client_id: 8b3t5f0d1-874c-41d5-8fbe-7g5e6a9c7y4d
+                    client_name: DHL METROP
+                    file_id: '230'
+                    type: pickup
+                    dealer: K147
+                    material: 29134R1000
+                    date: '2024-12-12T12:00:00.0000000+00:00'
+                    shipment_lpn: LPN-WH01-9876543210
+                    origin_id: '123456'
+                    client_config_id: update this later...
+                    created_at: '2024-12-04T10:37:19.0000000+00:00'
+                    updated_at: '2024-12-04T10:37:19.0000000+00:00'
+                    created_by: system
+                    updated_by: system
+                    is_active: true
+                    _rid: JG0mALIH1bgYAAAAAAAAAA==
+                    _self: >-
+                      dbs/JG0mAA==/colls/JG0mALIH1bg=/docs/JG0mALIH1bgYAAAAAAAAAA==/
+                    _etag: '"03009eb0-0000-0700-0000-6750d99f0000"'
+                    _attachments: attachments/
+                    _ts: 1733351839
   '/manifest/{id}':
     delete:
       tags:
@@ -16470,33 +16735,39 @@ paths:
         - manifest
       summary: Manifest Document By Id
       description: >-
-        ## GET `/manifest/{id}`
+        ## Endpoint: GET `/manifest/{id}`
 
 
         ### Descripción
 
 
-        Este endpoint permite obtener un documento de manifiesto específico en
-        la base de datos utilizando su identificador único (`id`). Es útil para
-        consultar los detalles de un manifiesto particular.
+        Este endpoint permite obtener un documento de manifiesto específico
+        mediante su identificador único. Retorna tanto los campos de
+        configuración como la metadata del registro.
 
 
         ### Request Parameters
 
 
-        - `id` (string): Identificador único del documento de manifiesto.
-        **Obligatorio**.
+        - `id` (string, requerido): Identificador único del documento de
+        manifiesto que se desea consultar.
 
 
-
-        - `ext_id` (string): Identificador externo único del documento de
-        manifiesto. **Obligatorio**.
-
-
-        ### Descripción de los Campos
+        - `ext_id` (string, requerido): Identificador externo único del
+        documento de manifiesto.
 
 
-        - `id` (string): Identificador único del documento de manifiesto.
+        ### Campos de Respuesta
+
+
+        La respuesta incluye los siguientes campos:
+
+
+        #### Campos del Documento
+
+
+        - `id` (string, requerido): Identificador único del documento de
+        manifiesto que se desea consultar.
 
 
 
@@ -16505,19 +16776,12 @@ paths:
 
 
 
-        - `name` (string): Nombre del documento de manifiesto, la estructura
-        incluye la fecha, nombre del cliente, y ID del archivo, por ejemplo
-        `18/08/2024 DHL METROP 230`.
+        - `name` (string): Nombre del documento de manifiesto.
 
 
 
         - `vehicle_id` (string): Identificador único del vehículo asociado al
         documento de manifiesto.
-
-
-
-        - `document_id` (string): Número de identificación del archivo enviado
-        por cliente relacionado con el manifiesto.
 
 
 
@@ -16531,101 +16795,65 @@ paths:
 
 
 
-        - `type` (string): Tipo de operación asociada al documento de
-        manifiesto. Puede ser alguno de los siguientes valores: `pickup`
-        (recolección), `return` (devolución).
+        - `file_id` (string): Identificador del archivo asociado al manifiesto.
 
 
 
-        - `invoice_without_complement` (boolean): Especifica si el documento
-        cuento o no con una factura sin complemento. En caso de tener un valor
-        `true`, se continuará con el proceso de timbrado como Traslado; en caso
-        contrario, se realizará el proceso de timbrado normal.
+        - `type` (string): Tipo de operación asociada al documento de manifiesto
+        (`pickup` o `return`).
 
 
 
-        - `ext_assignment_id` (string): El Id de asignación, el cual es
-        externo. 
+        - `date` (string): Fecha del documento de manifiesto en formato ISO
+        8601.
 
 
 
-        - `ext_foreign_shipment_id`(string): El Id del embarque foráneo, si
-        aplica. Es el caso cuando el manifiesto es marcado como **Traslado**
+        - `dealer` (string): Código o identificador del distribuidor o vendedor.
 
 
 
-        - `merchandise` (array, requerido): Lista de objetos que contienen la
-        información de la mercancía asociada. Cada objeto de mercancía incluye
-        los siguientes campos:
-
-          - `ext_id` (string): Identificador externo único de la mercancía.
-
-          - `dealer` (string): Código o identificador del distribuidor o vendedor de la mercancía.
-
-          - `material` (string): Código del material o artículo.
-
-          - `date` (string): Fecha en formato ISO 8601 que indica la fecha asociada a la mercancía.
-
-          - `stamps` (array): Lista de objetos que contienen la información de los timbres asociados a la mercancía. Cada objeto de timbre incluye los siguientes campos:
-
-            - `ext_invoice_id` (string): UUID externo de la factura.
-
-            - `ext_cp_id` (string): UUID externo de la Carta Porte.
-
-            - `ext_guide_number` (string): Número externo de la guía generada en el proceso de timbrado.
-
-            - `invoice_url`(string): URL del documento de la factura.
-
-            - `ext_request_number`(string): Número externo de la solicitud.
-
-            - `ext_assignment_id` (string): El Id de asignación, el cual es externo.
-
-            - `document_type` (number): Tipo de documento.
-
-            - `journey_id` (string): Identificador del viaje relacionado con el timbre.
-
-            - `stamped_at` (string): Fecha y hora en formato ISO 8601 en que se realizó el timbrado de la mercancía.
-
-
-        - `date` (string): Fecha en formato ISO 8601 que indica la fecha del
-        documento de manifiesto.
+        - `material` (string): Código del material o artículo.
 
 
 
-        - `selection_mode` (string): Modo de selección de la mercancía, puede
-        ser "full_selection" (selección completa) o "partial_selection"
-        (selección parcial).
-
-
-        ### Metadata del Registro
+        - `shipment_lpn` (string): Número de LPN del embarque.
 
 
 
-        - `created_at` (string): Fecha y hora de creación del documento de
-        manifiesto en formato ISO 8601.
+        - `origin_id` (string): Identificador del origen.
 
 
 
-        - `updated_at` (string): Fecha y hora de la última actualización del
-        documento de manifiesto en 
+        - `client_config_id` (string): Identificador de la configuración del
+        cliente.
 
 
+        #### Campos de Metadata
+
+
+        - `is_active` (boolean): Indica si el registro está activo (**true**) o
+        ha sido eliminado lógicamente (**false**).
+
+
+
+        - `created_by` (string): Identificador del usuario o sistema que creó el
+        registro.
+
+
+
+        - `created_at` (string): Fecha y hora de creación del registro en
         formato ISO 8601.
 
 
 
-        - `created_by` (string): Identificador del usuario que creó el
-        documento.
+        - `updated_by` (string): Identificador del usuario o sistema que realizó
+        la última actualización.
 
 
 
-        - `updated_by` (string): Identificador del usuario que realizó la última
-        actualización del documento.
-
-
-
-        - `is_active` (boolean): Indica si el documento de manifiesto está
-        activo.
+        - `updated_at` (string): Fecha y hora de la última actualización en
+        formato ISO 8601.
       operationId: get-getmanifestdocumentbyid
       parameters:
         - name: id
@@ -16637,6 +16865,7 @@ paths:
         - name: ext_id
           in: query
           description: Identificador externo único del documento de manifiesto.
+          required: true
           schema:
             type: string
         - name: Authorization
@@ -16647,144 +16876,147 @@ paths:
             type: string
       responses:
         '200':
-          description: 'null'
+          description: 'El registro fue consultado exitosamente. '
+          content:
+            application/json:
+              example:
+                statusCode: 200
+                message: ManifestDocument retrieved successfully.
+                id: 4b51e8b8-8aa7-4fae-b71c-c505aa8634f4
+                data:
+                  id: 4b51e8b8-8aa7-4fae-b71c-c505aa8634f4
+                  ext_id: T-001
+                  vehicle_id: 7393b3f3-d2ad-4a7a-a7d5-ecb12a001114
+                  client_id: 8b3t5f0d1-874c-41d5-8fbe-7g5e6a9c7y4d
+                  client_name: DHL METROP
+                  file_id: '230'
+                  type: pickup
+                  dealer: K147
+                  material: 92304R1500
+                  date: '2024-12-12T12:00:00.0000000+00:00'
+                  shipment_lpn: LPN-WH01-9876543210
+                  origin_id: '123456'
+                  client_config_id: update this later...
+                  name: 12-12-2024/DHL METROP/230
+                  created_at: '2024-12-04T07:25:56.0000000+00:00'
+                  updated_at: '2024-12-04T10:45:48.0000000+00:00'
+                  created_by: system
+                  updated_by: system
+                  is_active: true
+                  _rid: JG0mALIH1bgUAAAAAAAAAA==
+                  _self: >-
+                    dbs/JG0mAA==/colls/JG0mALIH1bg=/docs/JG0mALIH1bgUAAAAAAAAAA==/
+                  _etag: '"0300cab4-0000-0700-0000-6750db9c0000"'
+                  _attachments: attachments/
+                  _ts: 1733352348
     put:
       tags:
         - manifest
       summary: Manifest Document
-      description: >+
+      description: >-
         ## Endpoint: PUT `/manifest/{id}`
 
 
         ### Descripción
 
 
-        Este endpoint permite actualizar un documento de manifiesto existente,
-        modificando la información relacionada con la mercancía no timbrada
-        asociada a un vehículo específico. El documento actualizado refleja
-        cualquier cambio necesario en la operación de recolección o entrega de
-        la mercancía.
+        Este endpoint permite actualizar un documento de manifiesto existente.
+        Se pueden actualizar uno o más campos del documento, manteniendo los
+        valores existentes en los campos que no se incluyan en la solicitud.
 
 
         ### Request Parameters
 
 
         - `id` (string, requerido): Identificador único del documento de
-        manifiesto que se desea actualizar.
-
+        manifiesto que se desea modificar.
 
 
         - `ext_id` (string, requerido): Identificador externo único del
         documento de manifiesto.
 
 
-        ### Descripción de los campos
+
+        ### Campos Actualizables
 
 
-        El cuerpo de la solicitud debe contener un objeto JSON con la estructura
-        que sigue:
+        El cuerpo de la solicitud puede contener cualquiera de los siguientes
+        campos opcionales:
 
 
-        - `name` (string, requerido): Nombre actualizado del documento de
-        manifiesto, que puede incluir la fecha, nombre del cliente, y ID del
-        archivo, por ejemplo `18/08/2024 DHL METROP 230`.
-
+        - `name` (string, opcional): Nombre del documento de manifiesto.
 
 
 
         - `vehicle_id` (string, requerido): Identificador único del vehículo
-        asociado al documento de manifiesto.
-
-
-
-
-        - `document_id` (string, requerido): Número de identificación del
-        archivo enviado por cliente relacionado con el manifiesto.
-
+        asociado al documento de manifiesto. Este ID hace referencia a un
+        documento almacenado en el modelo `Vehicles`. 
 
 
 
         - `client_id` (string, requerido): Id del cliente asociado a la
+        mercancía del manifiesto. Este ID hace referencia a un documento
+        almacenado en el modelo `Customers`. 
+
+
+
+        - `client_name` (string, opcional): Nombre del cliente asociado a la
         mercancía del manifiesto.
 
 
 
-
-        - `client_name` (string, requerido): Nombre del cliente asociado a la
-        mercancía del manifiesto.
-
+        - `file_id` (string, opcional): Identificador del archivo asociado al
+        manifiesto.
 
 
 
-        - `type` (string, requerido): Tipo de operación asociada al documento de
-        manifiesto. Puede ser alguno de los siguientes valores: `pickup`
-        (recolección), `return` (devolución).
+        - `type` (string, opcional): Tipo de operación asociada al documento de
+        manifiesto. Puede ser: 
+          - `pickup`: para recolección
+          - `return`: para devolución
+
+
+        - `date` (string, opcional): Fecha del documento de manifiesto en
+        formato ISO 8601.
 
 
 
-
-        - `invoice_without_complement` (boolean): Especifica si el documento
-        cuenta o no con una factura sin complemento. En caso de tener un valor
-        `true`, se continuará con el proceso de timbrado como Traslado; en caso
-        contrario, se realizará el proceso de timbrado normal.
+        - `dealer` (string, opcional): Código o identificador del distribuidor o
+        vendedor.
 
 
 
-
-        - `ext_assignment_id` (string, opcional): El Id de asignación, el cual
-        es externo.
+        - `material` (string, opcional): Código del material o artículo.
 
 
 
-
-        - `ext_foreign_shipment_id` (string, opcional): El Id del embarque
-        foráneo, si aplica. Es el caso cuando el manifiesto es marcado como
-        **Traslado**.
+        - `shipment_LPN` (string, opcional): Número de LPN del embarque.
 
 
 
-
-        - `merchandise` (array, requerido): Lista de objetos que contienen la
-        información de la mercancía asociada. Cada objeto de mercancía incluye
-        los siguientes campos:
-
-          - `ext_id` (string, requerido): Identificador externo único de la mercancía.
-
-          - `dealer` (string, requerido): Código o identificador del distribuidor o vendedor de la mercancía.
-
-          - `material` (string, requerido): Código del material o artículo.
-
-          - `date` (string, requerido): Fecha en formato ISO 8601 que indica la fecha asociada a la mercancía.
-
-          - `stamps` (array, opcional): Lista de objetos que contienen la información de los timbres asociados a la mercancía. Cada objeto de timbre incluye los siguientes campos:
-
-            - `ext_invoice_id` (string, requerido): UUID externo de la factura.
-
-            - `ext_cp_id` (string, requerido): UUID externo de la Carta Porte.
-
-            - `ext_guide_number` (string, opcional): Número externo de la guía generada en el proceso de timbrado.
-
-            - `invoice_url`(string, requerido): URL del documento de la factura.
-
-            - `ext_request_number`(string, opcional): Número externo de la solicitud.
-
-            - `ext_assignment_id` (string, opcional): El Id de asignación, el cual es externo.
-
-            - `document_type` (number, requerido): Tipo de documento.
-
-            - `journey_id` (string, requerido): Identificador del viaje relacionado con el timbre.
-
-            - `stamped_at` (string, requerido): Fecha y hora en formato ISO 8601 en que se realizó el timbrado de la mercancía.
-
-        - `date` (string, requerido): Fecha en formato ISO 8601 que indica la
-        fecha del documento de manifiesto.
+        - `origin_id` (string, opcional): Identificador del origen.
 
 
-        - `selection_mode` (string, requerido): Modo de selección de la
-        mercancía, puede ser "full_selection" (selección completa) o
-        "partial_selection" (selección parcial).
+
+        - `client_config_id` (string, requerido): Identificador de la
+        configuración del cliente, donde se define el tipo de selección (total o
+        parcial) de la mercancía a facturar. Este ID hace referencia a un
+        documento almacenado en el modelo `ClientManifestConfig`. 
 
 
+
+        ### Notas Importantes
+
+
+        - El campo `ext_id` no puede ser modificado una vez creado el documento.
+
+        - Solo se actualizarán los campos incluidos en la solicitud.
+
+        - Los campos no incluidos en la solicitud mantendrán sus valores
+        actuales.
+
+        - La actualización del documento actualizará automáticamente los campos
+        de metadata (`updated_at` y `updated_by`).
       operationId: put-updatemanifestdocument
       parameters:
         - name: id
@@ -16806,50 +17038,52 @@ paths:
           schema:
             type: string
       requestBody:
+        description: 'Body de la solicitud. '
         content:
           application/json:
             example:
-              merchandise:
-                - date: '2024-08-10'
-                  dealer: J49
-                  ext_id: '1008'
-                  material: '2020294857599'
-                  stamps: []
-                - date: '2024-08-10'
-                  dealer: J50
-                  ext_id: '1009'
-                  material: '1080294587591'
-                  stamps: []
-                - date: '2024-08-10'
-                  dealer: J51
-                  ext_id: '1010'
-                  material: '1508294857583'
-                  stamps:
-                    - ext_cp_id: '12345678901234567890'
-                      ext_guide_number: '7894561230'
-                      ext_invoice_id: '1234'
-                      invoice_url: 'https://azure-almex.storage/factura-1.pdf'
-                      journey_id: 8bbe91aa-3635-4cda-ad5c-3ff62263996f
-                      stamped_at: '2024-08-10T12:00:00.0000000+00:00'
-                - date: '2024-08-10'
-                  dealer: J52
-                  ext_id: '1011'
-                  material: '2020294857599'
-                  stamps: []
-                - date: '2024-08-10'
-                  dealer: J53
-                  ext_id: '1012'
-                  material: '1080294587591'
-                  stamps: []
+              name: 12-12-2024/DHL METROP/230
       responses:
         '200':
-          description: 'null'
+          description: 'El registro fue actualizado exitosamente. '
+          content:
+            application/json:
+              example:
+                statusCode: 200
+                message: ManifestMerchandise updated successfully.
+                id: 4b51e8b8-8aa7-4fae-b71c-c505aa8634f4
+                data:
+                  id: 4b51e8b8-8aa7-4fae-b71c-c505aa8634f4
+                  ext_id: T-001
+                  vehicle_id: 7393b3f3-d2ad-4a7a-a7d5-ecb12a001114
+                  client_id: 8b3t5f0d1-874c-41d5-8fbe-7g5e6a9c7y4d
+                  client_name: DHL METROP
+                  file_id: '230'
+                  type: pickup
+                  dealer: K147
+                  material: 92304R1500
+                  date: '2024-12-12T12:00:00.0000000+00:00'
+                  shipment_lpn: LPN-WH01-9876543210
+                  origin_id: '123456'
+                  client_config_id: update this later...
+                  name: 12-12-2024/DHL METROP/230
+                  created_at: '2024-12-04T07:25:56.0000000+00:00'
+                  updated_at: '2024-12-04T10:45:48.0000000+00:00'
+                  created_by: system
+                  updated_by: system
+                  is_active: true
+                  _rid: JG0mALIH1bgUAAAAAAAAAA==
+                  _self: >-
+                    dbs/JG0mAA==/colls/JG0mALIH1bg=/docs/JG0mALIH1bgUAAAAAAAAAA==/
+                  _etag: '"030051b4-0000-0700-0000-6750db6a0000"'
+                  _attachments: attachments/
+                  _ts: 1733352298
   /empty_equipment:
     get:
       tags:
         - empty-equipment-collection
       summary: Empty Equipment Collections
-      description: >-
+      description: >
         ## Endpoint: GET `/empty_equipment`
 
 
@@ -16895,7 +17129,8 @@ paths:
 
 
         - `fields` (string, opcional): Especifica los campos que deseas obtener
-        en la respuesta, separados por comas (por ejemplo, `name,created_at`).
+        en la respuesta, separados por comas (por ejemplo,
+        `brand_name,dealer_code`).
 
 
 
@@ -16920,21 +17155,6 @@ paths:
 
 
 
-        - `ext_assignment_id` (string, opcional): Identificador externo de la
-        asignación.
-
-
-
-        - `ext_foreign_shipment_id` (string, opcional): Identificador externo
-        del embarque foráneo.
-
-
-
-        - `ext_shipment_area` (string, opcional): Identificador del área de
-        embarque asociada.
-
-
-
         - `brand_id` (string): Identificador de la marca asociada al equipo
         vacío.
 
@@ -16954,28 +17174,11 @@ paths:
 
 
         - `equipment` (array): Lista de objetos que representan el equipo vacío
-        recolectado. Cada objeto incluye los siguientes campos:
+        recolectado. Cada objeto incluye:
 
           - `ext_id` (string): Identificador externo único del equipo.
-
-          - `type` (string): Tipo de equipo (e.g., Jaula, Contenedor).
-
-          - `quantity` (number, opcional): Cantidad de equipo.
-
-
-        - `date_collected` (string): Fecha y hora en formato ISO 8601 cuando se
-        realizó la recolección del equipo.
-
-
-
-        - `stamp` (object, opcional): Información del timbrado del equipo.
-        Contiene los siguientes campos:
-
-          - `ext_cp_id` (string, opcional): Identificador externo de la Carta Porte.
-
-          - `invoice_url` (string, opcional): URL del documento de la factura asociada al timbrado.
-
-          - `stamped_at` (string, opcional): Fecha y hora en formato ISO 8601 en la que se realizó el timbrado.
+          
+          - `type` (string): Tipo de equipo.
 
         ### Metadata del Registro
 
@@ -17015,108 +17218,134 @@ paths:
           content:
             application/json:
               example:
+                statusCode: 200
+                message: 4 Empty Equipment documents retrieved successfully.
+                pageSize: 10
+                currentPage: 1
+                totalItems: 4
+                totalPages: 1
                 data:
-                  - _attachments: attachments/
-                    _etag: '"b402d4ec-0000-0700-0000-66c61b220000"'
+                  - id: 4a17dce4-7d18-433a-80b6-6f0d08329b1b
+                    ext_id: '2567891234567890125673'
+                    brand_id: '5'
+                    brand_name: BMW
+                    dealer_id: '264'
+                    dealer_code: A01
+                    equipment:
+                      - ext_id: '8'
+                        type: Jaula
+                        quantity: null
+                      - ext_id: '9'
+                        type: Contenedor
+                        quantity: null
+                    invoice_url: 'https://azure-almex.storage/factura-1.pdf'
+                    tx_id: ref_to_ext_id
+                    date_collected: '2024-08-16T10:00:00.0000000+00:00'
+                    created_at: '2024-08-21T04:51:46.0000000+00:00'
+                    updated_at: '2024-08-21T04:51:46.0000000+00:00'
+                    created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                    updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                    is_active: true
                     _rid: JG0mAJ6fKcwCAAAAAAAAAA==
                     _self: >-
                       dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwCAAAAAAAAAA==/
+                    _etag: '"b402d4ec-0000-0700-0000-66c61b220000"'
+                    _attachments: attachments/
                     _ts: 1724259106
-                    brand_id: '5'
-                    brand_name: BMW
-                    created_at: '2024-08-21T04:51:46.0000000+00:00'
-                    created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
-                    date_collected: '2024-08-16T10:00:00.0000000+00:00'
-                    dealer_code: A01
-                    dealer_id: '264'
-                    equipment:
-                      - ext_id: '8'
-                        quantity: null
-                        type: Jaula
-                      - ext_id: '9'
-                        quantity: null
-                        type: Contenedor
-                    ext_id: '2567891234567890125673'
-                    id: 4a17dce4-7d18-433a-80b6-6f0d08329b1b
-                    invoice_url: 'https://azure-almex.storage/factura-1.pdf'
-                    is_active: true
-                    tx_id: ref_to_ext_id
-                    updated_at: '2024-08-21T04:51:46.0000000+00:00'
-                    updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
-                  - _attachments: attachments/
-                    _etag: '"f602a098-0000-0700-0000-66c67ec70000"'
-                    _rid: JG0mAJ6fKcwDAAAAAAAAAA==
-                    _self: >-
-                      dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwDAAAAAAAAAA==/
-                    _ts: 1724284615
-                    brand_id: '5'
-                    brand_name: BMW
-                    created_at: '2024-08-21T11:56:55.0000000+00:00'
-                    created_by: system
-                    date_collected: '2024-08-16T10:00:00.0000000+00:00'
-                    dealer_code: A01
-                    dealer_id: '264'
-                    equipment:
-                      - ext_id: '8'
-                        quantity: null
-                        type: Jaula
-                      - ext_id: '9'
-                        quantity: null
-                        type: Contenedor
+                  - id: 4addc215-996f-4a93-b4da-06cc29622436
+                    ext_id: '25678912345678901256731'
                     ext_assignment_id: '123456'
                     ext_foreign_shipment_id: '5599'
-                    ext_id: '25678912345678901256731'
                     ext_shipment_area: '12'
-                    id: adc4ef5c-81f4-483d-a091-148d4a36df21
-                    is_active: true
-                    stamp: null
-                    updated_at: '2024-08-21T11:56:55.0000000+00:00'
-                    updated_by: system
-                  - _attachments: attachments/
-                    _etag: '"a30229ad-0000-0700-0000-66c5f4f40000"'
-                    _rid: JG0mAJ6fKcwBAAAAAAAAAA==
-                    _self: >-
-                      dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwBAAAAAAAAAA==/
-                    _ts: 1724249332
                     brand_id: '5'
                     brand_name: BMW
-                    created_at: '2024-08-21T02:08:51.0000000+00:00'
-                    created_by: system
-                    date_collected: '2024-08-16T10:00:00.0000000+00:00'
-                    dealer_code: A01
                     dealer_id: '264'
+                    dealer_code: A01
                     equipment:
                       - ext_id: '8'
-                        quantity: null
                         type: Jaula
+                        quantity: 3
                       - ext_id: '9'
-                        quantity: null
                         type: Contenedor
-                    ext_id: '2567891234567890123'
-                    id: f6517e8d-43c5-4ef4-af02-eef97794c66a
-                    invoice_url: 'https://azure-almex.storage/factura-1.pdf'
+                        quantity: 1
+                    date_collected: '2024-08-16T10:00:00.0000000+00:00'
+                    stamp:
+                      ext_cp_id: '123456789'
+                      invoice_url: 'https://azure-almex.storage/equipo-timbrado.pdf'
+                      stamped_at: '2024-08-22T10:04:15.0000000+00:00'
+                    created_at: '2024-08-22T01:46:25.0000000+00:00'
+                    updated_at: '2024-08-22T01:48:01.0000000+00:00'
+                    created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
+                    updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                     is_active: true
-                    tx_id: ref_to_ext_id
-                    updated_at: '2024-08-21T02:08:51.0000000+00:00'
+                    _rid: JG0mAJ6fKcwEAAAAAAAAAA==
+                    _self: >-
+                      dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwEAAAAAAAAAA==/
+                    _etag: '"fe02fe62-0000-0700-0000-66c698d10000"'
+                    _attachments: attachments/
+                    _ts: 1724291281
+                  - id: bdfb94fb-253a-4987-996a-ce5eea33e210
+                    ext_id: T-001
+                    brand_id: '5'
+                    brand_name: BMW
+                    dealer_id: '264'
+                    dealer_code: A01
+                    equipment:
+                      - ext_id: '8'
+                        type: Jaula
+                        quantity: null
+                      - ext_id: '9'
+                        type: Contenedor
+                        quantity: null
+                    created_at: '2024-12-05T05:34:52.0000000+00:00'
+                    updated_at: '2024-12-05T05:34:52.0000000+00:00'
+                    created_by: system
                     updated_by: system
-                message: 3 Empty Equipment retrieved successfully.
-                statusCode: 200
+                    is_active: true
+                    _rid: JG0mAJ6fKcwGAAAAAAAAAA==
+                    _self: >-
+                      dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwGAAAAAAAAAA==/
+                    _etag: '"03002c28-0000-0700-0000-6751e43c0000"'
+                    _attachments: attachments/
+                    _ts: 1733420092
+                  - id: b3be8791-ddea-47dd-bae0-0a4b870ba7d1
+                    ext_id: T-002
+                    brand_id: '5'
+                    brand_name: BMW
+                    dealer_id: '264'
+                    dealer_code: A02
+                    equipment:
+                      - ext_id: '8'
+                        type: Jaula
+                        quantity: null
+                      - ext_id: '9'
+                        type: Contenedor
+                        quantity: null
+                    created_at: '2024-12-05T05:36:24.0000000+00:00'
+                    updated_at: '2024-12-05T05:36:24.0000000+00:00'
+                    created_by: system
+                    updated_by: system
+                    is_active: true
+                    _rid: JG0mAJ6fKcwHAAAAAAAAAA==
+                    _self: >-
+                      dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwHAAAAAAAAAA==/
+                    _etag: '"03003c28-0000-0700-0000-6751e4980000"'
+                    _attachments: attachments/
+                    _ts: 1733420184
     post:
       tags:
         - empty-equipment-collection
       summary: Empty Equipment
-      description: >-
+      description: >
         ## Endpoint: POST `/empty_equipment`
 
 
         ### Descripción
 
 
-        Este endpoint permite la creación de un nuevo documento en la colección
-        de recolección de equipo vacío. Se espera que el cuerpo de la solicitud
-        contenga la información relevante sobre la recolección, incluyendo los
-        detalles del equipo, referencias a documentos externos, y la información
-        del timbrado.
+        Este endpoint permite crear un nuevo registro de recolección de equipo
+        vacío. Se utiliza para registrar la información de equipos vacíos
+        recolectados asociados a una marca y distribuidor específicos.
 
 
         ### Request Parameters
@@ -17125,25 +17354,15 @@ paths:
         No se requieren parámetros adicionales en la solicitud.
 
 
-        ### Descripción de los campos
+        ### Campos Requeridos
 
 
-        El cuerpo de la solicitud debe contener un objeto JSON con la siguiente
-        estructura:
+        A continuación se describen los campos que deben ser incluidos en el
+        cuerpo de la solicitud (request body):
 
 
-        - `ext_assignment_id` (string, opcional): Identificador externo de la
-        asignación.
-
-
-
-        - `ext_foreign_shipment_id` (string, opcional): Identificador externo
-        del embarque foráneo.
-
-
-
-        - `ext_shipment_area` (string, opcional): Identificador del área de
-        embarque asociada.
+        - `ext_id` (string, requerido): Identificador externo único de la
+        recolección de equipo vacío.
 
 
 
@@ -17168,26 +17387,11 @@ paths:
 
 
         - `equipment` (array, requerido): Lista de objetos que representan el
-        equipo vacío recolectado. Cada objeto incluye los siguientes campos:
+        equipo vacío recolectado. Cada objeto debe incluir:
 
           - `ext_id` (string, requerido): Identificador externo único del equipo.
 
-          - `type` (string, requerido): Tipo de equipo (e.g., Jaula, Contenedor).
-
-          - `quantity` (number, opcional): Cantidad de equipo.
-
-        - `date_collected` (string, requerido): Fecha y hora en formato ISO 8601
-        cuando se realizó la recolección del equipo.
-
-
-        - `stamp` (object, opcional): Información del timbrado del equipo.
-        Contiene los siguientes campos:
-
-          - `ext_cp_id` (string, opcional): Identificador externo de la Carta Porte.
-
-          - `invoice_url` (string, opcional): URL del documento de la factura asociada al timbrado.
-
-          - `stamped_at` (string, opcional): Fecha y hora en formato ISO 8601 en la que se realizó el timbrado.
+          - `type` (string, requerido): Tipo de equipo.
       operationId: post-addemptyequipment
       parameters:
         - name: Authorization
@@ -17201,55 +17405,44 @@ paths:
         content:
           application/json:
             example:
+              ext_id: T-002
               brand_id: '5'
               brand_name: BMW
-              date_collected: '2024-08-16T10:00:00.0000000+00:00'
-              dealer_code: A01
               dealer_id: '264'
+              dealer_code: A02
               equipment:
                 - ext_id: '8'
-                  quantity: null
                   type: Jaula
                 - ext_id: '9'
-                  quantity: null
                   type: Contenedor
-              ext_assignment_id: '123456'
-              ext_foreign_shipment_id: '5599'
-              ext_id: '25678912345678901256731'
-              ext_shipment_area: '12'
       responses:
-        '200':
-          description: ''
+        '201':
+          description: 'El registro fue creado exitosamente. '
           content:
             application/json:
               example:
+                statusCode: 201
+                message: EmptyEquipmentCollection created successfully.
+                id: b3be8791-ddea-47dd-bae0-0a4b870ba7d1
                 data:
+                  id: b3be8791-ddea-47dd-bae0-0a4b870ba7d1
+                  ext_id: T-002
                   brand_id: '5'
                   brand_name: BMW
-                  created_at: '2024-08-21T11:56:55.0000000+00:00'
-                  created_by: system
-                  date_collected: '2024-08-16T10:00:00.0000000+00:00'
-                  dealer_code: A01
                   dealer_id: '264'
+                  dealer_code: A02
                   equipment:
                     - ext_id: '8'
-                      quantity: null
                       type: Jaula
-                    - ext_id: '9'
                       quantity: null
+                    - ext_id: '9'
                       type: Contenedor
-                  ext_assignment_id: '123456'
-                  ext_foreign_shipment_id: '5599'
-                  ext_id: '25678912345678901256731'
-                  ext_shipment_area: '12'
-                  id: adc4ef5c-81f4-483d-a091-148d4a36df21
-                  is_active: true
-                  stamp: null
-                  updated_at: '2024-08-21T11:56:55.0000000+00:00'
+                      quantity: null
+                  created_at: '2024-12-05T05:36:24.0000000+00:00'
+                  updated_at: '2024-12-05T05:36:24.0000000+00:00'
+                  created_by: system
                   updated_by: system
-                id: adc4ef5c-81f4-483d-a091-148d4a36df21
-                message: EmptyEquipmentCollection created successfully.
-                statusCode: 201
+                  is_active: true
   '/empty_equipment/{id}':
     delete:
       tags:
@@ -17367,21 +17560,6 @@ paths:
 
 
 
-        - `ext_assignment_id` (string, opcional): Identificador externo de la
-        asignación.
-
-
-
-        - `ext_foreign_shipment_id` (string, opcional): Identificador externo
-        del embarque foráneo.
-
-
-
-        - `ext_shipment_area` (string, opcional): Identificador del área de
-        embarque asociada.
-
-
-
         - `brand_id` (string): Identificador de la marca asociada al equipo
         vacío.
 
@@ -17401,28 +17579,12 @@ paths:
 
 
         - `equipment` (array): Lista de objetos que representan el equipo vacío
-        recolectado. Cada objeto incluye los siguientes campos:
+        recolectado. Cada objeto incluye:
 
           - `ext_id` (string): Identificador externo único del equipo.
+          
+          - `type` (string): Tipo de equipo.
 
-          - `type` (string): Tipo de equipo (e.g., Jaula, Contenedor).
-
-          - `quantity` (number, opcional): Cantidad de equipo.
-
-
-        - `date_collected` (string): Fecha y hora en formato ISO 8601 cuando se
-        realizó la recolección del equipo.
-
-
-
-        - `stamp` (object, opcional): Información del timbrado del equipo.
-        Contiene los siguientes campos:
-
-          - `ext_cp_id` (string, opcional): Identificador externo de la Carta Porte.
-
-          - `invoice_url` (string, opcional): URL del documento de la factura asociada al timbrado.
-
-          - `stamped_at` (string, opcional): Fecha y hora en formato ISO 8601 en la que se realizó el timbrado.
 
         ### Metadata del Registro
 
@@ -17476,41 +17638,33 @@ paths:
           content:
             application/json:
               example:
+                statusCode: 200
+                message: EmptyEquipmentCollection retrieved successfully.
                 data:
-                  _attachments: attachments/
-                  _etag: '"f702ee05-0000-0700-0000-66c67ffd0000"'
-                  _rid: JG0mAJ6fKcwDAAAAAAAAAA==
-                  _self: >-
-                    dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwDAAAAAAAAAA==/
-                  _ts: 1724284925
+                  id: b3be8791-ddea-47dd-bae0-0a4b870ba7d1
+                  ext_id: T-002
                   brand_id: '5'
                   brand_name: BMW
-                  created_at: '2024-08-21T11:56:55.0000000+00:00'
-                  created_by: system
-                  date_collected: '2024-08-16T10:00:00.0000000+00:00'
-                  dealer_code: A01
                   dealer_id: '264'
+                  dealer_code: A02
                   equipment:
                     - ext_id: '8'
-                      quantity: 3
                       type: Jaula
+                      quantity: null
                     - ext_id: '9'
-                      quantity: 1
                       type: Contenedor
-                  ext_assignment_id: '123456'
-                  ext_foreign_shipment_id: '5599'
-                  ext_id: '25678912345678901256731'
-                  ext_shipment_area: '12'
-                  id: adc4ef5c-81f4-483d-a091-148d4a36df21
-                  is_active: true
-                  stamp:
-                    ext_cp_id: '123456789'
-                    invoice_url: 'https://azure-almex.storage/equipo-timbrado.pdf'
-                    stamped_at: '2024-08-22T10:04:15.0000000+00:00'
-                  updated_at: '2024-08-22T12:02:05.0000000+00:00'
+                      quantity: null
+                  created_at: '2024-12-05T05:36:24.0000000+00:00'
+                  updated_at: '2024-12-05T05:36:24.0000000+00:00'
+                  created_by: system
                   updated_by: system
-                message: EmptyEquipmentCollection retrieved successfully.
-                statusCode: 200
+                  is_active: true
+                  _rid: JG0mAJ6fKcwHAAAAAAAAAA==
+                  _self: >-
+                    dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwHAAAAAAAAAA==/
+                  _etag: '"03003c28-0000-0700-0000-6751e4980000"'
+                  _attachments: attachments/
+                  _ts: 1733420184
     put:
       tags:
         - empty-equipment-collection
@@ -17541,68 +17695,41 @@ paths:
         recolección de equipo vacío.
 
 
-        ### Descripción de los campos
+        ### Campos Actualizables
 
 
-        El cuerpo de la solicitud debe contener un objeto JSON con la siguiente
-        estructura:
+        A continuación se describen los campos que pueden ser incluidos en el
+        cuerpo de la solicitud (request body). Todos los campos son opcionales,
+        y solo se actualizarán los campos incluidos en la solicitud:
 
 
-        - `ext_assignment_id` (string): Identificador externo de la asignación.
-
-
-
-        - `ext_foreign_shipment_id` (string): Identificador externo del embarque
-        foráneo.
+        - `brand_id` (string, opcional): Identificador de la marca asociada al
+        equipo vacío.
 
 
 
-        - `ext_shipment_area` (string): Identificador del área de embarque
-        asociada.
-
-
-
-        - `brand_id` (string): Identificador de la marca asociada al equipo
+        - `brand_name` (string, opcional): Nombre de la marca asociada al equipo
         vacío.
 
 
 
-        - `brand_name` (string): Nombre de la marca asociada al equipo vacío.
+        - `dealer_id` (string, opcional): Identificador del concesionario o
+        distribuidor asociado.
 
 
 
-        - `dealer_id` (string): Identificador del concesionario o distribuidor
-        asociado.
+        - `dealer_code` (string, opcional): Código del concesionario o
+        distribuidor.
 
 
 
-        - `dealer_code` (string): Código del concesionario o distribuidor.
-
-
-
-        - `equipment` (array): Lista de objetos que representan el equipo vacío
-        recolectado. Cada objeto incluye los siguientes campos:
+        - `equipment` (array, opcional): Lista de objetos que representan el
+        equipo vacío recolectado. Si se incluye este campo, reemplazará
+        completamente la lista existente. Cada objeto puede contener:
 
           - `ext_id` (string): Identificador externo único del equipo.
 
-          - `type` (string): Tipo de equipo (e.g., Jaula, Contenedor).
-
-          - `quantity` (number): Cantidad de equipo.
-
-
-        - `date_collected` (string): Fecha y hora en formato ISO 8601 cuando se
-        realizó la recolección del equipo.
-
-
-
-        - `stamp` (object): Información del timbrado del equipo. Contiene los
-        siguientes campos:
-
-          - `ext_cp_id` (string): Identificador externo de la Carta Porte.
-
-          - `invoice_url` (string): URL del documento de la factura asociada al timbrado.
-
-          - `stamped_at` (string): Fecha y hora en formato ISO 8601 en la que se realizó el timbrado.
+          - `type` (string): Tipo de equipo.
       operationId: put-updateemptyequipment
       parameters:
         - name: id
@@ -17627,59 +17754,39 @@ paths:
         content:
           application/json:
             example:
-              equipment:
-                - ext_id: '8'
-                  quantity: 3
-                  type: Jaula
-                - ext_id: '9'
-                  quantity: 1
-                  type: Contenedor
-              stamp:
-                ext_cp_id: '123456789'
-                invoice_url: 'https://azure-almex.storage/equipo-timbrado.pdf'
-                stamped_at: '2024-08-22T10:04:15.0000000+00:00'
+              dealer_code: A02
       responses:
         '200':
-          description: ''
+          description: El registro fue actualizado correctamente.
           content:
             application/json:
               example:
+                statusCode: 200
+                message: EmptyEquipmentCollection updated successfully.
+                id: b3be8791-ddea-47dd-bae0-0a4b870ba7d1
                 data:
-                  _attachments: attachments/
-                  _etag: '"f60273f6-0000-0700-0000-66c67fcc0000"'
-                  _rid: JG0mAJ6fKcwDAAAAAAAAAA==
-                  _self: >-
-                    dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwDAAAAAAAAAA==/
-                  _ts: 1724284876
+                  id: b3be8791-ddea-47dd-bae0-0a4b870ba7d1
+                  ext_id: T-002
                   brand_id: '5'
                   brand_name: BMW
-                  created_at: '2024-08-21T11:56:55.0000000+00:00'
-                  created_by: system
-                  date_collected: '2024-08-16T10:00:00.0000000+00:00'
-                  dealer_code: A01
                   dealer_id: '264'
+                  dealer_code: A02
                   equipment:
                     - ext_id: '8'
-                      quantity: 3
                       type: Jaula
                     - ext_id: '9'
-                      quantity: 1
                       type: Contenedor
-                  ext_assignment_id: '123456'
-                  ext_foreign_shipment_id: '5599'
-                  ext_id: '25678912345678901256731'
-                  ext_shipment_area: '12'
-                  id: adc4ef5c-81f4-483d-a091-148d4a36df21
+                  created_at: '2024-12-05T05:36:24.0000000+00:00'
+                  updated_at: '2024-12-05T05:41:23.0000000+00:00'
+                  created_by: system
+                  updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                   is_active: true
-                  stamp:
-                    ext_cp_id: '123456789'
-                    invoice_url: 'https://azure-almex.storage/equipo-timbrado.pdf'
-                    stamped_at: '2024-08-22T10:04:15.0000000+00:00'
-                  updated_at: '2024-08-22T12:02:05.0000000+00:00'
-                  updated_by: system
-                id: adc4ef5c-81f4-483d-a091-148d4a36df21
-                message: EmptyEquipmentCollection updated successfully.
-                statusCode: 200
+                  _rid: JG0mAJ6fKcwHAAAAAAAAAA==
+                  _self: >-
+                    dbs/JG0mAA==/colls/JG0mAJ6fKcw=/docs/JG0mAJ6fKcwHAAAAAAAAAA==/
+                  _etag: '"03005728-0000-0700-0000-6751e5900000"'
+                  _attachments: attachments/
+                  _ts: 1733420432
   /sas-url-token:
     get:
       summary: GenerateSasUrl
@@ -18099,6 +18206,531 @@ paths:
                       created_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                       updated_by: d89500dc-0fad-4256-83cc-4a99916d2e4b
                       is_active: true
+  /client-manifest-config:
+    post:
+      tags:
+        - client-manifest-config
+      summary: Client Manifest Config
+      description: >
+        ## Endpoint: POST `/client-manifest-config`
+
+
+        ### Descripción
+
+
+        Este endpoint permite crear una nueva configuración de manifiestos para
+        un cliente específico. La configuración incluye el identificador externo
+        del cliente, el ID del cliente, y configuraciones específicas para el
+        manejo de facturación y agrupamiento de elementos.
+
+
+        ### Campos Requeridos
+
+
+        A continuación se describen los campos que deben ser incluidos en el
+        cuerpo de la solicitud (request body). 
+
+
+        - `ext_id` (string, requerido): Identificador externo único de la
+        configuración de manifiestos.
+
+
+
+        - `client_id` (string, requerido): Identificador del cliente al que
+        pertenece esta configuración de manifiestos.
+
+
+
+        - `allow_partial_billing` (boolean, requerido): Indica si se permite la
+        facturación parcial de elementos en un manifiesto. Si es **true**, se
+        pueden facturar elementos seleccionados individualmente. Si es
+        **false**, todos los elementos deben ser facturados en conjunto.
+
+
+
+        - `group_by_origin` (boolean, opcional): Indica si los elementos en el
+        manifiesto deben ser agrupados por su origen. Si es **true**, los
+        elementos se agruparán automáticamente según su punto de origen.
+      operationId: post-addclientmanifestconfig
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'El Bearer Token en formato JWT para acceder a los recursos. '
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              ext_id: T-002
+              client_id: '12345678901234567890123'
+              allow_partial_billing: false
+              group_by_origin: true
+      responses:
+        '201':
+          description: 'Documento creado exitosamente. '
+          content:
+            application/json:
+              example:
+                statusCode: 201
+                message: Client manifest configuration created successfully.
+                id: 2b13adc4-2359-4adf-a4f4-f22806830403
+                data:
+                  id: 2b13adc4-2359-4adf-a4f4-f22806830403
+                  ext_id: T-001
+                  client_id: '12345678901234567890123'
+                  allow_partial_billing: true
+                  group_by_origin: true
+                  created_at: '2024-12-04T11:16:38.0000000+00:00'
+                  updated_at: '2024-12-04T11:16:38.0000000+00:00'
+                  created_by: system
+                  updated_by: system
+                  is_active: true
+                  _rid: JG0mALZHxksBAAAAAAAAAA==
+                  _self: >-
+                    dbs/JG0mAA==/colls/JG0mALZHxks=/docs/JG0mALZHxksBAAAAAAAAAA==/
+                  _etag: '"e51291a7-0000-0700-0000-6750e2d70000"'
+                  _attachments: attachments/
+                  _ts: 1733354199
+    get:
+      tags:
+        - client-manifest-config
+      summary: Client Manifest Configs
+      description: >-
+        ## Endpoint: GET `/client-manifest-config`
+
+
+        ### Descripción
+
+
+        Este endpoint permite obtener una lista paginada de todas las
+        configuraciones de manifiestos activas. La respuesta incluye tanto los
+        campos de configuración como la metadata de cada registro.
+
+
+        ### Request Parameters
+
+
+        **No se requieren parámetros adicionales en la solicitud.** Sin embargo,
+        si deseas modificar los valores del paginado o hacer consultas mediante
+        filtros, puedes agregar los siguientes parámetros al query:
+
+
+        - `pageSize` (number, opcional): Número de elementos por página. Valor
+        por defecto: 10.
+
+
+
+        - `page` (number, opcional): Número de la página actual. Valor por
+        defecto: 1.
+
+
+
+        - `ext_id` (string, opcional): Filtra los resultados por el ID externo
+        especificado.
+
+
+
+        - `startDate` (string, opcional): Filtra los resultados por aquellos
+        creados después de esta fecha (formato ISO 8601).
+
+
+
+        - `endDate` (string, opcional): Filtra los resultados por aquellos
+        creados antes de esta fecha (formato ISO 8601).
+
+
+
+        - `fields` (string, opcional): Especifica los campos que deseas obtener
+        en la respuesta, separados por comas (por ejemplo, `ext_id,client_id`).
+
+
+
+        - **Otros filtros**: Puedes agregar otros filtros dinámicos basados en
+        los campos del modelo, agregándolos como parámetros de query.
+
+
+        ### Campos de Respuesta
+
+
+        Cada elemento en la lista incluye los siguientes campos:
+
+
+        #### Campos de Configuración
+
+
+        - `ext_id` (string): Identificador externo único de la configuración de
+        manifiestos.
+
+
+
+        - `client_id` (string): Identificador del cliente al que pertenece esta
+        configuración de manifiestos.
+
+
+
+        - `allow_partial_billing` (boolean): Indica si se permite la facturación
+        parcial de elementos en un manifiesto. Si es **true**, se pueden
+        facturar elementos seleccionados individualmente. Si es **false**, todos
+        los elementos deben ser facturados en conjunto.
+
+
+
+        - `group_by_origin` (boolean): Indica si los elementos en el manifiesto
+        deben ser agrupados por su origen. Si es **true**, los elementos se
+        agruparán automáticamente según su punto de origen.
+
+
+        #### Metadata del Registro
+
+
+        - `is_active` (boolean): Indica si el registro está activo (**true**) o
+        ha sido eliminado lógicamente (**false**).
+
+
+
+        - `created_by` (string): Identificador del usuario o sistema que creó el
+        registro.
+
+
+
+        - `created_at` (string): Fecha y hora de creación del registro en
+        formato ISO 8601.
+
+
+
+        - `updated_by` (string): Identificador del usuario o sistema que realizó
+        la última actualización.
+
+
+
+        - `updated_at` (string): Fecha y hora de la última actualización en
+        formato ISO 8601.
+
+
+        ### Información de Paginación
+
+
+        La respuesta incluye un objeto de paginación con los siguientes campos:
+
+
+        - `pageSize`: Número de elementos por página
+
+
+
+        - `currentPage`: Número de página actual
+
+
+        - `totalPages`: Número total de páginas
+
+
+        - `totalItems`: Número total de elementos
+      operationId: get-getclientmanifestconfigs
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'El Bearer Token en formato JWT para acceder a los recursos. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'La solicitud de consulta fue exitosa. '
+          content:
+            application/json:
+              example:
+                statusCode: 200
+                message: Client manifest configurations retrieved successfully.
+                pageSize: 10
+                currentPage: 1
+                totalItems: 1
+                totalPages: 1
+                data:
+                  - id: 2b13adc4-2359-4adf-a4f4-f22806830403
+                    ext_id: T-001
+                    client_id: '12345678901234567890123'
+                    allow_partial_billing: false
+                    group_by_origin: true
+                    created_at: '2024-12-04T11:16:38.0000000+00:00'
+                    updated_at: '2024-12-04T11:40:55.0000000+00:00'
+                    created_by: system
+                    updated_by: system
+                    is_active: true
+                    _rid: JG0mALZHxksBAAAAAAAAAA==
+                    _self: >-
+                      dbs/JG0mAA==/colls/JG0mALZHxks=/docs/JG0mALZHxksBAAAAAAAAAA==/
+                    _etag: '"e6127cf6-0000-0700-0000-6750e8870000"'
+                    _attachments: attachments/
+                    _ts: 1733355655
+  '/client-manifest-config/{id}':
+    get:
+      tags:
+        - client-manifest-config
+      summary: Client Manifest Config By ID
+      description: >-
+        ## Endpoint: GET `/client-manifest-config/{id}`
+
+
+        ### Descripción
+
+
+        Este endpoint permite obtener una configuración de manifiestos
+        específica mediante su identificador único. Retorna tanto los campos de
+        configuración como la metadata del registro.
+
+
+        ### Request Parameters
+
+
+        - `id` (string, requerido): Identificador único del documento de
+        configuración que se desea consultar.
+
+
+        ### Campos de Respuesta
+
+
+        La respuesta incluye los siguientes campos:
+
+
+        #### Campos de Configuración
+
+
+        - `ext_id` (string): Identificador externo único de la configuración de
+        manifiestos.
+
+
+
+        - `client_id` (string): Identificador del cliente al que pertenece esta
+        configuración de manifiestos.
+
+
+
+        - `allow_partial_billing` (boolean): Indica si se permite la facturación
+        parcial de elementos en un manifiesto. Si es **true**, se pueden
+        facturar elementos seleccionados individualmente. Si es **false**, todos
+        los elementos deben ser facturados en conjunto.
+
+
+
+        - `group_by_origin` (boolean): Indica si los elementos en el manifiesto
+        deben ser agrupados por su origen. Si es **true**, los elementos se
+        agruparán automáticamente según su punto de origen.
+
+
+        #### Metadata del Registro
+
+
+        - `is_active` (boolean): Indica si el registro está activo (**true**) o
+        ha sido eliminado lógicamente (**false**).
+
+
+
+        - `created_by` (string): Identificador del usuario o sistema que creó el
+        registro.
+
+
+
+        - `created_at` (string): Fecha y hora de creación del registro en
+        formato ISO 8601.
+
+
+
+        - `updated_by` (string): Identificador del usuario o sistema que realizó
+        la última actualización.
+
+
+
+        - `updated_at` (string): Fecha y hora de la última actualización en
+        formato ISO 8601.
+      operationId: get-getclientmanifestconfigbyid
+      parameters:
+        - name: id
+          in: path
+          description: >
+            Identificador único del documento de configuración que se desea
+            consultar.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: 'El Bearer Token en formato JWT para acceder a los recursos. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'La solicitud de consulta fue exitosa. '
+          content:
+            application/json:
+              example:
+                statusCode: 200
+                message: Client manifest configuration updated successfully.
+                data:
+                  id: 2b13adc4-2359-4adf-a4f4-f22806830403
+                  ext_id: T-001
+                  client_id: '12345678901234567890123'
+                  allow_partial_billing: false
+                  group_by_origin: true
+                  created_at: '2024-12-04T11:16:38.0000000+00:00'
+                  updated_at: '2024-12-04T11:40:55.0000000+00:00'
+                  created_by: system
+                  updated_by: system
+                  is_active: true
+                  _rid: JG0mALZHxksBAAAAAAAAAA==
+                  _self: >-
+                    dbs/JG0mAA==/colls/JG0mALZHxks=/docs/JG0mALZHxksBAAAAAAAAAA==/
+                  _etag: '"e6127cf6-0000-0700-0000-6750e8870000"'
+                  _attachments: attachments/
+                  _ts: 1733355655
+    put:
+      tags:
+        - client-manifest-config
+      summary: Client Manifest Config
+      description: >-
+        ## Endpoint: PUT `/client-manifest-config/{id}`
+
+
+        ### Descripción
+
+
+        Este endpoint permite actualizar una configuración de manifiestos
+        existente. Se pueden actualizar uno o más campos de la configuración,
+        manteniendo los valores existentes en los campos que no se incluyan en
+        la solicitud.
+
+
+        ### Request Parameters
+
+
+        - `id` (string, requerido): Identificador único del documento de
+        configuración que se desea modificar.
+
+
+        ### Campos Actualizables
+
+
+        A continuación se describen los campos que pueden ser incluidos en el
+        cuerpo de la solicitud (request body). Todos los campos son opcionales,
+        y solo se actualizarán los campos incluidos en la solicitud:
+
+
+        - `client_id` (string, opcional): Identificador del cliente al que
+        pertenece esta configuración de manifiestos.
+
+
+
+        - `allow_partial_billing` (boolean, opcional): Indica si se permite la
+        facturación parcial de elementos en un manifiesto. Si es **true**, se
+        pueden facturar elementos seleccionados individualmente. Si es
+        **false**, todos los elementos deben ser facturados en conjunto.
+
+
+
+        - `group_by_origin` (boolean, opcional): Indica si los elementos en el
+        manifiesto deben ser agrupados por su origen. Si es **true**, los
+        elementos se agruparán automáticamente según su punto de origen.
+      operationId: put-updateclientmanifestconfig
+      parameters:
+        - name: id
+          in: path
+          description: >
+            Identificador único del documento de configuración que se desea
+            modificar.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: 'El Bearer Token en formato JWT para acceder a los recursos. '
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 'Body de la petición. '
+        content:
+          application/json:
+            example:
+              allow_partial_billing: true
+      responses:
+        '200':
+          description: 'El documento fue actualizado exitosamente. '
+          content:
+            application/json:
+              example:
+                statusCode: 200
+                message: Client manifest configuration updated successfully.
+                data:
+                  id: 2b13adc4-2359-4adf-a4f4-f22806830403
+                  ext_id: T-001
+                  client_id: '12345678901234567890123'
+                  allow_partial_billing: false
+                  group_by_origin: true
+                  created_at: '2024-12-04T11:16:38.0000000+00:00'
+                  updated_at: '2024-12-04T11:40:55.0000000+00:00'
+                  created_by: system
+                  updated_by: system
+                  is_active: true
+                  _rid: JG0mALZHxksBAAAAAAAAAA==
+                  _self: >-
+                    dbs/JG0mAA==/colls/JG0mALZHxks=/docs/JG0mALZHxksBAAAAAAAAAA==/
+                  _etag: '"e6127cf6-0000-0700-0000-6750e8870000"'
+                  _attachments: attachments/
+                  _ts: 1733355655
+    delete:
+      tags:
+        - client-manifest-config
+      summary: Client Manifest Config By ID
+      description: >-
+        ## Endpoint: DELETE `/client-manifest-config/{id}`
+
+
+        ### Descripción
+
+
+        Este endpoint permite realizar un borrado lógico de una configuración de
+        manifiestos específica. La operación marca el registro como inactivo
+        (`is_active = false`) en lugar de eliminarlo físicamente de la base de
+        datos.
+
+
+        ### Request Parameters
+
+
+        - `id` (string, requerido): Identificador único del documento de
+        configuración que se desea eliminar.
+      operationId: delete-deleteclientmanifestconfig
+      parameters:
+        - name: id
+          in: path
+          description: >-
+            Identificador único del documento de configuración que se desea
+            eliminar.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: 'El Bearer Token en formato JWT para acceder a los recursos. '
+          schema:
+            type: 'string'
+      responses:
+        '200':
+          description: 'El documento se eliminó exitosamente. '
+          content:
+            application/json:
+              example:
+                statusCode: 200
+                message: Client manifest configuration deleted successfully.
+        '404':
+          description: 'Registro no encontrado. '
+          content:
+            application/json:
+              example:
+                statusCode: 404
+                error: Not Found
+                message: Configuration not found or is not active
 components:
   schemas:
     Unauthorized:
