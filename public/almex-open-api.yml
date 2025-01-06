@@ -3671,15 +3671,43 @@ paths:
         - `empty_equipment_collected` (array): **Opcional, solo para
         `ACT_EMPTY_EQUIPMENT`**. Lista de equipos con:
           
-          - `ext_id` (string): ID externo del equipo
-          
-          - `type` (string): Tipo de equipo
-          
-          - `quantity` (number): Cantidad recolectada
-          
-          - `date` (string): Fecha de recolección
+        - `id` (string, requerido): Identificador único del registro.
 
-          - `invoice_url` (string): URL de la evidencia de recolección
+
+        - `ext_id` (string, requerido): Identificador externo único del registro.
+
+
+        - `brand_id` (string, requerido): Identificador de la marca.
+
+
+        - `brand_name` (string, requerido): Nombre de la marca.
+
+
+        - `dealer_id` (string, requerido): Identificador del distribuidor.
+
+
+        - `dealer_code` (string, requerido): Código del distribuidor.
+
+
+        - `stamp` (objeto, requerido): Información del timbrado
+
+          - `ext_cp_id` (string, requerido): Identificador externo de la carta porte.
+
+          - `invoice_url` (string, requerido): URL del documento de la factura.
+
+          - `stamped_at` (Date, requerido): Fecha y hora del timbrado.
+
+
+        - `equipment` (array, requerido): Lista de equipos recolectados:
+
+          - `ext_id` (string, requerido): Identificador externo único del equipo.
+
+          - `type` (string, requerido): Tipo de equipo recolectado.
+
+          - `quantity` (number, requerido): Cantidad de equipos recolectados.
+
+
+        - `date_collected` (Date, requerido): Fecha y hora de la recolección.
 
 
       operationId: put-updateservicebyid
@@ -19760,6 +19788,7 @@ components:
 security:
   - apiKeyHeader: []
   - apiKeyQuery: []
+  - 
 tags:
   - name: journeys
     description: >-
