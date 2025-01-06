@@ -14081,6 +14081,7 @@
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT",
+                "name": "Authorization",
                 "description": "Agregar el Bearer Token generado para acceder al recurso."
             }
         }
