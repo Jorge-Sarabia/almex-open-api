@@ -14082,7 +14082,8 @@
                 "scheme": "bearer",
                 "bearerFormat": "JWT",
                 "name": "Authorization",
-                "description": "Agregar el Bearer Token generado para acceder al recurso."
+                "in": "header",
+                "description": "Agregar el Bearer Token generado para acceder a los recursos."
             }
         }
     },
