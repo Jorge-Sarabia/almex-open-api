@@ -14081,8 +14081,6 @@
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT",
-                "name": "Authorization",
-                "in": "header",
                 "description": "Agregar el Bearer Token generado para acceder a los recursos."
             }
         }
@@ -14093,6 +14091,9 @@
         },
         {
             "apiKeyQuery": []
+        },
+        {
+            "bearerAuth": []
         }
     ],
     "tags": [
