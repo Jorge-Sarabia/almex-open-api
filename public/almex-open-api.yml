@@ -868,21 +868,29 @@ paths:
 
           - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
 
-          - `services_flow_progress` (object, opcional): Control y progreso en la completación de los pasos en la atención a grupos de servicios `EAD` y `RAD`. Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
+          - `services_flow_progress` (object, opcional): Control y progreso en la completación de los pasos en la atención a grupos de servicios `EAD` y `RAD`. Los valores aceptados para este objeto son:
 
-              - `current_step` (number, requerido): Paso actual del flujo.
+            - `ead`: (object)
 
-              - `total_steps` (number, requerido): Total de pasos del flujo.
+            - `rad`: (object)
+          
+            Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
 
-              - `last_updated` (string, requerido): Fecha y hora de la última actualización del paso del flujo en formato ISO 8601.
+            - `ead` | `rad`: 
 
-              - `status` (string, requerido): Estado del flujo.
+                - `current_step` (number, requerido): Paso actual del flujo.
 
-                - `pending`: Pendiente.
+                - `total_steps` (number, requerido): Total de pasos del flujo.
 
-                - `in_progress`: En progreso.
+                - `last_updated` (string, requerido): Fecha y hora de la última actualización del paso del flujo en formato ISO 8601.
 
-                - `completed`: Completado.  
+                - `status` (string, requerido): Estado del flujo.
+
+                  - `pending`: Pendiente.
+
+                  - `in_progress`: En progreso.
+
+                  - `completed`: Completado.  
 
         - `incidents` (array): Lista de incidentes asociados a la parada.
 
@@ -1114,21 +1122,30 @@ paths:
 
           - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
 
-          - `services_flow_progress` (object, opcional): Control y progreso en la completación de los pasos en la atención a grupos de servicios `EAD` y `RAD`. Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
+          - `services_flow_progress` (object, opcional): Control y progreso en la completación de los pasos en la atención a grupos de servicios `EAD` y `RAD`. Los valores aceptados para este objeto son:
 
-              - `current_step` (number, requerido): Paso actual del flujo.
+            - `ead`: (object)
 
-              - `total_steps` (number, requerido): Total de pasos del flujo.
+            - `rad`: (object)
+          
+            Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
 
-              - `last_updated` (string, requerido): Fecha y hora de la última actualización del paso del flujo en formato ISO 8601.
+            - `ead` | `rad`: 
 
-              - `status` (string, requerido): Estado del flujo.
+                - `current_step` (number, requerido): Paso actual del flujo.
 
-                - `pending`: Pendiente.
+                - `total_steps` (number, requerido): Total de pasos del flujo.
 
-                - `in_progress`: En progreso.
+                - `last_updated` (string, requerido): Fecha y hora de la última actualización del paso del flujo en formato ISO 8601.
 
-                - `completed`: Completado.  
+                - `status` (string, requerido): Estado del flujo.
+
+                  - `pending`: Pendiente.
+
+                  - `in_progress`: En progreso.
+
+                  - `completed`: Completado.  
+
 
         - `incidents` (array): Lista de incidentes asociados a la parada.
 
@@ -18198,6 +18215,29 @@ paths:
 
           - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
 
+          - `services_flow_progress` (object, opcional): Control y progreso en la completación de los pasos en la atención a grupos de servicios `EAD` y `RAD`. Los valores aceptados para este objeto son:
+
+            - `ead`: (object)
+
+            - `rad`: (object)
+          
+            Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
+
+            - `ead` | `rad`: 
+
+                - `current_step` (number, requerido): Paso actual del flujo.
+
+                - `total_steps` (number, requerido): Total de pasos del flujo.
+
+                - `last_updated` (string, requerido): Fecha y hora de la última actualización del paso del flujo en formato ISO 8601.
+
+                - `status` (string, requerido): Estado del flujo.
+
+                  - `pending`: Pendiente.
+
+                  - `in_progress`: En progreso.
+
+                  - `completed`: Completado.  
 
         - `appointments` (array[object]): Lista de citas de la parada, (si
         aplica), cada una con los campos: **Opcional**
@@ -18374,21 +18414,29 @@ paths:
 
           - `services` (array[object]): Lista de servicios en la parada. **Tiene su propio endpoint. Se recomienda consultar la documentación para los detalles de la estructura de los servicios.** La ruta del endpoint es `/journeys/{journey_id}/stops/{stop_id}/services`.
 
-          - `services_flow_progress` (object, opcional): Control y progreso en la completación de los pasos en la atención a grupos de servicios `EAD` y `RAD`. Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
+          - `services_flow_progress` (object, opcional): Control y progreso en la completación de los pasos en la atención a grupos de servicios `EAD` y `RAD`. Los valores aceptados para este objeto son:
 
-              - `current_step` (number, requerido): Paso actual del flujo.
+            - `ead`: (object)
 
-              - `total_steps` (number, requerido): Total de pasos del flujo.
+            - `rad`: (object)
+          
+            Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
 
-              - `last_updated` (string, requerido): Fecha y hora de la última actualización del paso del flujo en formato ISO 8601.
+            - `ead` | `rad`: 
 
-              - `status` (string, requerido): Estado del flujo.
+                - `current_step` (number, requerido): Paso actual del flujo.
 
-                - `pending`: Pendiente.
+                - `total_steps` (number, requerido): Total de pasos del flujo.
 
-                - `in_progress`: En progreso.
+                - `last_updated` (string, requerido): Fecha y hora de la última actualización del paso del flujo en formato ISO 8601.
 
-                - `completed`: Completado.  
+                - `status` (string, requerido): Estado del flujo.
+
+                  - `pending`: Pendiente.
+
+                  - `in_progress`: En progreso.
+
+                  - `completed`: Completado.  
 
         - `incidents` (array[object]): Lista de incidentes asociados a la
         parada.
