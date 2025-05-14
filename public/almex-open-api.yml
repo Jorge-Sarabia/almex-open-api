@@ -9851,6 +9851,10 @@ paths:
 
           - `response` (string): Respuesta a la pregunta.
 
+          - `latitude` (number): Latitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
+
+          - `longitude` (number): Longitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
+
           - `updated_at` (string): Fecha y hora de la última actualización en formato ISO 8601.
 
         ### Metadata del Registro
@@ -10106,6 +10110,10 @@ paths:
           - `question_text` (string): Nombre de la pregunta.
           
           - `response` (string): Respuesta a la pregunta.
+
+          - `latitude` (number): Latitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
+
+          - `longitude` (number): Longitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
 
           - `updated_at` (string): Fecha y hora de la última actualización en formato ISO 8601.
       operationId: put-updateanswers
@@ -10997,6 +11005,10 @@ paths:
 
           - `response` (string): Respuesta a la pregunta.
 
+          - `latitude` (number): Latitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
+
+          - `longitude` (number): Longitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
+
           - `updated_at` (string): Fecha y hora de la última actualización en formato ISO 8601.
 
         ### Metadata del Registro
@@ -11345,6 +11357,10 @@ paths:
           - `question_text` (string): Nombre de la pregunta.
           
           - `response` (string): Respuesta a la pregunta.
+
+          - `latitude` (number): Latitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
+
+          - `longitude` (number): Longitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
 
           - `updated_at` (string): Fecha y hora de la última actualización en formato ISO 8601.
       operationId: post-addanswer
