@@ -1,0 +1,24 @@
+{
+  "name": "almex-open-api",
+  "version": "1.0.0",
+  "description": "Open API documentation for Almex API endpoints",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve . -p 3000",
+    "build": "echo 'No build step needed - static files only'",
+    "deploy": "echo 'Deployed via Azure Static Web Apps'"
+  },
+  "keywords": [
+    "api",
+    "documentation",
+    "swagger",
+    "openapi",
+    "almex"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
