@@ -29,8 +29,8 @@ Luego abre http://localhost:3000 (o el puerto que se muestre) en tu navegador.
 
 ```
 almex-open-api/
-├── index.html              # Página principal con Swagger UI
 ├── public/
+│   ├── index.html          # Página principal con Swagger UI
 │   ├── almex-open-api.json # Especificación OpenAPI en JSON
 │   └── almex-open-api.yml  # Especificación OpenAPI en YAML
 ├── README.md
@@ -105,3 +105,7 @@ El proyecto es completamente estático, no requiere build steps.
 2. **Testing**: Verificar cambios localmente
 3. **Commit y Push**: Los cambios se despliegan automáticamente
 4. **Verificación**: Revisar el deployment en Azure Portal
+
+### Estructura de archivos
+
+Todos los archivos estáticos están organizados en la carpeta `public/` para facilitar el deployment en Azure Static Web Apps.
