@@ -7,6 +7,7 @@ Documentación de la API de Almex usando Swagger UI y especificación OpenAPI 3.
 ### Opción 1: Con npm (recomendado)
 
 ```bash
+nvm use
 npm install
 npm start
 ```
@@ -33,6 +34,8 @@ almex-open-api/
 │   ├── index.html          # Página principal con Swagger UI
 │   ├── almex-open-api.json # Especificación OpenAPI en JSON
 │   └── almex-open-api.yml  # Especificación OpenAPI en YAML
+├── .nvmrc                  # Versión de Node.js
+├── package.json            # Configuración del proyecto
 ├── README.md
 └── .github/workflows/      # Configuración de CI/CD para Azure
 ```
@@ -94,6 +97,7 @@ El deployment está configurado mediante el workflow ubicado en `.github/workflo
 Para desarrollo local, simplemente ejecuta:
 
 ```bash
+nvm use
 npm run dev
 ```
 
@@ -101,10 +105,11 @@ El proyecto es completamente estático, no requiere build steps.
 
 ### Flujo de trabajo recomendado:
 
-1. **Desarrollo local**: `npm run dev`
-2. **Testing**: Verificar cambios localmente
-3. **Commit y Push**: Los cambios se despliegan automáticamente
-4. **Verificación**: Revisar el deployment en Azure Portal
+1. **Configurar Node.js**: `nvm use`
+2. **Desarrollo local**: `npm run dev`
+3. **Testing**: Verificar cambios localmente
+4. **Commit y Push**: Los cambios se despliegan automáticamente
+5. **Verificación**: Revisar el deployment en Azure Portal
 
 ### Estructura de archivos
 
