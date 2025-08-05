@@ -2565,7 +2565,21 @@ paths:
 
             - `phone` (string): Teléfono
 
-            - `address` (object): Dirección completa
+            - `address` (object): Los campos del objeto son los siguientes:
+
+              - `street` (string): Calle
+
+              - `number` (string): Número exterior
+
+              - `neighborhood` (string): Colonia o barrio
+
+              - `zip_code` (string): Código postal
+
+              - `city` (string): Ciudad
+
+              - `state` (string): Estado o provincia
+
+              - `country` (string): País
 
           - `recipient` (object): Información del destinatario
 
@@ -2573,7 +2587,21 @@ paths:
 
             - `phone` (string): Teléfono
 
-            - `address` (object): Dirección completa
+            - `address` (object): Los campos del objeto son los siguientes:
+
+              - `street` (string): Calle
+
+              - `number` (string): Número exterior
+
+              - `neighborhood` (string): Colonia o barrio
+
+              - `zip_code` (string): Código postal
+
+              - `city` (string): Ciudad
+
+              - `state` (string): Estado o provincia
+
+              - `country` (string): País
 
           - `references` (string): Referencias adicionales. **Opcional**
 
@@ -3302,7 +3330,21 @@ paths:
 
             - `phone` (string): Teléfono
 
-            - `address` (object): Dirección completa
+            - `address` (object): Los campos del objeto son los siguientes:
+            
+              - `city` (string): Ciudad
+
+              - `country` (string): País
+
+              - `neighborhood` (string): Colonia o barrio
+
+              - `number` (string): Número exterior
+
+              - `state` (string): Estado o provincia
+
+              - `street` (string): Calle o avenida
+
+              - `zip_code` (string): Código postal
 
           - `recipient` (object): Información del destinatario
 
@@ -3310,7 +3352,21 @@ paths:
 
             - `phone` (string): Teléfono
 
-            - `address` (object): Dirección completa
+            - `address` (object): Los campos del objeto son los siguientes:
+            
+              - `city` (string): Ciudad
+
+              - `country` (string): País
+
+              - `neighborhood` (string): Colonia o barrio
+
+              - `number` (string): Número exterior
+
+              - `state` (string): Estado o provincia
+
+              - `street` (string): Calle o avenida
+
+              - `zip_code` (string): Código postal
 
           - `references` (string): Referencias adicionales. **Opcional**
 
