@@ -1391,28 +1391,6 @@
                 }
             }
         },
-        "/Publish": {
-            "get": {
-                "summary": "Publish",
-                "description": "Publish",
-                "operationId": "get-publish",
-                "responses": {
-                    "200": {
-                        "description": "null"
-                    }
-                }
-            },
-            "post": {
-                "summary": "Publish",
-                "description": "Publish",
-                "operationId": "post-publish",
-                "responses": {
-                    "200": {
-                        "description": "null"
-                    }
-                }
-            }
-        },
         "/customers": {
             "post": {
                 "tags": ["customers"],
@@ -2074,2185 +2052,6 @@
                 }
             }
         },
-        "/AddImage": {
-            "post": {
-                "tags": ["storage"],
-                "summary": "Files",
-                "description": "## Endpoint: POST `/AddImage`\n\n### Descripción:  \n\nEste endpoint permite subir una imagen al Azure Blob Storage. La imagen se sube como un archivo multipart/form-data y se almacena en un contenedor de Blob Storage de Azure. El nombre del blob puede ser proporcionado a través de un parámetro de consulta (`name`), o se usará un nombre por defecto (`default-name`) si no se especifica.\n\n### Request Parameters:\n\n1. **Query Parameters**:\n   - `name` (opcional): El nombre que se le dará al blob en Azure Blob Storage. Si no se proporciona, se usará \"default-name\".\n\n2. **Headers**:\n   - `Authorization` (requerido): El token Bearer para autenticar la solicitud. La autenticación es obligatoria para acceder a este recurso.\n\n3. **Body**:\n   - **Content-Type**: `multipart/form-data`\n   - **Fields**:\n     - Se aceptan varios campos en el formulario, que serán parseados pero no se usan explícitamente en esta función.\n   - **Files**:\n     - Debe incluirse al menos un archivo en la solicitud. El archivo subido será almacenado en Azure Blob Storage.",
-                "operationId": "post-addimage",
-                "parameters": [{
-                    "name": "Authorization",
-                    "in": "header",
-                    "description": "El Bearer Token para acceder al servicio.",
-                    "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "### Response body\n\n",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "statusCode": 200,
-                                    "message": "13 Stops Found Successfully",
-                                    "data": {
-                                        "pageSize": 10,
-                                        "currentPage": 1,
-                                        "totalItems": 13,
-                                        "totalPages": 2,
-                                        "data": [{
-                                            "id": "c9dde442-baaf-49f0-925a-8ffef365b01b",
-                                            "name": "Nombre de parada actualizado",
-                                            "ext_stop_id": "1234",
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "has_form_ead": "reference to form id",
-                                                "services": [{
-                                                    "id": "7298b5ad-1b6e-4da5-96be-67a2af250b08",
-                                                    "type": "EAD",
-                                                    "guide_number": "07107779792",
-                                                    "description": "Entrega a domicilio",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services LLC",
-                                                            "phone": "8112345678",
-                                                            "address": "Calle de la amargura 123, San Pedro Garza Garcia, Monterrey, Nuevo León, 52170"
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "8112345678",
-                                                            "address": "Calle de la amargura 123, San Pedro Garza Garcia, Monterrey, Nuevo León, 52170"
-                                                        },
-                                                        "references": "225998516",
-                                                        "notes": "Entregar en la parte trasera del edificio",
-                                                        "document_return": {
-                                                            "is_required": true,
-                                                            "total_documents": 2,
-                                                            "is_confirmed": false
-                                                        }
-                                                    },
-                                                    "merchandise": [{
-                                                        "label_number": "0710777979000002",
-                                                        "type_of_package": "reference_id_to_package",
-                                                        "description": "Caja de tornillos",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": null,
-                                                        "status": "pending",
-                                                        "ext_document": "Caja de tornillos",
-                                                        "evidences": [{
-                                                            "id": "1",
-                                                            "evidence_id": "reference_to_evidence",
-                                                            "type": "photo",
-                                                            "url": "",
-                                                            "is_required": true,
-                                                            "status": "pending"
-                                                        }]
-                                                    }, {
-                                                        "label_number": "0710777979000001",
-                                                        "type_of_package": "reference_id_to_package",
-                                                        "description": "Caja de tornillos",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": {
-                                                            "reason_id": "reference_to_reason",
-                                                            "evidences": [{
-                                                                "id": "1",
-                                                                "evidence_id": "reference_to_evidence",
-                                                                "type": "photo",
-                                                                "url": "",
-                                                                "is_required": true,
-                                                                "status": "pending"
-                                                            }]
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Caja de tornillos",
-                                                        "evidences": [{
-                                                            "id": "1",
-                                                            "evidence_id": "reference_to_evidence",
-                                                            "type": "photo",
-                                                            "url": "",
-                                                            "is_required": true,
-                                                            "status": "pending"
-                                                        }]
-                                                    }],
-                                                    "evidences": [{
-                                                        "id": "1",
-                                                        "evidence_id": "reference_to_evidence",
-                                                        "type": "photo",
-                                                        "url": "",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }, {
-                                                        "id": "1",
-                                                        "evidence_id": "reference_to_evidence",
-                                                        "type": "photo",
-                                                        "url": "",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }],
-                                                    "questionnaire": "reference to form id",
-                                                    "comments": [],
-                                                    "invoice": "reference_to_invoice",
-                                                    "customer_info": {
-                                                        "name": "",
-                                                        "email": "",
-                                                        "signature": "reference_to_signature"
-                                                    },
-                                                    "incidents": [],
-                                                    "is_active": true,
-                                                    "status": "pending",
-                                                    "created_by": "admin",
-                                                    "created_at": "2024-05-22T09:24:45.0000000+00:00",
-                                                    "updated_by": "admin",
-                                                    "updated_at": "2024-05-22T09:24:45.0000000+00:00"
-                                                }]
-                                            },
-                                            "appointments": [{
-                                                "start_date": "2018-10-10T10:30:00.0000000+00:00"
-                                            }],
-                                            "incidents": null,
-                                            "start_journey_to_stop": {
-                                                "status": "started",
-                                                "latitude": 19.3421577761224,
-                                                "longitude": -99.5713479727682,
-                                                "timestamp": "2024-07-03T04:29:32.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-07-02T09:13:02.0000000+00:00",
-                                            "updated_at": "2024-07-03T08:08:06.0000000+00:00",
-                                            "created_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "updated_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "is_active": false
-                                        }, {
-                                            "id": "fc5f03f1-1177-4217-9f59-0ee9af3ce89a",
-                                            "name": "Mercado libre",
-                                            "ext_stop_id": "123456789",
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "has_form_ead": "reference to form id",
-                                                "has_form_rad": "reference to form id",
-                                                "services": []
-                                            },
-                                            "appointments": [{
-                                                "start_date": "2018-10-10T10:30:00.0000000+00:00"
-                                            }],
-                                            "incidents": null,
-                                            "start_journey_to_stop": {
-                                                "status": "started",
-                                                "latitude": 19.02356,
-                                                "longitude": -7.0254,
-                                                "timestamp": "2021-07-03T10:35:00.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-07-03T03:29:32.0000000+00:00",
-                                            "updated_at": "2024-07-03T03:51:51.0000000+00:00",
-                                            "created_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "updated_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "is_active": true
-                                        }, {
-                                            "id": "88cb4ab8-65cf-46b5-8654-b4ea6386bc69",
-                                            "name": "Last Stop Test",
-                                            "ext_stop_id": "1234567890",
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "country": "Mexico",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "has_form_ead": "reference to form id",
-                                                "services": []
-                                            },
-                                            "appointments": [{
-                                                "start_date": "2018-10-10T10:30:00.0000000+00:00"
-                                            }],
-                                            "incidents": null,
-                                            "start_journey_to_stop": {
-                                                "status": "started",
-                                                "latitude": 19.3421577761224,
-                                                "longitude": -99.5713479727682,
-                                                "timestamp": "2024-07-03T04:29:32.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-07-03T07:59:11.0000000+00:00",
-                                            "updated_at": "2024-07-03T08:17:29.0000000+00:00",
-                                            "created_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "updated_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "is_active": true
-                                        }, {
-                                            "id": "7317cded-adc8-40bf-a246-98d23b1c4b9d",
-                                            "name": "Amazon Tijuana",
-                                            "ext_stop_id": "123456789",
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "country": "Mexico",
-                                                "reference": "Junto al Cosmovitral",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "has_form_ead": "reference to form id",
-                                                "services": []
-                                            },
-                                            "appointments": [{
-                                                "start_date": "2018-10-10T10:30:00.0000000+00:00"
-                                            }],
-                                            "incidents": null,
-                                            "start_journey_to_stop": {
-                                                "status": "started",
-                                                "latitude": 19.3421577761224,
-                                                "longitude": -99.5713479727682,
-                                                "timestamp": "2024-07-03T04:29:32.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": "true",
-                                                "latitude": 19.456879,
-                                                "longitude": -7.23156489,
-                                                "timestamp": "2024-07-03T06:45:32.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-07-04T12:50:24.0000000+00:00",
-                                            "updated_at": "2024-07-04T01:04:35.0000000+00:00",
-                                            "created_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "updated_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "is_active": true
-                                        }, {
-                                            "id": "d7fb6097-66ba-4ddd-a66e-fd7159563306",
-                                            "name": "Amazon Tijuana",
-                                            "ext_stop_id": "123456",
-                                            "order": 1,
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "country": "Mexico",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "has_form_ead": "123413241234213",
-                                                "services": [{
-                                                    "id": "cb67af97-116f-4d38-bc0b-8989a6797140",
-                                                    "ext_id": "123456789",
-                                                    "order": 1,
-                                                    "type": "RAD",
-                                                    "guide_number": "07107779792",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": "Carr. Federal Chetumal - Quintana Roo KM 215, Colonia Centro, Solidaridad QROO 66220"
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": "Del Bosque, 1003, Col. Fraccionamiento de Lincoln, Monterrey, Nuevo León, CP 641000"
-                                                        },
-                                                        "document_return": {
-                                                            "is_required": true,
-                                                            "total_documents": 5
-                                                        }
-                                                    },
-                                                    "merchandise": [{
-                                                        "label_number": "0710777979000002",
-                                                        "type_of_package": "Box",
-                                                        "description": "Caja de tornillos",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": {
-                                                            "reason_id": "damage123",
-                                                            "evidences": [{
-                                                                "id": "evidence1",
-                                                                "evidence_id": "photo1",
-                                                                "type": "photo",
-                                                                "url": "http://example.com/photo1.jpg",
-                                                                "is_required": true,
-                                                                "status": "pending"
-                                                            }]
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }]
-                                                    }, {
-                                                        "id": "bbb30ead-fd8d-42d2-bc85-b77c89f98b74",
-                                                        "label_number": "0710777979000002",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Pallet",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": {
-                                                            "reason_id": "damage123",
-                                                            "evidences": [{
-                                                                "id": "evidence1",
-                                                                "evidence_id": "photo1",
-                                                                "type": "photo",
-                                                                "url": "http://example.com/photo1.jpg",
-                                                                "is_required": true,
-                                                                "status": "pending"
-                                                            }]
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }, {
-                                                            "id": "123456",
-                                                            "evidence_id": "123456",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo3.jpg",
-                                                            "is_required": false,
-                                                            "status": "taken"
-                                                        }],
-                                                        "created_at": "2024-07-10T01:52:00.0000000+00:00",
-                                                        "updated_at": "2024-07-12T12:20:03.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                        "is_active": false
-                                                    }, {
-                                                        "id": "128f9b9a-8c4a-45f4-99a0-65236317e64f",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": {
-                                                            "reason_id": "2f168feb-3c2e-442b-8c6a-ea1aa20fc997",
-                                                            "evidences": [{
-                                                                "id": "evidence1",
-                                                                "evidence_id": "photo1",
-                                                                "type": "photo",
-                                                                "url": "http://example.com/photo1.jpg",
-                                                                "is_required": true,
-                                                                "status": "taken"
-                                                            }]
-                                                        },
-                                                        "status": "delivered",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "created_at": "2024-07-10T06:52:21.0000000+00:00",
-                                                        "updated_at": "2024-07-12T04:19:23.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                        "is_active": false
-                                                    }, {
-                                                        "id": "0ffeca47-785d-409c-bca1-c8c325836feb",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": {
-                                                            "reason_id": "damage123",
-                                                            "evidences": [{
-                                                                "id": "evidence1",
-                                                                "evidence_id": "photo1",
-                                                                "type": "photo",
-                                                                "url": "http://example.com/photo1.jpg",
-                                                                "is_required": true,
-                                                                "status": "pending"
-                                                            }]
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "created_at": "2024-07-10T06:52:55.0000000+00:00",
-                                                        "updated_at": "2024-07-10T06:52:55.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "evidence1",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": {
-                                                            "reason_id": "damage123",
-                                                            "evidences": [{
-                                                                "id": "evidence1",
-                                                                "evidence_id": "photo1",
-                                                                "type": "photo",
-                                                                "url": "http://example.com/photo1.jpg",
-                                                                "is_required": true,
-                                                                "status": "pending"
-                                                            }]
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "created_at": "2024-07-10T07:18:29.0000000+00:00",
-                                                        "updated_at": "2024-07-10T07:18:29.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "a42740d5-33bf-43b6-8eca-11ac362be392",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "created_at": "2024-07-11T02:22:30.0000000+00:00",
-                                                        "updated_at": "2024-07-11T02:22:30.0000000+00:00",
-                                                        "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                        "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "07b7ed97-d559-4899-8772-7161d528f37e",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }, {
-                                                            "id": "123456",
-                                                            "evidence_id": "123456",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo3.jpg",
-                                                            "is_required": false,
-                                                            "status": "taken"
-                                                        }],
-                                                        "created_at": "2024-07-11T03:56:59.0000000+00:00",
-                                                        "updated_at": "2024-07-11T04:29:49.0000000+00:00",
-                                                        "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                        "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "06eab087-eb1a-487e-a4d3-d8d76780ad66",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "is_required": true,
-                                                            "status": "pending"
-                                                        }],
-                                                        "created_at": "2024-07-11T04:22:17.0000000+00:00",
-                                                        "updated_at": "2024-07-11T04:22:17.0000000+00:00",
-                                                        "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                        "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "813e1755-785b-4f10-9a92-526c08cdcc7b",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "created_at": "2024-08-28T11:32:08.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:32:08.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "664a353b-e2e9-480e-b62f-6b65ad48b396",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-28T11:34:10.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:34:10.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "aba41b2d-69ed-4260-8bc3-948372af5359",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-28T11:36:16.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:36:16.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "47e943bc-e764-4420-a929-7e9d1aa76bc3",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-28T11:38:06.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:38:06.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "e4775106-4541-490f-94d9-127adda95599",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-28T11:38:13.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:38:13.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "d3d055dc-5dff-454f-b7c7-fdaa5ff7bb1f",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-28T11:40:31.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:40:31.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "3586cc96-1049-437c-b6cd-646aa13eed1c",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-28T11:43:27.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:43:27.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "53691cc7-270b-4564-9ca6-108e243d8de8",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "1234567",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-28T11:55:06.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:55:06.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "8f1b0b86-5092-40f1-a607-fa27652654fa",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "12345672",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-28T11:55:30.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:55:30.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "1eefa2ca-2c48-4ddb-bc45-e979f4da2f4c",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123451672",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-28T11:55:46.0000000+00:00",
-                                                        "updated_at": "2024-08-28T11:55:46.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "55d12a07-4cd9-4ef0-88e1-406b6bdfc4da",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "1234516722",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "ext_document": "",
-                                                        "created_at": "2024-08-29T12:02:23.0000000+00:00",
-                                                        "updated_at": "2024-08-29T12:02:23.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }, {
-                                                        "id": "70bfb5a2-134f-4251-bc50-9a321e39d073",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123784516722",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document12as3",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }],
-                                                        "description": null,
-                                                        "merchandise_damaged": null,
-                                                        "created_at": "2024-08-29T12:02:52.0000000+00:00",
-                                                        "updated_at": "2024-08-29T12:02:52.0000000+00:00",
-                                                        "created_by": "system",
-                                                        "updated_by": "system",
-                                                        "is_active": true
-                                                    }],
-                                                    "questionnaire_id": "123456789",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "customer_info": {
-                                                        "name": "John Doe",
-                                                        "email": "john@email.com",
-                                                        "signature_url": "url to signature image"
-                                                    },
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-07-07T01:31:59.0000000+00:00",
-                                                    "updated_at": "2024-07-08T12:57:10.0000000+00:00",
-                                                    "created_by": "system",
-                                                    "updated_by": "system"
-                                                }, {
-                                                    "id": "039b72ec-7492-43ce-b7ef-fd7f41a89954",
-                                                    "ext_id": "456789126",
-                                                    "type": "RAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "merchandise": [],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "customer_info": {
-                                                        "name": "John Doe",
-                                                        "email": "john@email.com",
-                                                        "signature_url": "url to signature image"
-                                                    },
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-07-08T11:15:23.0000000+00:00",
-                                                    "updated_at": "2024-07-08T11:15:23.0000000+00:00",
-                                                    "created_by": "system",
-                                                    "updated_by": "system"
-                                                }, {
-                                                    "id": "3e450845-89fe-4f3e-af7a-db69de2ef63f",
-                                                    "ext_id": "456789126",
-                                                    "type": "EAD",
-                                                    "order": 2,
-                                                    "guide_number": "07106798771",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Almex",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Monterrey",
-                                                                "zip_code": "66220",
-                                                                "state": "Nuevo Leon",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "merchandise": [],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "https://example--azure-storage.com.mx",
-                                                    "status": "pending",
-                                                    "is_active": false,
-                                                    "created_at": "2024-07-08T11:34:31.0000000+00:00",
-                                                    "updated_at": "2024-07-08T11:54:11.0000000+00:00",
-                                                    "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "updated_by": "system",
-                                                    "incidents": [{
-                                                        "incident_id": "123e4567-e89b-12d3-a456-426614174000",
-                                                        "latitude": 19.432608,
-                                                        "longitude": -99.133209,
-                                                        "timestamp": "2024-07-03T04:29:32.0000000+00:00"
-                                                    }]
-                                                }, {
-                                                    "id": "fa87bcf8-b624-4929-b89e-3abbf398d8b6",
-                                                    "ext_id": "456789126",
-                                                    "type": "EAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "merchandise": [],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "status": "pending",
-                                                    "is_active": false,
-                                                    "created_at": "2024-07-09T03:21:14.0000000+00:00",
-                                                    "updated_at": "2024-07-09T03:25:02.0000000+00:00",
-                                                    "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "incidents": [{
-                                                        "incident_id": "123e4567-e89b-12d3-a456-426614174000",
-                                                        "latitude": 19.432608,
-                                                        "longitude": -99.133209,
-                                                        "timestamp": "2024-07-03T04:29:32.0000000+00:00"
-                                                    }]
-                                                }, {
-                                                    "id": "b0cf6eaa-d27c-48bd-b30c-5b9f7f5701ac",
-                                                    "ext_id": "456789126",
-                                                    "type": "RAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "merchandise": [],
-                                                    "questionnaire_id": "123456789",
-                                                    "invoice_url": "https:azure-storage-example.com/invoice.pdf",
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-07-09T04:18:39.0000000+00:00",
-                                                    "updated_at": "2024-07-09T04:18:39.0000000+00:00",
-                                                    "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b"
-                                                }, {
-                                                    "id": "54bb923a-e81d-46d1-bd9b-6bb32541a5e9",
-                                                    "ext_id": "456789126",
-                                                    "type": "RAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "merchandise": [],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "evidences": [{
-                                                        "evidence_id": "12456",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "url": "https://almex.storage.com/merch.png",
-                                                        "status": "taken"
-                                                    }, {
-                                                        "evidence_id": "789456",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "url": "https://almex.storage.com/merch1.png",
-                                                        "status": "taken"
-                                                    }, {
-                                                        "evidence_id": "456",
-                                                        "type": "photo",
-                                                        "is_required": false,
-                                                        "url": "https://almex.storage.com/merch1.png",
-                                                        "status": "taken"
-                                                    }],
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-07-09T07:26:47.0000000+00:00",
-                                                    "updated_at": "2024-07-09T07:30:57.0000000+00:00",
-                                                    "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b"
-                                                }, {
-                                                    "id": "7d2d6ee4-606e-4cc8-aeec-5bab467ff2cf",
-                                                    "ext_id": "456789126",
-                                                    "type": "RAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "merchandise": [{
-                                                        "id": "evidence1",
-                                                        "ext_id": "1234",
-                                                        "label_number": "0710777979000002",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": {
-                                                            "reason_id": "damage123",
-                                                            "evidences": [{
-                                                                "id": "evidence1",
-                                                                "evidence_id": "photo1",
-                                                                "type": "photo",
-                                                                "url": "http://example.com/photo1.jpg",
-                                                                "is_required": true,
-                                                                "status": "pending"
-                                                            }]
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }]
-                                                    }],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-07-10T01:42:01.0000000+00:00",
-                                                    "updated_at": "2024-07-10T01:42:01.0000000+00:00",
-                                                    "created_by": "system",
-                                                    "updated_by": "system"
-                                                }, {
-                                                    "id": "17db85ee-1d55-4a34-bf99-72f531b6641c",
-                                                    "ext_id": "456789126",
-                                                    "type": "RAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "evidences": [{
-                                                        "id": "evidence1",
-                                                        "evidence_id": "photo1",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }, {
-                                                        "id": "evidence1",
-                                                        "evidence_id": "photo1",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-07-10T03:23:57.0000000+00:00",
-                                                    "updated_at": "2024-07-10T03:23:57.0000000+00:00",
-                                                    "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b"
-                                                }, {
-                                                    "id": "68c7c92e-ffcb-4757-b8d4-ad8b4023484b",
-                                                    "ext_id": "456789126",
-                                                    "type": "RAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "evidences": [{
-                                                        "id": "evidence1",
-                                                        "evidence_id": "photo1",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }, {
-                                                        "id": "evidence1",
-                                                        "evidence_id": "photo1",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-07-10T03:24:43.0000000+00:00",
-                                                    "updated_at": "2024-07-10T03:24:43.0000000+00:00",
-                                                    "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b"
-                                                }, {
-                                                    "id": "02e5de81-25a0-4352-99e9-e1d4a8bd21ff",
-                                                    "ext_id": "456789126",
-                                                    "type": "EAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "evidences": [{
-                                                        "id": "evidence1",
-                                                        "evidence_id": "photo1",
-                                                        "type": "photo",
-                                                        "url": "https://storage.com/photo1.png",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }, {
-                                                        "id": "evidence2",
-                                                        "evidence_id": "photo2",
-                                                        "type": "photo",
-                                                        "url": "https://storage.com/photo2.png",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "status": "pending",
-                                                    "is_active": false,
-                                                    "created_at": "2024-07-10T03:25:57.0000000+00:00",
-                                                    "updated_at": "2024-07-10T03:33:33.0000000+00:00",
-                                                    "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "incidents": [{
-                                                        "incident_id": "123e4567-e89b-12d3-a456-426614174000",
-                                                        "latitude": 19.432608,
-                                                        "longitude": -99.133209,
-                                                        "timestamp": "2024-07-03T04:29:32.0000000+00:00"
-                                                    }]
-                                                }, {
-                                                    "id": "32434a9a-d460-4abf-853f-88eff1227204",
-                                                    "ext_id": "456789126",
-                                                    "type": "ACT",
-                                                    "order": 3,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "evidences": [{
-                                                        "id": "evidence1",
-                                                        "evidence_id": "photo1",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }, {
-                                                        "id": "evidence1",
-                                                        "evidence_id": "photo1",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-07-10T03:44:39.0000000+00:00",
-                                                    "updated_at": "2024-07-10T03:44:39.0000000+00:00",
-                                                    "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b"
-                                                }, {
-                                                    "id": "16f67e77-b2e0-4472-be52-e5fdd9428273",
-                                                    "ext_id": "456789126",
-                                                    "type": "RAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "evidences": [{
-                                                        "id": "123456",
-                                                        "evidence_id": "321654987",
-                                                        "type": "photo",
-                                                        "url": "https:storage.com/foto-1.png",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }, {
-                                                        "id": "123456",
-                                                        "evidence_id": "456789",
-                                                        "type": "photo",
-                                                        "url": "https:storage.com/foto-1.png",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }],
-                                                    "questionnaire_id": "123456789",
-                                                    "invoice_url": "123456789",
-                                                    "status": "pending",
-                                                    "is_active": false,
-                                                    "created_at": "2024-07-10T04:11:55.0000000+00:00",
-                                                    "updated_at": "2024-07-10T04:20:01.0000000+00:00",
-                                                    "created_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "updated_by": "d89500dc-0fad-4256-83cc-4a99916d2e4b",
-                                                    "incidents": [{
-                                                        "incident_id": "123e4567-e89b-12d3-a456-426614174000",
-                                                        "latitude": 19.432608,
-                                                        "longitude": -99.133209,
-                                                        "timestamp": "2024-07-03T04:29:32.0000000+00:00"
-                                                    }]
-                                                }, {
-                                                    "id": "095c6be2-a80e-4a40-8620-c8475ec4b9ff",
-                                                    "ext_id": "456789126",
-                                                    "type": "RAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "evidences": [{
-                                                        "id": "evidence1",
-                                                        "evidence_id": "1234213421",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }, {
-                                                        "id": "evidence2",
-                                                        "evidence_id": "1234456",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }],
-                                                    "merchandise": [{
-                                                        "id": "01254687-asdfsad-dsfa",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": {
-                                                            "reason_id": "damage123",
-                                                            "evidences": [{
-                                                                "id": "evidence1",
-                                                                "evidence_id": "photo1",
-                                                                "type": "photo",
-                                                                "url": "http://example.com/photo1.jpg",
-                                                                "is_required": true,
-                                                                "status": "pending"
-                                                            }]
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }]
-                                                    }],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-08-29T01:27:41.0000000+00:00",
-                                                    "updated_at": "2024-08-29T01:27:41.0000000+00:00",
-                                                    "created_by": "system",
-                                                    "updated_by": "system"
-                                                }, {
-                                                    "id": "b3aa2057-13a2-4a3b-8d4c-1883366d90fb",
-                                                    "ext_id": "456789126",
-                                                    "type": "RAD",
-                                                    "order": 1,
-                                                    "guide_number": "07106798770",
-                                                    "details": {
-                                                        "sender": {
-                                                            "name": "Amazon Services",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        },
-                                                        "recipient": {
-                                                            "name": "John Doe",
-                                                            "phone": "1234567890",
-                                                            "address": {
-                                                                "street": "Carr. Federal Chetumal - Quintana Roo KM 215",
-                                                                "number": "512",
-                                                                "neighborhood": "Colonia Centro",
-                                                                "city": "Solidaridad",
-                                                                "zip_code": "66220",
-                                                                "state": "Quintana Roo",
-                                                                "country": "Mexico"
-                                                            }
-                                                        }
-                                                    },
-                                                    "document_return": {
-                                                        "is_required": true,
-                                                        "total_documents": 5
-                                                    },
-                                                    "evidences": [{
-                                                        "id": "evidence1",
-                                                        "evidence_id": "1234213421",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }, {
-                                                        "id": "evidence2",
-                                                        "evidence_id": "1234456",
-                                                        "type": "photo",
-                                                        "is_required": true,
-                                                        "status": "pending"
-                                                    }],
-                                                    "merchandise": [{
-                                                        "id": "01254687-asdfsad-dsfa",
-                                                        "label_number": "0710777979000003",
-                                                        "ext_id": "123456",
-                                                        "type_of_package": "Box",
-                                                        "dimensions": {
-                                                            "length": 10,
-                                                            "width": 10,
-                                                            "height": 10,
-                                                            "weight": 10,
-                                                            "volume": 1000
-                                                        },
-                                                        "merchandise_damaged": {
-                                                            "reason_id": "damage123",
-                                                            "evidences": [{
-                                                                "id": "evidence1",
-                                                                "evidence_id": "photo1",
-                                                                "type": "photo",
-                                                                "url": "http://example.com/photo1.jpg",
-                                                                "is_required": true,
-                                                                "status": "pending"
-                                                            }]
-                                                        },
-                                                        "status": "pending",
-                                                        "ext_document": "Document123",
-                                                        "evidences": [{
-                                                            "id": "evidence2",
-                                                            "evidence_id": "photo2",
-                                                            "type": "photo",
-                                                            "url": "http://example.com/photo2.jpg",
-                                                            "is_required": true,
-                                                            "status": "taken"
-                                                        }]
-                                                    }],
-                                                    "questionnaire_id": "reference to form documet",
-                                                    "invoice_url": "reference to url invoice doc",
-                                                    "status": "pending",
-                                                    "is_active": true,
-                                                    "created_at": "2024-09-02T12:48:46.0000000+00:00",
-                                                    "updated_at": "2024-09-02T12:48:46.0000000+00:00",
-                                                    "created_by": "system",
-                                                    "updated_by": "system"
-                                                }]
-                                            },
-                                            "appointments": [{
-                                                "start_date": "2018-10-10T10:30:00.0000000+00:00"
-                                            }],
-                                            "incidents": null,
-                                            "start_journey_to_stop": {
-                                                "status": "started",
-                                                "latitude": 19.3421577761224,
-                                                "longitude": -99.5713479727682,
-                                                "timestamp": "2024-07-03T04:29:32.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-07-04T04:24:45.0000000+00:00",
-                                            "updated_at": "2024-07-04T04:31:43.0000000+00:00",
-                                            "created_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "updated_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "is_active": true
-                                        }, {
-                                            "id": "62a4c3d9-b35a-4e77-83fd-5e8b2e781772",
-                                            "name": "Eliminar Parada A",
-                                            "ext_stop_id": "123476589",
-                                            "order": 1,
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "country": "Mexico",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "has_form_ead": "reference to form id",
-                                                "services": []
-                                            },
-                                            "appointments": [],
-                                            "incidents": null,
-                                            "start_journey_to_stop": {
-                                                "status": "pending",
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-07-06T01:30:24.0000000+00:00",
-                                            "updated_at": "2024-07-06T01:30:24.0000000+00:00",
-                                            "created_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "updated_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "is_active": true
-                                        }, {
-                                            "id": "47fc8590-9122-4fd3-b43b-4afa22ee8efb",
-                                            "name": "Eliminar Parada A",
-                                            "ext_stop_id": "123476589",
-                                            "order": 1,
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "country": "Mexico",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "has_form_ead": "reference to form id",
-                                                "services": []
-                                            },
-                                            "appointments": [],
-                                            "incidents": null,
-                                            "start_journey_to_stop": {
-                                                "status": "pending",
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-08-29T01:29:05.0000000+00:00",
-                                            "updated_at": "2024-08-29T01:29:05.0000000+00:00",
-                                            "created_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "updated_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "is_active": true
-                                        }, {
-                                            "id": "549ae07c-fa37-4146-8eea-b8159570b123",
-                                            "name": "Eliminar Parada A",
-                                            "ext_stop_id": "123476589",
-                                            "order": 1,
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "country": "Mexico",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "services": []
-                                            },
-                                            "appointments": [],
-                                            "incidents": null,
-                                            "start_journey_to_stop": {
-                                                "status": "pending",
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-08-29T01:29:19.0000000+00:00",
-                                            "updated_at": "2024-08-29T01:29:19.0000000+00:00",
-                                            "created_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "updated_by": "28fe9b43-a2f0-4fd6-9a53-e439f42cdabc",
-                                            "is_active": true
-                                        }, {
-                                            "id": "587b8a25-a447-4e6a-82f7-c40a7db7ca2e",
-                                            "name": "Eliminar Parada A",
-                                            "ext_id": "123476589",
-                                            "order": 1,
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "country": "Mexico",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "services": []
-                                            },
-                                            "start_journey_to_stop": {
-                                                "status": "pending",
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-09-02T01:13:19.0000000+00:00",
-                                            "updated_at": "2024-09-02T01:13:19.0000000+00:00",
-                                            "created_by": "system",
-                                            "updated_by": "system",
-                                            "is_active": true
-                                        }, {
-                                            "id": "98d856fe-510d-4336-b30e-6438e0dd2680",
-                                            "name": "Eliminar Parada A",
-                                            "ext_id": "1234765891",
-                                            "order": 1,
-                                            "customer_id": "71e54162-8383-4296-9929-93a44ee246b3",
-                                            "address": {
-                                                "street": "Calle Manuel J Clouthier",
-                                                "neighborhood": "San Jeronimo Chicahualco",
-                                                "ext_number": "123",
-                                                "zip_code": "52170",
-                                                "city": "Toluca",
-                                                "country": "Mexico",
-                                                "state": "Estado de México",
-                                                "latitude": "19.279314612920516",
-                                                "longitude": "99.59433090144017"
-                                            },
-                                            "contact_info": {
-                                                "contact_name": "John Doe",
-                                                "contact_phone": "8112345678",
-                                                "contact_email": "john@doe.com"
-                                            },
-                                            "services_set": {
-                                                "services": []
-                                            },
-                                            "start_journey_to_stop": {
-                                                "status": "pending",
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_in": {
-                                                "is_checked_in": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "check_out": {
-                                                "is_checked_out": false,
-                                                "latitude": 0,
-                                                "longitude": 0,
-                                                "timestamp": "2021-07-01T12:00:00.0000000+00:00"
-                                            },
-                                            "status": "pending",
-                                            "created_at": "2024-09-02T01:19:47.0000000+00:00",
-                                            "updated_at": "2024-09-02T01:19:47.0000000+00:00",
-                                            "created_by": "system",
-                                            "updated_by": "system",
-                                            "is_active": true
-                                        }]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "get": {
-                "summary": "Images",
-                "description": "Images",
-                "operationId": "get-addimage",
-                "responses": {
-                    "200": {
-                        "description": "null"
-                    }
-                }
-            }
-        },
         "/drivers": {
             "post": {
                 "tags": ["drivers"],
@@ -4637,6 +2436,18 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/AddImage": {
+            "get": {
+                "summary": "Images",
+                "description": "Images",
+                "operationId": "get-addimage",
+                "responses": {
+                    "200": {
+                        "description": "null"
                     }
                 }
             }
@@ -5524,18 +3335,6 @@
                                 }
                             }
                         }
-                    }
-                }
-            }
-        },
-        "/Publish-1": {
-            "post": {
-                "summary": "Publish-1",
-                "description": "Publish-1",
-                "operationId": "post-publish-1",
-                "responses": {
-                    "200": {
-                        "description": "null"
                     }
                 }
             }
@@ -11007,35 +8806,6 @@
                 }
             }
         },
-        "/sas-url-token": {
-            "get": {
-                "summary": "GenerateSasUrl",
-                "description": "GenerateSasUrl",
-                "operationId": "get-generatesasurl",
-                "parameters": [{
-                    "name": "container",
-                    "in": "query",
-                    "description": "El nombre del contenedor del archivo.",
-                    "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
-                }, {
-                    "name": "fileName",
-                    "in": "query",
-                    "description": "El nombre del archivo. ",
-                    "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "null"
-                    }
-                }
-            }
-        },
         "/journeys/{journey_id}/stops": {
             "post": {
                 "tags": ["stops"],
@@ -11474,6 +9244,327 @@
                                     "statusCode": 404,
                                     "error": "Not Found",
                                     "message": "Configuration not found or is not active"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/generate-sas-token": {
+            "get": {
+                "tags": ["storage"],
+                "summary": "GenerateSasToken",
+                "description": "## Descripción de los campos del request\n\n### Query Parameters\n\n- `container` (string, opcional): Nombre del contenedor específico para el cual generar el token SAS. Si no se proporciona, debe usar `forAllContainers=true`.\n\n- `directory` (string, opcional): Directorio específico dentro del contenedor para el cual generar el token SAS. Si no se proporciona, se genera para todo el contenedor.\n\n- `forAllContainers` (boolean, opcional): Indica si se debe generar un token SAS que funcione para todos los contenedores. Por defecto es false. Si se establece en \"true\", el parámetro `container` no es requerido.\n\n## Descripción de los campos del response body\n\n- `statusCode` (number): Código de estado HTTP de la respuesta.\n\n- `success` (boolean): Indica si la operación fue exitosa.\n\n- `message` (string): Mensaje descriptivo de la operación realizada.\n\n- `data` (object): Datos de la respuesta que contienen la información del token SAS generado.\n\n  - `containerName` (string): Nombre del contenedor para el cual se generó el token. Si `forAllContainers` es true, será \"ALL_CONTAINERS\".\n\n  - `directory` (string): Directorio específico para el cual se generó el token. Si `forAllContainers` es true, será \"N/A\".\n\n  - `forAllContainers` (boolean): Indica si el token generado funciona para todos los contenedores.\n\n  - `sasToken` (string): Token SAS generado que permite acceso a los blobs especificados.\n\n  - `baseUrl` (string): URL base del servicio de Azure Blob Storage.\n\n  - `expiresOn` (string): Fecha y hora de expiración del token SAS en formato ISO 8601.\n\n  - `usage` (object): Información sobre cómo usar el token SAS generado.\n\n    - `description` (string): Descripción de para qué sirve el token SAS.\n\n    - `example` (string): Ejemplo de URL completa con el token SAS para acceder a un blob.\n\n    - `note` (string): Nota adicional sobre el uso del token SAS.",
+                "operationId": "get-generatesastoken",
+                "parameters": [{
+                    "name": "container",
+                    "in": "query",
+                    "description": "Nombre del contenedor específico para el cual generar el token SAS. Si no se proporciona, debe usar `forAllContainers=true`.",
+                    "schema": {
+                        "type": ""
+                    }
+                }, {
+                    "name": "directory",
+                    "in": "query",
+                    "description": "Directorio específico dentro del contenedor para el cual generar el token SAS. Si no se proporciona, se genera para todo el contenedor.",
+                    "schema": {
+                        "type": ""
+                    }
+                }, {
+                    "name": "forAllContainers",
+                    "in": "query",
+                    "description": "Indica si se debe generar un token SAS que funcione para todos los contenedores. Por defecto es false. Si se establece en \"true\", el parámetro `container` no es requerido.",
+                    "schema": {
+                        "type": ""
+                    }
+                }, {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "El Bearer Token para acceder al endpoint. ",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "El reponse con status 200 de la solicitud es el siguiente: ",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "statusCode": 200,
+                                    "success": true,
+                                    "message": "SAS token generated successfully",
+                                    "data": {
+                                        "containerName": "ALL_CONTAINERS",
+                                        "directory": "N/A",
+                                        "forAllContainers": true,
+                                        "sasToken": "sv=2023-11-03&spr=https&st=2025-08-11T23%3A38%3A29Z&se=2025-08-12T11%3A40%3A29Z&sr=b&sp=r&sig=KRmLHfG%2FSOrAzcJZKhm16Ut1kWCeNxZJYNZa%2BgohotY%3D",
+                                        "baseUrl": "https://almexstorage.blob.core.windows.net",
+                                        "expiresOn": "2025-08-12T11:40:29.9230000+00:00",
+                                        "usage": {
+                                            "description": "Use this SAS token to access any blob in any container",
+                                            "example": "https://almexstorage.blob.core.windows.net/container-name/blob-name?sv=2023-11-03&spr=https&st=2025-08-11T23%3A38%3A29Z&se=2025-08-12T11%3A40%3A29Z&sr=b&sp=r&sig=KRmLHfG%2FSOrAzcJZKhm16Ut1kWCeNxZJYNZa%2BgohotY%3D",
+                                            "note": "Replace 'container-name' and 'blob-name' with actual values. This token works for all containers."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/upload-image": {
+            "post": {
+                "tags": ["storage"],
+                "summary": "Upload Image",
+                "description": "## Descripción de los campos del request\n\n### Headers\n\n- `Content-Type`: Debe ser `multipart/form-data` (se establece automáticamente al enviar form-data).\n\n- `Authorization`: Token de autenticación requerido para validar la petición.\n\n### Query Parameters\n\n- `name` (string, opcional): Nombre del archivo a subir. Si no se proporciona, se usa \"default-name\".\n\n- `containerName` (string, opcional): Nombre del contenedor de Azure Blob Storage donde se guardará la imagen. Por defecto es \"images\".\n\n- `createContainer` (boolean, opcional): Indica si se debe crear el contenedor si no existe. Por defecto es false.\n\n- `directory` (string, opcional): Directorio dentro del contenedor donde se guardará la imagen. Si no se proporciona, se guarda en la raíz del contenedor.\n\n### Request Body (form-data)\n\n- `file` (File, requerido): Archivo de imagen a subir. Debe ser enviado como `multipart/form-data`.",
+                "operationId": "post-addimage-1",
+                "parameters": [{
+                    "name": "name",
+                    "in": "query",
+                    "description": "Nombre del archivo a subir. Si no se proporciona, se usa \"default-name\".",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "containerName",
+                    "in": "query",
+                    "description": "Nombre del contenedor de Azure Blob Storage donde se guardará la imagen. Por defecto es \"images\"",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "createContainer",
+                    "in": "query",
+                    "description": "Indica si se debe crear el contenedor si no existe. Por defecto es false.",
+                    "schema": {
+                        "type": "bool"
+                    }
+                }, {
+                    "name": "directory",
+                    "in": "query",
+                    "description": "Directorio dentro del contenedor donde se guardará la imagen. Si no se proporciona, se guarda en la raíz del contenedor.",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "Token de autenticación requerido para validar la petición.",
+                    "schema": {
+                        "type": ""
+                    }
+                }, {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "description": "Debe ser `multipart/form-data` (se establece automáticamente al enviar form-data).",
+                    "schema": {
+                        "type": ""
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "El response con status 200 es el siguiente: ",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "statusCode": 202,
+                                    "success": true,
+                                    "message": "The image was uploaded successfully to the container evidences in directory test/subtest",
+                                    "data": {
+                                        "blobName": "test-merchandise.jpg",
+                                        "containerName": "evidences",
+                                        "directory": "test/subtest",
+                                        "fullBlobPath": "test/subtest/test-merchandise.jpg",
+                                        "blobUrl": "https://almexstorage.blob.core.windows.net/evidences/test/subtest/test-merchandise.jpg",
+                                        "sasUrl": "https://almexstorage.blob.core.windows.net/evidences/test/subtest/test-merchandise.jpg?sv=2023-11-03&se=2025-08-12T23%3A26%3A09Z&sr=b&sp=r&sig=%2BoNFdHxw5%2FzyeAC0r55T9HGkcaDeDium91ZHhtCCIR4%3D"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-image-sas-url": {
+            "get": {
+                "tags": ["storage"],
+                "summary": "GetImageSasUrl",
+                "description": "## Descripción de los campos del request\n\n### Query Parameters\n\n- `container` (string, requerido): Nombre del contenedor de Azure Blob Storage donde se encuentra la imagen.\n\n- `blobName` (string, requerido): Nombre del archivo de imagen (blob) para el cual generar la URL SAS.\n\n- `directory` (string, opcional): Directorio dentro del contenedor donde se encuentra la imagen. Si no se proporciona, se busca en la raíz del contenedor.\n\n## Descripción de los campos del response body\n\n- `statusCode` (number): Código de estado HTTP de la respuesta.\n\n- `success` (boolean): Indica si la operación fue exitosa.\n\n- `message` (string): Mensaje descriptivo de la operación realizada.\n\n- `data` (object): Datos de la respuesta que contienen la información de la URL SAS generada.\n\n  - `url` (string): URL completa con token SAS que permite acceder directamente a la imagen.\n\n  - `containerName` (string): Nombre del contenedor donde se encuentra la imagen.\n\n  - `blobName` (string): Nombre del archivo de imagen (blob).\n\n  - `directory` (string): Directorio dentro del contenedor donde se encuentra la imagen.\n\n  - `fullBlobPath` (string): Ruta completa del blob incluyendo directorio y nombre del archivo.",
+                "operationId": "get-getimagesasurl",
+                "parameters": [{
+                    "name": "container",
+                    "in": "query",
+                    "description": "Nombre del contenedor de Azure Blob Storage donde se encuentra la imagen.",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "blobName",
+                    "in": "query",
+                    "description": "Nombre del archivo de imagen (blob) para el cual generar la URL SAS.",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "directory",
+                    "in": "query",
+                    "description": "Directorio dentro del contenedor donde se encuentra la imagen. Si no se proporciona, se busca en la raíz del contenedor.",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "El Bearer Token para acceder al endpoint. ",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "El body del status 200 del response es el siguiente: ",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "statusCode": 200,
+                                    "success": true,
+                                    "message": "Image SAS URL generated successfully",
+                                    "data": {
+                                        "url": "https://almexstorage.blob.core.windows.net/evidences/services/test.jpg?sv=2023-11-03&spr=https&st=2025-08-11T23%3A38%3A33Z&se=2025-08-12T23%3A40%3A33Z&sr=b&sp=r&sig=TDMB6RNQM%2BIqxHY1QpvHQIn5Qn%2BRw84%2FTXRSvt%2B8HlY%3D",
+                                        "containerName": "evidences",
+                                        "blobName": "test.jpg",
+                                        "directory": "services",
+                                        "fullBlobPath": "services/test.jpg"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/event-publisher": {
+            "get": {
+                "tags": ["event-publisher"],
+                "summary": "Event Publisher",
+                "description": "## GET /event-publisher\n\n### Description\n\nObtiene el estado actual del cliente WebSocket y la configuración de conexión. Este endpoint es útil para monitorear la salud de la conexión y verificar la configuración del servicio.\n\n## Descripción de los campos de la respuesta\n\n(Los campos marcados como **Opcional** son campos que pueden no estar presentes en el response):\n\n- `message` (string): Mensaje descriptivo del estado del cliente WebSocket.\n\n- `isConnected` (boolean): Indica si el cliente WebSocket está conectado actualmente.\n\n- `connectionStatus` (object): Detalles del estado de la conexión WebSocket.\n\n  - `isConnected` (boolean): Estado de conexión actual.\n\n  - `reconnectAttempts` (number): Número de intentos de reconexión realizados.\n\n  - `lastConnectionTime` (string, opcional): Timestamp de la última conexión exitosa en formato ISO 8601.\n\n  - `lastError` (string, opcional): Último error de conexión registrado.\n\n- `config` (object): Configuración del servicio WebPubSub.\n\n  - `endpoint` (string): Estado de configuración del endpoint WebPubSub. Puede ser \"Configured\" o \"Not configured\".\n\n  - `hub` (string): Nombre del hub WebPubSub configurado.\n\n  - `accessKey` (string): Estado de configuración de la clave de acceso. Puede ser \"Configured\" o \"Not configured\".",
+                "operationId": "get-websocketclient",
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "El Bearer Token de acceso al resurco. ",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "El response exitoso con status 200 de este endpoint es el siguiente. ",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "WebSocket client status",
+                                    "isConnected": true,
+                                    "connectionStatus": {
+                                        "isConnected": true,
+                                        "reconnectAttempts": 0,
+                                        "lastConnectionTime": "2025-08-11T22:35:18.7950000+00:00"
+                                    },
+                                    "config": {
+                                        "endpoint": "Configured",
+                                        "hub": "ead_hub",
+                                        "accessKey": "Not configured"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["event-publisher"],
+                "summary": "Event Publisher",
+                "description": "## POST /event-publisher\n\n### Description\n\nPublica un evento en tiempo real a través de Azure WebPubSub. Este endpoint permite enviar eventos a grupos específicos de usuarios y proporciona capacidades de notificación en tiempo real.\n\n## Descripción de los headers\n\n- `x-target-group` (string): Grupos de notificación separados por comas. Por ejemplo: `tms` | `notifications` | `drivers` \n\n- `x-source` (string, opcional): Fuente del evento. Por ejemplo: `app-ead-client`.\n\n- `x-from-user-id` (string, opcional): ID del usuario que envía el evento. \n\n## Descripción de los campos del request body\n\n- `event` (string, requerido): Tipo de evento a publicar. Define la categoría o acción del evento.\n\n- `eventDescription` (string, requerido): Descripción detallada del evento.\n\n- `message` (string, requerido): Mensaje principal del evento que se enviará a los destinatarios.\n\n- `timestamp` (string, requerido): Timestamp del evento en formato ISO 8601.\n\n- `entityId` (string, requerido): Identificador único de la entidad relacionada con el evento.\n\n- `extForeignShipmentId` (string, requerido): ID externo del envío relacionado con el evento.\n\n- `extAssignmentId` (string, requerido): ID externo de la asignación relacionada con el evento.\n\n- `extDriverId` (string, requerido): ID externo del conductor relacionado con el evento.\n\n- `fieldName` (string, requerido): Nombre del campo que fue modificado (útil para eventos de actualización).\n\n- `old` (any, requerido): Valor anterior del campo modificado.\n\n- `new` (any, requerido): Nuevo valor del campo modificado.\n\n- `updatedBy` (string, requerido): Identificador del usuario que generó o actualizó el evento.\n\n- `location` (object, requerido): Información de ubicación relacionada con el evento.\n\n  - `lat` (number): Latitud de la ubicación.\n\n  - `lng` (number): Longitud de la ubicación.\n\n- `query` (object, requerido): Información sobre la consulta que generó el evento.\n\n  - `method` (string): Método HTTP de la consulta (ej: \"GET\", \"POST\", \"PUT\", \"DELETE\").\n\n  - `url` (string): URL de la consulta que generó el evento.\n\n- `metadata` (object, requerido): Metadatos adicionales del evento.\n\n  - `source` (string): Fuente o sistema que generó el evento.\n\n  - `container` (string): Contenedor o contexto del evento.\n\n  - `operation` (string): Tipo de operación realizada.",
+                "operationId": "post-websocketclient",
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "El Bearer Token para acceder al endpoint. ",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "x-target-group",
+                    "in": "header",
+                    "description": "Grupos de notificación separados por comas. Por ejemplo: `tms` | `notifications` | `drivers` ",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "x-source",
+                    "in": "header",
+                    "description": "Fuente del evento. Por ejemplo: `app-ead-client`.",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "x-from-user-id",
+                    "in": "header",
+                    "description": "ID del usuario que envía el evento. ",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "requestBody": {
+                    "description": "La representación y estructura del Body es la siguiente: ",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "event": "Journeys.Status.Updated",
+                                "eventDescription": "Ruta terminada",
+                                "message": "La ruta 'Viaje 1' fue terminada por el operador a las 9:30 AM",
+                                "timestamp": "2025-06-20T10:00:00.0000000+00:00",
+                                "entityId": "27aff3f0-fdec-454f-8559-4269df63a215",
+                                "extForeignShipmentId": "653799",
+                                "extAssignmentId": "652560",
+                                "extDriverId": "970",
+                                "fieldName": "status",
+                                "old": "in_progress",
+                                "new": "completed",
+                                "updatedBy": "42305ee7-0b36-437d-87a4-1dcc19ba899a",
+                                "location": {
+                                    "lat": 19.432608,
+                                    "lng": -99.133209
+                                },
+                                "query": {
+                                    "method": "GET",
+                                    "url": "https://almex-api.azure-api.net/v1/journeys/27aff3f0-fdec-454f-8559-4269df63a215?driver_id=42305ee7-0b36-437d-87a4-1dcc19ba899a"
+                                },
+                                "metadata": {
+                                    "source": "CosmosDB",
+                                    "container": "Journeys",
+                                    "operation": "updated"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "El response con status 200 regresa el siguiente JSON. ",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "success": true,
+                                    "message": "Evento publicado exitosamente",
+                                    "eventId": "event_1754952951832_kvbrcp8xl",
+                                    "targetGroup": ["tms", "notifications"],
+                                    "source": "app-ead-client",
+                                    "fromUserId": "42305ee7-0b36-437d-87a4-1dcc19ba899a",
+                                    "isConnected": true
                                 }
                             }
                         }
