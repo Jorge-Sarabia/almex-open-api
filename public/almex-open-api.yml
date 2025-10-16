@@ -6,7 +6,7 @@ info:
 
     La API de Almex-EAD es una interfaz de programación de aplicaciones (API)
     que permite a los desarrolladores acceder a los recursos y servicios de la
-    plataforma de Almex-EAD en Azure. 
+    plataforma de Almex-EAD en Azure.
 
 
     Para acceder a los recursos de la API, los usuarios deben autenticarse con
@@ -201,12 +201,12 @@ paths:
 
         - `start_time` (string(date-time)): Hora de inicio de la jornada. En
         formato ISO 8601. Este campo se actualiza cuando se inicia la jornada.
-        desde la aplicación móvil. 
+        desde la aplicación móvil.
 
 
         - `end_time` (string(date-time)): Hora de fin de la jornada. En formato
         ISO 8601. Este campo se actualiza cuando se finaliza la jornada. desde
-        la aplicación móvil. 
+        la aplicación móvil.
 
 
         - `equipment` (array[object]): Lista de equipo requerido para dar
@@ -237,9 +237,9 @@ paths:
           - `in_progress`: Jornada en curso.
 
           - `completed`: Jornada completada.
-          
+
           - `canceled`: Jornada cancelada debido a incidentes.
-          
+
 
         - `invoice_url` (string, opcional): URL de la factura asociada a la
         jornada.
@@ -360,7 +360,7 @@ paths:
         ## Endpoint: GET `/journeys/{id}`
 
 
-        ### Descripción 
+        ### Descripción
 
 
         Este endpoint permite obtener la información detallada de una jornada
@@ -430,13 +430,13 @@ paths:
         - `start_time` (string(date-time)): Hora de inicio de la jornada. En
         formato ISO 8601. Este campo se actualiza en el endpoint de `PUT
         /journeys/{journey_id}` cuando se inicia la jornada. desde la aplicación
-        móvil. 
+        móvil.
 
 
         - `end_time` (string(date-time)): Hora de finalización de la jornada. En
         formato ISO 8601. Este campo se actualiza en el endpoint de `PUT
         /journeys/{journey_id}` cuando se finaliza la jornada. desde la
-        aplicación móvil. 
+        aplicación móvil.
 
 
         - `position_list` (int, opcional): Posición de la jornada en la lista de
@@ -480,7 +480,7 @@ paths:
           - `in_progress`: Jornada en curso.
 
           - `completed`: Jornada completada.
-          
+
           - `canceled`: Jornada cancelada debido a incidentes.
 
 
@@ -817,7 +817,7 @@ paths:
         UUID.
 
 
-        ## Descripción de los campos de la parada 
+        ## Descripción de los campos de la parada
 
 
         (Los campos marcados como **Opcional** son campos que pueden no estar
@@ -828,7 +828,7 @@ paths:
 
 
         - `position_list` (int, opcional): Número posición en la lista de
-        atención de las paradas. 
+        atención de las paradas.
 
 
         - `ext_id` (string): ID externo de la parada.
@@ -854,7 +854,7 @@ paths:
           - `country` (string): País.
 
           - `references` (string): Referencias de la dirección. **Opcional**.
-          
+
           - `zip_code` (string): Código postal.
 
           - `latitude` (number): Latitud.
@@ -874,7 +874,7 @@ paths:
           - `contact_position` (string): Puesto del contacto. **Opcional**.
 
         - `services_set` (object): Conjunto de servicios asociados a la parada.
-        En el conjunto de servicios se incluyen los siguientes campos: 
+        En el conjunto de servicios se incluyen los siguientes campos:
 
           - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. Este formulario corresponde al cuestionario de atención al grupo de servicios EAD. **Opcional**.
 
@@ -895,10 +895,10 @@ paths:
             - `ead`: (object)
 
             - `rad`: (object)
-          
+
             Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
 
-            - `ead` | `rad`: 
+            - `ead` | `rad`:
 
                 - `current_step` (number, requerido): Paso actual del flujo.
 
@@ -912,7 +912,7 @@ paths:
 
                   - `in_progress`: En progreso.
 
-                  - `completed`: Completado.  
+                  - `completed`: Completado.
 
         - `incidents` (array): Lista de incidentes asociados a la parada.
 
@@ -921,7 +921,7 @@ paths:
           - `timestamp` (string): Marca de tiempo del incidente en formato ISO 8601.
 
         - `appointments` (array[object]): Lista de citas en la parada, (si
-        aplica), cada una con los campos: **Opcional** 
+        aplica), cada una con los campos: **Opcional**
 
           - `start_date` (string): Fecha y hora de inicio de la cita en formato ISO 8601.
 
@@ -1063,7 +1063,7 @@ paths:
         request permanecerán sin cambios. Todos los campos son opcionales. La
         combinación de campos admite los que se describen a continuación.
         **Ningún campo es obligatorio pero el request body no debe enviarse
-        vacío**. 
+        vacío**.
 
         ### Request Parameters
 
@@ -1087,7 +1087,7 @@ paths:
 
 
         - `position_list` (int): Número posición en la lista de atención de las
-        paradas. 
+        paradas.
 
 
         - `customer_id` (string): Referencia al UUID del documento del cliente
@@ -1110,7 +1110,7 @@ paths:
           - `country` (string): País.
 
           - `references` (string): Referencias de la dirección. **Opcional**.
-          
+
           - `zip_code` (string): Código postal.
 
           - `latitude` (number): Latitud.
@@ -1130,7 +1130,7 @@ paths:
           - `contact_position` (string): Puesto del contacto. **Opcional**.
 
         - `services_set` (object): Conjunto de servicios asociados a la parada.
-        En el conjunto de servicios se incluyen los siguientes campos: 
+        En el conjunto de servicios se incluyen los siguientes campos:
 
           - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. Este formulario corresponde al cuestionario de atención al grupo de servicios EAD. **Opcional**.
 
@@ -1151,10 +1151,10 @@ paths:
             - `ead`: (object)
 
             - `rad`: (object)
-          
+
             Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
 
-            - `ead` | `rad`: 
+            - `ead` | `rad`:
 
                 - `current_step` (number, requerido): Paso actual del flujo.
 
@@ -1168,7 +1168,7 @@ paths:
 
                   - `in_progress`: En progreso.
 
-                  - `completed`: Completado.  
+                  - `completed`: Completado.
 
 
         - `incidents` (array): Lista de incidentes asociados a la parada.
@@ -1335,7 +1335,7 @@ paths:
         ## Endpoint: GET `/journeys`
 
 
-        ### Descripción 
+        ### Descripción
 
 
         Este endpoint permite obtener la información detallada de una jornada
@@ -1438,13 +1438,13 @@ paths:
         - `start_time` (string(date-time)): Hora de inicio de la jornada. En
         formato ISO 8601. Este campo se actualiza en el endpoint de `PUT
         /journeys/{journey_id}` cuando se inicia la jornada. desde la aplicación
-        móvil. 
+        móvil.
 
 
         - `end_time` (string(date-time)): Hora de fin de la jornada. En formato
         ISO 8601. Este campo se actualiza en el endpoint de `PUT
         /journeys/{journey_id}` cuando se finaliza la jornada. desde la
-        aplicación móvil. 
+        aplicación móvil.
 
 
 
@@ -1481,14 +1481,14 @@ paths:
 
 
         - `status` (string): Estado de la jornada, puede tener los siguietes
-        valores: 
-          - `ready_to_start`: Jornada lista para iniciar. 
-          
+        valores:
+          - `ready_to_start`: Jornada lista para iniciar.
+
           - `in_progress`: Jornada en curso.
-          
+
           - `completed`: Jornada completada.
-          
-          - `canceled`: Jornada cancelada debido a incidentes. 
+
+          - `canceled`: Jornada cancelada debido a incidentes.
 
 
         ### Metadata del Registro
@@ -1889,9 +1889,9 @@ paths:
           - `in_progress`: Jornada en curso.
 
           - `completed`: Jornada completada.
-          
+
           - `canceled`: Jornada cancelada debido a incidentes.
-          
+
           Si no se especifica, el valor por defecto es **pending**.
 
 
@@ -2558,19 +2558,19 @@ paths:
 
 
         - `type` (string, requerido): Tipo de servicio:
-          
+
           - `EAD`: Entregas a Domicilio
-          
+
           - `RAD`: Recolecciones a Domicilio
-          
+
           - `ACT_MANIFEST`: Actividad de Manifiesto
-          
+
           - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío
-          
+
             ### Nota para flujos internacionales.
 
             - **Puertos y Aeropuertos (Entregas y Recolecciones)**
-            
+
               Para declarar un servicio de entrega o recolección con actividad de puertos y aeropuertos se debe agregar el siguiente campo:
 
               - `act_international_form_id` (string): ID del formulario correspondiente al flujo de pasos de para puertos y aeropuertos. Este formulario se encuentra en el endpoint de `GET /forms`. Cuando se detecte un valor en este campo, se creará una actividad de entrega o recolección internacional correspondiente al número de guía o servicio EAD o RAD, respectivamente.
@@ -2769,14 +2769,14 @@ paths:
           - `date` (string, requerido): Fecha del timbrado.
 
           - `merchandise` (array, requerido): Lista de mercancías. Debe contener al menos un elemento.
-            
+
             - `material` (string, requerido): Código o identificador del material.
 
         #### Equipo Vacío Recolectado
 
         - `empty_equipment_collected` (array): **Opcional, solo para
         `ACT_EMPTY_EQUIPMENT`**. Lista de equipos con:
-          
+
         - `id` (string, requerido): Identificador único del registro.
 
 
@@ -2825,9 +2825,9 @@ paths:
         la completación de los flujos internacionales (Puertos y Aeropuertos,
         Aduanas). Tiene los siguientes campos:
 
-          - `act_international` (object, opcional): Progreso en el flujo de pasos de para puertos y aeropuertos. 
+          - `act_international` (object, opcional): Progreso en el flujo de pasos de para puertos y aeropuertos.
 
-          - `act_custom` (object, opcional): Progreso en el flujo de pasos de para aduanas. 
+          - `act_custom` (object, opcional): Progreso en el flujo de pasos de para aduanas.
 
           Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `act_international` y `act_custom` tiene los siguientes campos:
 
@@ -2949,7 +2949,7 @@ paths:
 
 
         Este endpoint permite agregar un nuevo servicio a una parada específica
-        dentro de un viaje 
+        dentro de un viaje
 
         determinado. Es útil para registrar un nuevo servicio asociado a una
         parada en un viaje.
@@ -2981,19 +2981,19 @@ paths:
 
 
         - `type` (string, requerido): Tipo de servicio:
-          
+
           - `EAD`: Entregas a Domicilio
-          
+
           - `RAD`: Recolecciones a Domicilio
-          
+
           - `ACT_MANIFEST`: Actividad de Manifiesto
-          
+
           - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío
-          
+
             ### Nota para flujos internacionales.
 
             - **Puertos y Aeropuertos (Entregas y Recolecciones)**
-            
+
               Para declarar un servicio de entrega o recolección con actividad de puertos y aeropuertos se debe agregar el siguiente campo:
 
               - `act_international_form_id` (string): ID del formulario correspondiente al flujo de pasos de para puertos y aeropuertos. Este formulario se encuentra en el endpoint de `GET /forms`. Cuando se detecte un valor en este campo, se creará una actividad de entrega o recolección internacional correspondiente al número de guía o servicio EAD o RAD, respectivamente.
@@ -3140,7 +3140,7 @@ paths:
         de crear el servicio de tipo `ACT_MANIFEST`. Y se actualiza a través del
         endpoint `PUT
         /journeys/{journey_id}/stops/{stop_id}/service/{service_id}`. Cuando se
-        envía mercancía lista para timbrar. 
+        envía mercancía lista para timbrar.
 
         - `manifest_merchandise` (array): **Opcional, solo para
         `ACT_MANIFEST`**. Por default se inicializa como un array vacío `[]`
@@ -3151,7 +3151,7 @@ paths:
         de crear el servicio de tipo `ACT_EMPTY_EQUIPMENT`. Y se actualiza a
         través del endpoint `PUT
         /journeys/{journey_id}/stops/{stop_id}/service/{service_id}`. Cuando se
-        envía equipo vacío recolectado a timbrar. 
+        envía equipo vacío recolectado a timbrar.
 
         - `empty_equipment_collected` (array): **Opcional, solo para
         `ACT_EMPTY_EQUIPMENT`**. Por default se inicializa como un array vacío
@@ -3336,19 +3336,19 @@ paths:
 
 
         - `type` (string, requerido): Tipo de servicio:
-          
+
           - `EAD`: Entregas a Domicilio
-          
+
           - `RAD`: Recolecciones a Domicilio
-          
+
           - `ACT_MANIFEST`: Actividad de Manifiesto
-          
+
           - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío
-          
+
             ### Nota para flujos internacionales.
 
             - **Puertos y Aeropuertos (Entregas y Recolecciones)**
-            
+
               Para declarar un servicio de entrega o recolección con actividad de puertos y aeropuertos se debe agregar el siguiente campo:
 
               - `act_international_form_id` (string): ID del formulario correspondiente al flujo de pasos de para puertos y aeropuertos. Este formulario se encuentra en el endpoint de `GET /forms`. Cuando se detecte un valor en este campo, se creará una actividad de entrega o recolección internacional correspondiente al número de guía o servicio EAD o RAD, respectivamente.
@@ -3381,7 +3381,7 @@ paths:
             - `phone` (string): Teléfono
 
             - `address` (object): Los campos del objeto son los siguientes:
-            
+
               - `city` (string): Ciudad
 
               - `country` (string): País
@@ -3403,7 +3403,7 @@ paths:
             - `phone` (string): Teléfono
 
             - `address` (object): Los campos del objeto son los siguientes:
-            
+
               - `city` (string): Ciudad
 
               - `country` (string): País
@@ -3548,14 +3548,14 @@ paths:
           - `date` (string, requerido): Fecha del timbrado.
 
           - `merchandise` (array, requerido): Lista de mercancías. Debe contener al menos un elemento.
-            
+
             - `material` (string, requerido): Código o identificador del material.
 
         #### Equipo Vacío Recolectado
 
         - `empty_equipment_collected` (array): **Opcional, solo para
         `ACT_EMPTY_EQUIPMENT`**. Lista de equipos con:
-          
+
         - `id` (string, requerido): Identificador único del registro.
 
 
@@ -3604,9 +3604,9 @@ paths:
         la completación de los flujos internacionales (Puertos y Aeropuertos,
         Aduanas). Tiene los siguientes campos:
 
-          - `act_international` (object, opcional): Progreso en el flujo de pasos de para puertos y aeropuertos. 
+          - `act_international` (object, opcional): Progreso en el flujo de pasos de para puertos y aeropuertos.
 
-          - `act_custom` (object, opcional): Progreso en el flujo de pasos de para aduanas. 
+          - `act_custom` (object, opcional): Progreso en el flujo de pasos de para aduanas.
 
           Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `act_international` y `act_custom` tiene los siguientes campos:
 
@@ -3795,19 +3795,19 @@ paths:
 
 
         - `type` (string, requerido): Tipo de servicio:
-          
+
           - `EAD`: Entregas a Domicilio
-          
+
           - `RAD`: Recolecciones a Domicilio
-          
+
           - `ACT_MANIFEST`: Actividad de Manifiesto
-          
+
           - `ACT_EMPTY_EQUIPMENT`: Actividad de Recolección de Equipo Vacío
-          
+
             ### Nota para flujos internacionales.
 
             - **Puertos y Aeropuertos (Entregas y Recolecciones)**
-            
+
               Para declarar un servicio de entrega o recolección con actividad de puertos y aeropuertos se debe agregar el siguiente campo:
 
               - `act_international_form_id` (string): ID del formulario correspondiente al flujo de pasos de para puertos y aeropuertos. Este formulario se encuentra en el endpoint de `GET /forms`. Cuando se detecte un valor en este campo, se creará una actividad de entrega o recolección internacional correspondiente al número de guía o servicio EAD o RAD, respectivamente.
@@ -3978,14 +3978,14 @@ paths:
           - `date` (string, requerido): Fecha del timbrado.
 
           - `merchandise` (array, requerido): Lista de mercancías. Debe contener al menos un elemento.
-            
+
             - `material` (string, requerido): Código o identificador del material.
 
         #### Equipo Vacío Recolectado
 
         - `empty_equipment_collected` (array): **Opcional, solo para
         `ACT_EMPTY_EQUIPMENT`**. Lista de equipos con:
-          
+
         - `id` (string, requerido): Identificador único del registro.
 
 
@@ -4034,9 +4034,9 @@ paths:
         la completación de los flujos internacionales (Puertos y Aeropuertos,
         Aduanas). Tiene los siguientes campos:
 
-          - `act_international` (object, opcional): Progreso en el flujo de pasos de para puertos y aeropuertos. 
+          - `act_international` (object, opcional): Progreso en el flujo de pasos de para puertos y aeropuertos.
 
-          - `act_custom` (object, opcional): Progreso en el flujo de pasos de para aduanas. 
+          - `act_custom` (object, opcional): Progreso en el flujo de pasos de para aduanas.
 
           Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `act_international` y `act_custom` tiene los siguientes campos:
 
@@ -4225,7 +4225,7 @@ paths:
         requiere enviar un cuerpo JSON con la información del conductor a crear.
 
 
-        ## Descripción de los campos 
+        ## Descripción de los campos
 
 
         Todos los campos son obligatorios, con excepción de los marcados como
@@ -4244,11 +4244,11 @@ paths:
         los siguientes campos: **Opcional**
 
           - `email` (string): Correo electrónico del conductor. **Opcional**
-          
+
           - `phone_number` (string): Número de teléfono del conductor. **Opcional**
 
 
-        - `type`(string): El tipo de conductor. Puede tener dos valores: 
+        - `type`(string): El tipo de conductor. Puede tener dos valores:
 
           - `internal` para conductores internos.
 
@@ -4362,9 +4362,9 @@ paths:
 
 
         Los campos marcados como **Opcional** pueden no estar presentes en todos
-        los elementos de la respuesta. 
+        los elementos de la respuesta.
 
-        Los datos de retorno son los detalles del conductor: 
+        Los datos de retorno son los detalles del conductor:
 
 
         - `id` (string): UUID del documento en CosmosDB.
@@ -4800,9 +4800,9 @@ paths:
 
 
         Los campos marcados como **Opcional** pueden no estar presentes en todos
-        los elementos de la respuesta. 
+        los elementos de la respuesta.
 
-        Los datos de retorno son los detalles del conductor: 
+        Los datos de retorno son los detalles del conductor:
 
 
         - `id` (string): UUID del documento en CosmosDB.
@@ -4930,11 +4930,11 @@ paths:
         - `ext_id` (string): ID externo del conductor.
 
 
-        ## Descripción de los campos 
+        ## Descripción de los campos
 
 
         Todos los campos son opcionales pero el request body no se debe enviar
-        vacío. 
+        vacío.
 
 
         La combinación de campos para actualizar los detalles de un conductor
@@ -4950,14 +4950,14 @@ paths:
 
 
         - `contact_info`  (object): Información de contacto del conductor. Tiene
-        los siguientes campos: 
+        los siguientes campos:
 
-          - `email` (string): Correo electrónico del conductor. 
-          
-          - `phone_number` (string): Número de teléfono del conductor. 
+          - `email` (string): Correo electrónico del conductor.
+
+          - `phone_number` (string): Número de teléfono del conductor.
 
 
-        - `type`(string): El tipo de conductor. Puede tener dos valores: 
+        - `type`(string): El tipo de conductor. Puede tener dos valores:
 
           - `internal` para conductores internos.
 
@@ -5082,7 +5082,7 @@ paths:
 
 
         - `type` (string): Tipo de vehículo. Los valores permitidos son:
-          
+
           - `SIN_ASIGNAR`: El vehículo aún no ha sido asignado a un tipo específico.
 
           - `TRACTOR`: Vehículo de tipo tractor.
@@ -5134,7 +5134,7 @@ paths:
 
         - `status` (string, opcional): Estado actual del vehículo. Los valores
         permitidos son:
-          
+
           - `in_service`: El vehículo está en operación.
 
           - `out_of_service`: El vehículo no está en operación.
@@ -5289,7 +5289,7 @@ paths:
 
 
         - `type` (string): Tipo de vehículo. Los valores permitidos son:
-          
+
           - `SIN_ASIGNAR`: El vehículo aún no ha sido asignado a un tipo específico.
 
           - `TRACTOR`: Vehículo de tipo tractor.
@@ -5337,7 +5337,7 @@ paths:
 
         - `status` (string, opcional): Estado actual del vehículo. Los valores
         permitidos son:
-          
+
         - `in_service`: El vehículo está en operación.
 
           - `out_of_service`: El vehículo no está en operación.
@@ -5515,7 +5515,7 @@ paths:
 
 
         - `type` (string): Tipo de vehículo. Los valores permitidos son:
-          
+
           - `SIN_ASIGNAR`: El vehículo aún no ha sido asignado a un tipo específico.
 
           - `TRACTOR`: Vehículo de tipo tractor.
@@ -5561,7 +5561,7 @@ paths:
 
         - `status` (string, opcional): Estado actual del vehículo. Los valores
         permitidos son:
-          
+
           - `in_service`: El vehículo está en operación.
 
           - `out_of_service`: El vehículo no está en operación.
@@ -5607,7 +5607,7 @@ paths:
           - `policy_number` (string): Número de póliza del seguro.
 
           - `provider` (string): Proveedor del seguro.
-          
+
           - `valid_until` (string): Fecha de validez del seguro en formato ISO 8601.
       operationId: post-addvehicle
       parameters:
@@ -5718,7 +5718,7 @@ paths:
               - `policy_number` (string): Número de póliza del seguro.
 
               - `provider` (string): Proveedor del seguro.
-              
+
               - `valid_until` (string): Fecha de validez del seguro en formato ISO 8601.
           content:
             application/json:
@@ -5781,7 +5781,7 @@ paths:
 
 
         - `type` (string): Tipo de vehículo. Los valores permitidos son:
-          
+
           - `SIN_ASIGNAR`: El vehículo aún no ha sido asignado a un tipo específico.
 
           - `TRACTOR`: Vehículo de tipo tractor.
@@ -7485,7 +7485,7 @@ paths:
 
 
         - `required_evidences` (number): Número mínimo de evidencias
-        fotográficas requeridas para registrar un daño. 
+        fotográficas requeridas para registrar un daño.
 
 
         - `service_type` (string): Tipo de servicio al que pertenece el motivo
@@ -7494,9 +7494,9 @@ paths:
 
           - `EAD`: Para entregas a domicilio.
 
-          - `RAD`: Recolecciones a domicilio. 
+          - `RAD`: Recolecciones a domicilio.
 
-          - `EAD_RAD`: Para motivos de daño que aplican tanto a entregas como a recolecciones a domicilio. 
+          - `EAD_RAD`: Para motivos de daño que aplican tanto a entregas como a recolecciones a domicilio.
 
 
 
@@ -7601,7 +7601,7 @@ paths:
 
 
         - `required_evidences` (number): Número mínimo de evidencias
-        fotográficas requeridas para registrar un daño. 
+        fotográficas requeridas para registrar un daño.
 
 
         - `service_type` (string): Tipo de servicio al que pertenece el motivo
@@ -7610,9 +7610,9 @@ paths:
 
           - `EAD`: Para entregas a domicilio.
 
-          - `RAD`: Recolecciones a domicilio. 
+          - `RAD`: Recolecciones a domicilio.
 
-          - `EAD_RAD`: Para motivos de daño que aplican tanto a entregas como a recolecciones a domicilio. 
+          - `EAD_RAD`: Para motivos de daño que aplican tanto a entregas como a recolecciones a domicilio.
 
 
         ### Metadata del Registro
@@ -7704,7 +7704,7 @@ paths:
 
 
         - `required_evidences` (number): Número mínimo de evidencias
-        fotográficas requeridas para registrar un daño. 
+        fotográficas requeridas para registrar un daño.
 
 
         - `service_type` (string): Tipo de servicio al que pertenece el motivo
@@ -7713,7 +7713,7 @@ paths:
 
           - `EAD`: Para entregas a domicilio.
 
-          - `RAD`: Recolecciones a domicilio. 
+          - `RAD`: Recolecciones a domicilio.
 
           - `EAD_RAD`: Para motivos de daño que aplican tanto a entregas como a recolecciones a domicilio.
       operationId: put-updatedamagereason
@@ -7849,7 +7849,7 @@ paths:
 
 
         Este endpoint permite los detalles de una razón de daño específica por
-        su UUID. 
+        su UUID.
 
 
         ### Request Parameters
@@ -7879,7 +7879,7 @@ paths:
 
 
         - `required_evidences` (number): Número mínimo de evidencias
-        fotográficas requeridas para registrar un daño. 
+        fotográficas requeridas para registrar un daño.
 
 
         - `service_type` (string): Tipo de servicio al que pertenece el motivo
@@ -7888,9 +7888,9 @@ paths:
 
           - `EAD`: Para entregas a domicilio.
 
-          - `RAD`: Recolecciones a domicilio. 
+          - `RAD`: Recolecciones a domicilio.
 
-          - `EAD_RAD`: Para motivos de daño que aplican tanto a entregas como a recolecciones a domicilio. 
+          - `EAD_RAD`: Para motivos de daño que aplican tanto a entregas como a recolecciones a domicilio.
 
 
         - `version` (string): Versión de la razón de daño.
@@ -7983,7 +7983,7 @@ paths:
 
         Este endpoint permite obtener los detalles de un documento de las
         respuestas proporcionadas a un formulario. Es útil para consultar un
-        documento de respuestas en particular. 
+        documento de respuestas en particular.
 
 
         ## Request Parameters
@@ -8009,7 +8009,7 @@ paths:
 
 
         - `form_id` (string): UUID de referencia del formulario al que
-        corresponden las respuestas. 
+        corresponden las respuestas.
 
 
 
@@ -8042,7 +8042,7 @@ paths:
           - `SERVICE_RAD`: Preguntas específicas para un servicio individual de recolección a domicilio.
 
 
-        - `guide_number` (string): Número de guía. **Opcional**  
+        - `guide_number` (string): Número de guía. **Opcional**
 
 
 
@@ -8269,7 +8269,7 @@ paths:
 
 
         Todos los campos descritos son opcionales, y pueden ser una combinación
-        entre ellos. El request body no debe enviarse vacío. 
+        entre ellos. El request body no debe enviarse vacío.
 
 
         - `flow_type` (string): Define el flujo específico al que pertenece la
@@ -8325,7 +8325,7 @@ paths:
           - `question_id` (string): Identificador de la pregunta.
 
           - `question_text` (string): Nombre de la pregunta.
-          
+
           - `response` (string): Respuesta a la pregunta.
 
           - `latitude` (number): Latitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
@@ -8465,7 +8465,7 @@ paths:
             - `required` (boolean): Especifica si es requerida la evidencia. **Opcional**
 
 
-          - `version` (string): La versión de cambios del documento. 
+          - `version` (string): La versión de cambios del documento.
 
           ### Metadata del Registro
 
@@ -8770,7 +8770,7 @@ paths:
         ### Request Parameters
 
 
-        No se necesitan parámetros adicionales. 
+        No se necesitan parámetros adicionales.
 
 
         ### Descripción de los campos
@@ -8823,7 +8823,7 @@ paths:
 
         - `questions` (array): Preguntas adicionales a las que contiene la
         referencia del FormTemplate, (si aplica) **Opcional** Incluye los
-        campos: 
+        campos:
 
           - `id` (string): Identificador único de la pregunta.
 
@@ -8844,7 +8844,7 @@ paths:
             type: string
       requestBody:
         description: >-
-          ### Request Body 
+          ### Request Body
 
 
           A continuación se muestra un ejemplo del request body con los valores
@@ -8952,7 +8952,7 @@ paths:
 
 
         Es posible que algunos de los campos marcados como **Opcional** no se
-        muestren en los detalles del documento. 
+        muestren en los detalles del documento.
 
 
         - `id` (string): Identificador único del formulario.
@@ -9002,7 +9002,7 @@ paths:
 
         - `questions` (array): Preguntas adicionales a las que contiene la
         referencia del FormTemplate, (si aplica) **Opcional** Incluye los
-        campos: 
+        campos:
 
           - `id` (string): Identificador único de la pregunta.
 
@@ -9023,7 +9023,7 @@ paths:
         `pending` | `in_progress` | `completed`
 
 
-        ### Metadata del registro. 
+        ### Metadata del registro.
 
 
         - `is_active` (boolean): Indica si el formulario está activo.
@@ -9061,10 +9061,10 @@ paths:
 
             El cuerpo de la respuesta incluye los siguientes campos:
 
-            - `statusCode` (integer): Código de estado HTTP. 
+            - `statusCode` (integer): Código de estado HTTP.
 
 
-            - `message` (string): Mensaje con el resultado de la operación. 
+            - `message` (string): Mensaje con el resultado de la operación.
 
 
             - `data` (array): Lista de documentos de formularios encontrados.
@@ -9163,7 +9163,7 @@ paths:
 
 
         - `form_id` (string): UUID de referencia del formulario al que
-        corresponden las respuestas. 
+        corresponden las respuestas.
 
 
 
@@ -9196,7 +9196,7 @@ paths:
           - `SERVICE_RAD`: Preguntas específicas para un servicio individual de recolección a domicilio.
 
 
-        - `guide_number` (string): Número de guía. **Opcional**  
+        - `guide_number` (string): Número de guía. **Opcional**
 
 
 
@@ -9515,7 +9515,7 @@ paths:
 
 
         - `form_id` (string): UUID de referencia al documento del formulario al
-        que pertenecen las respuestas. 
+        que pertenecen las respuestas.
 
 
 
@@ -9572,7 +9572,7 @@ paths:
           - `question_id` (string): Identificador de la pregunta.
 
           - `question_text` (string): Nombre de la pregunta.
-          
+
           - `response` (string): Respuesta a la pregunta.
 
           - `latitude` (number): Latitud obtenida del dispositivo al momento de crear la respuesta. **Opcional para flujos de tipo INTERNATIONAL_* o CUSTOM_* **
@@ -9683,13 +9683,13 @@ paths:
             El cuerpo de la respuesta incluye los siguientes campos:
 
 
-            - `statusCode` (integer): Código de estado HTTP. 
+            - `statusCode` (integer): Código de estado HTTP.
 
 
-            - `message` (string): Mensaje de éxito. 
+            - `message` (string): Mensaje de éxito.
 
 
-            - `id` (string): Identificador de la respuesta creada. 
+            - `id` (string): Identificador de la respuesta creada.
 
 
             - `data` (object): Objeto que contiene los detalles de la respuesta
@@ -9861,7 +9861,7 @@ paths:
             - `required` (boolean): Especifica si es requerida la evidencia. **Opcional**
 
 
-          - `version` (string): La versión de cambios del documento. 
+          - `version` (string): La versión de cambios del documento.
 
           ### Metadata del Registro
 
@@ -9893,10 +9893,10 @@ paths:
 
             El cuerpo de la respuesta incluye los siguientes campos:
 
-            - `statusCode` (integer): Código de estado HTTP. 
+            - `statusCode` (integer): Código de estado HTTP.
 
 
-            - `message` (string): Mensaje con el resultado de la operación. 
+            - `message` (string): Mensaje con el resultado de la operación.
 
 
             - `data` (array): Lista de documentos de opciones de evidencia
@@ -10145,13 +10145,13 @@ paths:
         - `questions` (array): Lista de preguntas (solo para plantillas de tipo
         cuestionario). Cada pregunta incluye:
 
-          - `id` (string): Identificador único de la pregunta. 
+          - `id` (string): Identificador único de la pregunta.
 
-          - `is_required` (boolean): Indica si la pregunta es obligatoria. 
+          - `is_required` (boolean): Indica si la pregunta es obligatoria.
 
-          - `order` (number): Orden de la pregunta. 
+          - `order` (number): Orden de la pregunta.
 
-          - `is_extra` (boolean): Indica si es una pregunta adicional. 
+          - `is_extra` (boolean): Indica si es una pregunta adicional.
 
           - `extras` (array): Indica si tiene preguntas adicionales que dependan de la pregunta principal. El array contiene los UUID de las preguntas marcadas como extras.
       operationId: put-updateformtemplate
@@ -10300,7 +10300,7 @@ paths:
 
 
         Este endpoint permite obtener los detalles de una plantilla del
-        formulario consultado mediante su UUID. 
+        formulario consultado mediante su UUID.
 
 
         ### Request Parameters
@@ -10359,7 +10359,7 @@ paths:
 
 
         - `flow_steps` (array): Lista de pasos del flujo (solo para plantillas
-        de tipo flujo aduanal y puertos y aeropuertos). Cada paso 
+        de tipo flujo aduanal y puertos y aeropuertos). Cada paso
 
         incluye: **Opcional**
 
@@ -10611,7 +10611,7 @@ paths:
 
         - `questions` (array): Preguntas adicionales a las que contiene la
         referencia del FormTemplate, (si aplica) **Opcional** Incluye los
-        campos: 
+        campos:
 
           - `id` (string): Identificador único de la pregunta.
 
@@ -10747,12 +10747,15 @@ paths:
         Debe proporcionarse en la URL.
 
 
+        - `include_template` (boolean, opcional): Indica si se debe incluir la plantilla del formulario en el response. **Nota**: Si se incluye la plantilla, se incluirán los campos de la plantilla en el response. Si el valor no se envía, se inicializa por default en **false** regresa solo el formulario con el response normal. **Este parámetro es especialmente útil en consultas desde la app móvil para evitar realizar múltiples consultas**.
+
+
 
         ## Descripción de los campos en `data`
 
 
         Es posible que algunos de los campos marcados como **Opcional** no se
-        muestren en los detalles del documento. 
+        muestren en los detalles del documento.
 
 
         - `id` (string): Identificador único del formulario.
@@ -10802,7 +10805,7 @@ paths:
 
         - `questions` (array): Preguntas adicionales a las que contiene la
         referencia del FormTemplate, (si aplica) **Opcional** Incluye los
-        campos: 
+        campos:
 
           - `id` (string): Identificador único de la pregunta.
 
@@ -10823,7 +10826,7 @@ paths:
         `pending` | `in_progress` | `completed`
 
 
-        ### Metadata del registro. 
+        ### Metadata del registro.
 
 
         - `is_active` (boolean): Indica si el formulario está activo.
@@ -10860,6 +10863,13 @@ paths:
           required: true
           schema:
             type: string
+        - name: include_template
+          in: query
+          description: Indica si se debe incluir la plantilla del formulario.
+          required: false
+          schema:
+            type: boolean
+            default: false
         - name: Authorization
           in: header
           description: El Bearer token para acceder a los recursos.
@@ -11065,7 +11075,7 @@ paths:
 
 
         - `flow_steps` (array): Lista de pasos del flujo (solo para plantillas
-        de tipo flujo aduanal y puertos y aeropuertos). Cada paso 
+        de tipo flujo aduanal y puertos y aeropuertos). Cada paso
 
         incluye: **Opcional**
 
@@ -11228,7 +11238,7 @@ paths:
         `flow_steps`.
 
 
-        - `ext_id` (string): Identificador externo de la plantilla. 
+        - `ext_id` (string): Identificador externo de la plantilla.
 
 
 
@@ -11278,11 +11288,11 @@ paths:
         - `questions` (array): Lista de preguntas (solo para plantillas de tipo
         cuestionario). Cada pregunta incluye:
 
-          - `id` (string): Identificador único de la pregunta. 
+          - `id` (string): Identificador único de la pregunta.
 
-          - `is_required` (boolean): Indica si la pregunta es obligatoria. 
+          - `is_required` (boolean): Indica si la pregunta es obligatoria.
 
-          - `order` (number): Orden de la pregunta. 
+          - `order` (number): Orden de la pregunta.
 
           - `is_extra` (boolean): Indica si es una pregunta adicional. Si no se envía el valor de este campo, por defecto se inicializa en **null**
 
@@ -11741,9 +11751,9 @@ paths:
         ## Request Parameters
 
         - `id` (string): Identificador único del equipo a actualizar. Debe
-        proporcionarse en la URL. 
+        proporcionarse en la URL.
 
-         - `ext_id` (string): Identificador externo del equipo. Debe proporcionarse como parámetro de consulta. 
+         - `ext_id` (string): Identificador externo del equipo. Debe proporcionarse como parámetro de consulta.
 
          - `Authorization` (string): El Bearer token para acceder a los recursos. Debe proporcionarse en el encabezado.
         ## Descripción de los campos
@@ -11763,7 +11773,7 @@ paths:
 
             - `height` (integer): Altura del equipo en centímetros.
 
-          - `weight_capacity` (integer): Capacidad de peso del equipo en kilogramos. 
+          - `weight_capacity` (integer): Capacidad de peso del equipo en kilogramos.
 
           - `material` (string): Material del equipo.
       operationId: put-updateequipment
@@ -12237,7 +12247,7 @@ paths:
 
         ### Descripción
 
-        Este endpoint permite obtener los detalles de una razón de no entrega. 
+        Este endpoint permite obtener los detalles de una razón de no entrega.
 
 
         ### Request Parameters
@@ -12250,12 +12260,12 @@ paths:
         por defecto: 10.
 
 
-        - `page` (number, opcional): Número de la página actual. Valor por 
+        - `page` (number, opcional): Número de la página actual. Valor por
         defecto: 1.
 
 
-        - `ext_id` (string, opcional): Filtra los resultados por el ID externo 
-        especificado. 
+        - `ext_id` (string, opcional): Filtra los resultados por el ID externo
+        especificado.
 
 
         #### Descripción de los campos
@@ -12968,7 +12978,7 @@ paths:
 
         El cuerpo de la solicitud debe contener los campos que se desean
         actualizar en la configuración de evidencias del cliente. Todos los
-        campos son opcionales pero el request body no debe enviarse vacío. 
+        campos son opcionales pero el request body no debe enviarse vacío.
 
 
         - `name` (string): Nombre de la configuración de evidencias del cliente.
@@ -13112,7 +13122,7 @@ paths:
 
 
 
-        - `ext_id` (string): Identificador externo del documento. 
+        - `ext_id` (string): Identificador externo del documento.
 
 
         ### Respuesta
@@ -13209,7 +13219,7 @@ paths:
       responses:
         '200':
           description: >-
-            ### Response 
+            ### Response
 
 
             La respuesta será un objeto JSON que contiene los detalles de la
@@ -13270,7 +13280,7 @@ paths:
 
 
 
-        - `ext_id` (string): Identificador externo del documento. 
+        - `ext_id` (string): Identificador externo del documento.
 
 
 
@@ -13473,7 +13483,7 @@ paths:
 
 
 
-        - `options` (array, opcional): Las opciones disponibles. 
+        - `options` (array, opcional): Las opciones disponibles.
 
         Cada opción debe contener los siguientes campos:
 
@@ -13852,7 +13862,7 @@ paths:
             - `old` (object): Datos antiguos antes del evento.
 
             - `new` (object): Datos nuevos después del evento.
-             
+
 
         - `entity_type` (string): Tipo de entidad asociada al evento.
 
@@ -13909,7 +13919,7 @@ paths:
         - name: severity
           in: query
           description: |-
-            Filtra los logs por severidad. Los valores posibles son `info`, 
+            Filtra los logs por severidad. Los valores posibles son `info`,
 
             `incident`, `warning`.
           schema:
@@ -13918,7 +13928,7 @@ paths:
           in: query
           description: >-
             Lista de campos separados por comas que deben incluirse en la
-            respuesta. 
+            respuesta.
 
             Si se omite, se devuelven todos los campos.
           schema:
@@ -14311,11 +14321,11 @@ paths:
 
         - `severity` (string): Nivel de severidad del evento. Puede tener los
         siguientes valores:
-          
+
           - `informative`
-          
+
           - `incident`
-          
+
           - `warning`
       operationId: post-addeventlog
       parameters:
@@ -14404,7 +14414,7 @@ paths:
             - `old` (object): Datos antiguos antes del evento.
 
             - `new` (object): Datos nuevos después del evento.
-             
+
 
         - `entity_type` (string): Tipo de entidad asociada al evento.
 
@@ -14550,7 +14560,7 @@ paths:
 
         - `value` (object): Detalles del evento, incluyendo la aplicación y los
         datos antiguos y nuevos.
-          
+
         - `app` (string): Nombre de la aplicación que generó el evento.
 
           - `data` (object): Datos relevantes al evento.
@@ -14772,13 +14782,13 @@ paths:
 
         - `vehicle_id` (string, requerido): Identificador único del vehículo
         asociado al documento de manifiesto. Este ID hace referencia a un
-        documento almacenado en el modelo `Vehicles`. 
+        documento almacenado en el modelo `Vehicles`.
 
 
 
         - `client_id` (string, requerido): Id del cliente asociado a la
         mercancía del manifiesto. Este ID hace referencia a un documento
-        almacenado en el modelo `Customers`. 
+        almacenado en el modelo `Customers`.
 
 
 
@@ -14793,7 +14803,7 @@ paths:
 
 
         - `type` (string, requerido): Tipo de operación asociada al documento de
-        manifiesto. Debe ser uno de los siguientes valores: 
+        manifiesto. Debe ser uno de los siguientes valores:
           - `pickup`: para recolección
           - `return`: para devolución
 
@@ -14978,13 +14988,13 @@ paths:
 
         - `vehicle_id` (string): Identificador único del vehículo asociado al
         documento de manifiesto. Este ID hace referencia a un documento
-        almacenado en el modelo `Vehicles`. 
+        almacenado en el modelo `Vehicles`.
 
 
 
         - `client_id` (string): Id del cliente asociado a la mercancía del
         manifiesto. Este ID hace referencia a un documento almacenado en el
-        modelo `Customers`. 
+        modelo `Customers`.
 
 
 
@@ -15026,7 +15036,7 @@ paths:
         - `client_config_id` (string): Identificador de la configuración del
         cliente, donde se define el tipo de selección (total o parcial) de la
         mercancía a facturar. Este ID hace referencia a un documento almacenado
-        en el modelo `ClientManifestConfig`. 
+        en el modelo `ClientManifestConfig`.
 
 
 
@@ -15490,13 +15500,13 @@ paths:
 
         - `vehicle_id` (string, requerido): Identificador único del vehículo
         asociado al documento de manifiesto. Este ID hace referencia a un
-        documento almacenado en el modelo `Vehicles`. 
+        documento almacenado en el modelo `Vehicles`.
 
 
 
         - `client_id` (string, requerido): Id del cliente asociado a la
         mercancía del manifiesto. Este ID hace referencia a un documento
-        almacenado en el modelo `Customers`. 
+        almacenado en el modelo `Customers`.
 
 
 
@@ -15511,7 +15521,7 @@ paths:
 
 
         - `type` (string, opcional): Tipo de operación asociada al documento de
-        manifiesto. Puede ser: 
+        manifiesto. Puede ser:
           - `pickup`: para recolección
           - `return`: para devolución
 
@@ -15541,7 +15551,7 @@ paths:
         - `client_config_id` (string, requerido): Identificador de la
         configuración del cliente, donde se define el tipo de selección (total o
         parcial) de la mercancía a facturar. Este ID hace referencia a un
-        documento almacenado en el modelo `ClientManifestConfig`. 
+        documento almacenado en el modelo `ClientManifestConfig`.
 
 
 
@@ -15717,7 +15727,7 @@ paths:
         recolectado. Cada objeto incluye:
 
           - `ext_id` (string): Identificador externo único del equipo.
-          
+
           - `type` (string): Tipo de equipo.
 
         ### Metadata del Registro
@@ -16122,7 +16132,7 @@ paths:
         recolectado. Cada objeto incluye:
 
           - `ext_id` (string): Identificador externo único del equipo.
-          
+
           - `type` (string): Tipo de equipo.
 
 
@@ -16392,7 +16402,7 @@ paths:
           - `country` (string): País.
 
           - `references` (string): Referencias de la dirección. **Opcional**.
-          
+
           - `zip_code` (string): Código postal.
 
           - `latitude` (number): Latitud.
@@ -16413,7 +16423,7 @@ paths:
 
 
         - `services_set` (object): Conjunto de servicios asociados a la parada.
-        En el conjunto de servicios se incluyen los siguientes campos: 
+        En el conjunto de servicios se incluyen los siguientes campos:
 
           - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. Este formulario corresponde al cuestionario de atención al grupo de servicios EAD. **Opcional**.
 
@@ -16434,10 +16444,10 @@ paths:
             - `ead`: (object)
 
             - `rad`: (object)
-          
+
             Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
 
-            - `ead` | `rad`: 
+            - `ead` | `rad`:
 
                 - `current_step` (number, requerido): Paso actual del flujo.
 
@@ -16451,7 +16461,7 @@ paths:
 
                   - `in_progress`: En progreso.
 
-                  - `completed`: Completado.  
+                  - `completed`: Completado.
 
         - `appointments` (array[object]): Lista de citas de la parada, (si
         aplica), cada una con los campos: **Opcional**
@@ -16557,7 +16567,7 @@ paths:
 
 
 
-        ## Descripción de los campos de la parada 
+        ## Descripción de los campos de la parada
 
 
         (Los campos marcados como **Opcional** son campos que pueden no estar
@@ -16571,7 +16581,7 @@ paths:
 
 
         - `position_list` (int, opcional): Número posición en la lista de
-        atención de las paradas. 
+        atención de las paradas.
 
 
         - `customer_id` (string): Referencia al UUID del documento del cliente
@@ -16594,7 +16604,7 @@ paths:
           - `country` (string): País.
 
           - `references` (string): Referencias de la dirección. **Opcional**.
-          
+
           - `zip_code` (string): Código postal.
 
           - `latitude` (number): Latitud.
@@ -16614,7 +16624,7 @@ paths:
           - `contact_position` (string): Puesto del contacto. **Opcional**.
 
         - `services_set` (object): Conjunto de servicios asociados a la parada.
-        En el conjunto de servicios se incluyen los siguientes campos: 
+        En el conjunto de servicios se incluyen los siguientes campos:
 
           - `has_form_ead` (string | null): Referencia al UUID del documento del formulario EAD, si aplica. Este formulario corresponde al cuestionario de atención al grupo de servicios EAD. **Opcional**.
 
@@ -16635,10 +16645,10 @@ paths:
             - `ead`: (object)
 
             - `rad`: (object)
-          
+
             Cada uno de los campos anteriores comparte la misma estructura de datos para la actualización del progreso del flujo respectivo. La estructura del objeto para `EAD` y `RAD` tiene los siguientes campos:
 
-            - `ead` | `rad`: 
+            - `ead` | `rad`:
 
                 - `current_step` (number, requerido): Paso actual del flujo.
 
@@ -16652,7 +16662,7 @@ paths:
 
                   - `in_progress`: En progreso.
 
-                  - `completed`: Completado.  
+                  - `completed`: Completado.
 
         - `incidents` (array[object]): Lista de incidentes asociados a la
         parada.
@@ -16804,7 +16814,7 @@ paths:
 
 
         A continuación se describen los campos que deben ser incluidos en el
-        cuerpo de la solicitud (request body). 
+        cuerpo de la solicitud (request body).
 
 
         - `ext_id` (string, requerido): Identificador externo único de la
@@ -17713,7 +17723,7 @@ paths:
 
 
         - `x-target-group` (string): Grupos de notificación separados por comas.
-        Por ejemplo: `tms` | `notifications` | `drivers` 
+        Por ejemplo: `tms` | `notifications` | `drivers`
 
 
         - `x-source` (string, opcional): Fuente del evento. Por ejemplo:
@@ -17721,7 +17731,7 @@ paths:
 
 
         - `x-from-user-id` (string, opcional): ID del usuario que envía el
-        evento. 
+        evento.
 
 
         ## Descripción de los campos del request body
